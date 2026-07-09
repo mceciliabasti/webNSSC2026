@@ -549,6 +549,7 @@ const mainNavItems = [
   { to: '/#nuestra-historia', label: 'Historia' },
   { to: '/#nuestra-institucion', label: 'Institución' },
   { to: '/#niveles', label: 'Niveles' },
+  { to: '/inscripciones', label: 'Inscripciones' },
   { to: '/#contacto', label: 'Contacto' },
 ]
 
@@ -561,12 +562,15 @@ const detailBySlug: Record<string, DetailData> = {
   'somos-vedruna': vedrunaData,
 }
 
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkjN87op04dEUE761SWoOmeGJBk80pL-m0QzEoSNnhuZNDZt1cebEjFKjx3J7YBXK5Ow/exec'
+
 function App() {
   return (
     <>
       <ScrollManager />
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/inscripciones" element={<InscripcionesPage />} />
         <Route path="/detalle/:slug" element={<DetailPage />} />
         <Route path="/nivel/:level" element={<LevelPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
@@ -698,7 +702,10 @@ function SiteNavigationBar() {
           {mainNavItems.map((item) => (
             (() => {
               const sectionId = sectionIdFromTo(item.to)
-              const isActive = location.pathname === '/' && activeSection === sectionId
+              const isSectionLink = item.to.includes('#')
+              const isActive = isSectionLink
+                ? location.pathname === '/' && activeSection === sectionId
+                : location.pathname === item.to
               return (
             <Link
               key={item.to}
@@ -734,7 +741,10 @@ function SiteNavigationBar() {
           {mainNavItems.map((item) => (
             (() => {
               const sectionId = sectionIdFromTo(item.to)
-              const isActive = location.pathname === '/' && activeSection === sectionId
+              const isSectionLink = item.to.includes('#')
+              const isActive = isSectionLink
+                ? location.pathname === '/' && activeSection === sectionId
+                : location.pathname === item.to
               return (
             <Link
               key={item.to}
@@ -1015,6 +1025,244 @@ function DetailPage() {
     return <Navigate to="/" replace />
   }
   return <DetailTemplate data={data} />
+}
+
+function InscripcionesPage() {
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [isValidated, setIsValidated] = useState(false)
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault()
+
+    const form = event.currentTarget
+    if (!form.checkValidity()) {
+      setIsValidated(true)
+      return
+    }
+
+    setIsSubmitting(true)
+    setSubmitStatus('idle')
+
+    const formData = new FormData(form)
+
+    const studentName = String(formData.get('studentName') ?? '')
+    const guardianName = String(formData.get('guardianName') ?? '')
+    const requestedLevel = String(formData.get('level') ?? '')
+    const emailValue = String(formData.get('email') ?? '')
+    const phoneValue = String(formData.get('phone') ?? '')
+    const messageValue = String(formData.get('message') ?? '')
+
+    const splitName = (fullName: string) => {
+      const parts = fullName.trim().split(/\s+/).filter(Boolean)
+      if (!parts.length) return { firstName: '', lastName: '' }
+      if (parts.length === 1) return { firstName: parts[0], lastName: '' }
+      return { firstName: parts[0], lastName: parts.slice(1).join(' ') }
+    }
+
+    const studentParsed = splitName(studentName)
+    const guardianParsed = splitName(guardianName)
+
+    const selectedLevelLabel =
+      requestedLevel === 'inicial'
+        ? 'Inicial'
+        : requestedLevel === 'primario'
+          ? 'Primaria'
+          : requestedLevel === 'secundario'
+            ? 'Secundaria'
+            : requestedLevel
+
+    const payload = new URLSearchParams()
+    const appendAll = (keys: string[], value: string) => {
+      keys.forEach((key) => payload.append(key, value))
+    }
+
+    // Keys aligned with the Apps Script and sheet headers.
+    appendAll(['studentName', 'student_name', 'nombreEstudiante', 'nombre_estudiante', 'nombre estudiante', 'nombreAlumno', 'alumno'], studentName)
+    appendAll(['guardianName', 'guardian_name', 'nombreAdulto', 'nombre_adulto', 'nombreResponsable', 'adultoResponsable', 'padre', 'madre', 'tutor', 'responsable'], guardianName)
+
+    // Required by autorespuesta in Apps Script: e.parameter.nombre / apellido / email.
+    appendAll(['nombre'], guardianParsed.firstName || studentParsed.firstName)
+    appendAll(['apellido'], guardianParsed.lastName || studentParsed.lastName)
+
+    // Required by Apps Script: e.parameters.niveles (array) and common single-value aliases.
+    appendAll(['niveles'], selectedLevelLabel)
+    appendAll(['level', 'nivel', 'nivelSolicitado', 'nivel_solicitado'], selectedLevelLabel)
+    appendAll(['email', 'correo', 'mail'], emailValue)
+    appendAll(['phone', 'telefono', 'tel'], phoneValue)
+    appendAll(['message', 'mensaje', 'consulta'], messageValue)
+
+    try {
+      const response = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: payload.toString(),
+      })
+
+      const data = await response.json()
+
+      if (data.result === 'success') {
+        setSubmitStatus('success')
+        form.reset()
+        setIsValidated(false)
+      } else {
+        throw new Error(data.details || 'Error desconocido')
+      }
+    } catch (error) {
+      console.error('Error:', error)
+      setSubmitStatus('error')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  return (
+    <div className="bg-slate-50 text-slate-900">
+      <header className="relative isolate overflow-hidden bg-gradient-to-br from-brand-primary via-brand-sky to-brand-turquoise text-white">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.22),transparent_42%)]" />
+        <div className="relative mx-auto w-full max-w-6xl px-5 py-8 sm:px-8 md:px-12 md:py-10">
+          <SiteNavigationBar />
+          <div className="max-w-3xl py-12 md:py-16">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/85">Admisiones</p>
+            <h1 className="mt-3 text-4xl font-semibold leading-tight sm:text-5xl">Formulario de Inscripciones</h1>
+            <p className="mt-4 text-lg text-white/90">
+              Completá tus datos y nos vamos a comunicar con vos para continuar el proceso de admisión.
+            </p>
+          </div>
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-3xl px-5 py-10 sm:px-8 md:py-14">
+        <section className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div
+            id="alert-success"
+            className={`mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900 ${
+              submitStatus === 'success' ? '' : 'hidden'
+            }`}
+          >
+            Recibimos tus datos correctamente. El equipo de admisiones te va a contactar a la brevedad.
+          </div>
+
+          <div
+            id="alert-error"
+            className={`mb-5 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-900 ${
+              submitStatus === 'error' ? '' : 'hidden'
+            }`}
+          >
+            Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente.
+          </div>
+
+          <form
+            id="contact-form"
+            className={`grid gap-5 ${isValidated ? 'was-validated' : ''}`}
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Nombre
+                <input
+                  required
+                  name="studentName"
+                  autoComplete="name"
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-primary"
+                  placeholder="Ej: Juana Pérez"
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Nivel al que se inscribe
+                <select
+                  required
+                  name="level"
+                  defaultValue=""
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition focus:border-brand-primary"
+                >
+                  <option value="" disabled>Seleccionar nivel</option>
+                  <option value="inicial">Nivel Inicial</option>
+                  <option value="primario">Nivel Primario</option>
+                  <option value="secundario">Nivel Secundario</option>
+                </select>
+              </label>
+            </div>
+
+            <div className="grid gap-5 sm:grid-cols-2">
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Apellido
+                <input
+                  required
+                  name="guardianName"
+                  autoComplete="name"
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-primary"
+                    placeholder="Ej: Ana Martínez"
+                />
+              </label>
+
+              <label className="grid gap-2 text-sm font-medium text-slate-700">
+                Teléfono de contacto
+                <input
+                  required
+                  name="phone"
+                  type="tel"
+                  autoComplete="tel"
+                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-primary"
+                  placeholder="Ej: +54 11 1234-5678"
+                />
+              </label>
+            </div>
+
+            <label className="grid gap-2 text-sm font-medium text-slate-700">
+              Correo electrónico
+              <input
+                required
+                name="email"
+                type="email"
+                autoComplete="email"
+                className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-primary"
+                placeholder="Ej: familia@email.com"
+              />
+            </label>
+
+            <label className="grid gap-2 text-sm font-medium text-slate-700">
+              Mensaje adicional
+              <textarea
+                name="message"
+                rows={4}
+                className="resize-y rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-brand-primary"
+                placeholder="Contanos si tenés alguna consulta."
+              />
+            </label>
+
+            <label className="flex items-start gap-3 rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700">
+              <input
+                required
+                type="checkbox"
+                name="terms"
+                className="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-primary focus:ring-brand-primary"
+              />
+              Acepto que el colegio utilice estos datos para contactarme por el proceso de inscripción.
+            </label>
+
+            <button
+              id="submit-button"
+              type="submit"
+              disabled={isSubmitting}
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-navy disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+            >
+              {isSubmitting && (
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
+              )}
+              {isSubmitting ? 'Enviando...' : 'Enviar Consulta'}
+            </button>
+          </form>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  )
 }
 
 function LevelPage() {
@@ -1480,6 +1728,9 @@ function SiteFooter() {
             </li>
             <li>
               <Link to="/detalle/pastoral" className="hover:text-white">Pastoral</Link>
+            </li>
+            <li>
+              <Link to="/inscripciones" className="hover:text-white">Inscripciones</Link>
             </li>
           </ul>
         </div>
