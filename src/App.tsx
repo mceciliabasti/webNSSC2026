@@ -8,38 +8,23 @@ import {
   HomeHistorySection,
   HomeHeroSection,
   HomeIntroSection,
-  InstitutionalResourcesSection,
   InstitutionSection,
   LevelsSection,
-  ManagementSection,
 } from './components/home/HomePageSections'
-import colegioHero from './imagenes/Colegio/1.png'
+import colegioHero from './imagenes/Colegio/9.png'
 import colegioVideo from './imagenes/Colegio/2.png'
-import colegioMission from './imagenes/Colegio/3.png'
-import colegioVedruna from './imagenes/Colegio/3 (2).png'
-import colegioVision from './imagenes/Colegio/4.png'
-import colegioProfile from './imagenes/Colegio/5.png'
-import colegioHistory from './imagenes/Colegio/7.png'
+import colegioVedruna from './imagenes/Colegio/3.png'
 import colegioPastoral from './imagenes/Colegio/8.png'
 import inicialMain from './imagenes/Inicial/PHOTO-2026-06-09-15-15-18 (1).jpg'
 import inicialCard from './imagenes/Inicial/Copia de 20260416_152802.jpg'
-import inicialGallery1 from './imagenes/Inicial/PHOTO-2026-06-09-15-15-17.jpg'
-import inicialGallery2 from './imagenes/Inicial/PHOTO-2026-06-09-15-15-18.jpg'
-import inicialGallery3 from './imagenes/Inicial/Copia de 20260406_115022.jpg'
-import inicialGallery4 from './imagenes/Inicial/Copia de 20240826_144941.jpg'
 import primariaGallery1 from './imagenes/Primaria/IMG_2213.jpg'
 import primariaGallery2 from './imagenes/Primaria/IMG_2243.jpg'
-import primariaGallery3 from './imagenes/Primaria/IMG_2306.jpg'
-import primariaGallery4 from './imagenes/Primaria/IMG_2387.jpg'
+import primariaGallery3 from './imagenes/Primaria/IMG_2246.jpg'
 import secundariaMain from './imagenes/Secundaria/20250626_095050.jpg'
 import secundariaCard from './imagenes/Secundaria/20250626_095831.jpg'
-import secundariaGallery1 from './imagenes/Secundaria/20250626_095515.jpg'
-import secundariaGallery2 from './imagenes/Secundaria/WhatsApp Image 2025-05-12 at 17.34.24.jpeg'
-import secundariaGallery3 from './imagenes/Secundaria/WhatsApp Image 2026-06-23 at 9.16.36 AM.jpeg'
-import secundariaGallery4 from './imagenes/Secundaria/WhatsApp Image 2026-06-23 at 9.16.34 AM (2).jpeg'
 import infoNivelesPdf from './info/info-niveles.pdf'
 import comunicacionCnsccPdf from './info/Comunicación CNSSC .pdf'
-import type { DetailData, SectionData } from './types/content'
+import type { DetailData, ResourceItem, SectionData } from './types/content'
 import { InfoIcon } from './components/ui/InfoIcon'
 
 function slugify(value: string) {
@@ -51,10 +36,198 @@ function slugify(value: string) {
     .replace(/(^-|-$)/g, '')
 }
 
+type LevelKey = 'inicial' | 'primario' | 'secundario'
+
+type ResourceGroup = {
+  id: string
+  label: string
+  resources: ResourceItem[]
+}
+
+const RESOURCE_YEAR = '2026'
+
+function getFileExtension(filePath: string) {
+  const extension = filePath.split('.').pop()
+  return extension ? extension.toLowerCase() : ''
+}
+
+function getResourceTitleFromPath(filePath: string) {
+  const fileName = filePath.split('/').pop() ?? filePath
+  return decodeURIComponent(fileName)
+    .replace(/\.[^/.]+$/, '')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+}
+
+function isResourceFromSelectedYear(value: string) {
+  return value.includes(RESOURCE_YEAR)
+}
+
+function buildResourcesFromGlob(modules: Record<string, string>): ResourceItem[] {
+  return Object.entries(modules)
+    .map(([path, file]) => ({
+      title: getResourceTitleFromPath(path),
+      file,
+      format: getFileExtension(path),
+    }))
+    .filter((resource) => isResourceFromSelectedYear(resource.title))
+    .sort((a, b) => a.title.localeCompare(b.title, 'es'))
+}
+
+function buildGalleryItemsFromGlob(modules: Record<string, string>) {
+  return Object.entries(modules)
+    .map(([path, src]) => ({
+      src,
+      alt: getResourceTitleFromPath(path),
+    }))
+    .sort((a, b) => a.alt.localeCompare(b.alt, 'es'))
+}
+
+type GalleryCarouselProps = {
+  items: Array<{ src: string; alt: string }>
+  onSelect: (index: number) => void
+}
+
+function GalleryCarousel({ items, onSelect }: GalleryCarouselProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  const handleScroll = (direction: 'prev' | 'next') => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const scrollAmount = 320
+    container.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth',
+    })
+  }
+
+  if (!items.length) return null
+
+  return (
+    <section id="galeria-nivel" className="mt-8">
+      <h2 className="text-center text-4xl font-semibold text-slate-900">Galería de Fotos</h2>
+      <div className="mt-4 flex items-center gap-2">
+        <button
+          type="button"
+          onClick={() => handleScroll('prev')}
+          aria-label="Ver imágenes anteriores"
+          className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-xl text-slate-700 shadow-sm transition hover:border-brand-primary hover:text-brand-primary sm:inline-flex"
+        >
+          ←
+        </button>
+
+        <div
+          ref={scrollRef}
+          className="flex-1 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
+          <div className="flex w-max gap-3">
+            {items.map((item, index) => (
+              <figure
+                key={item.src}
+                className="w-[220px] flex-shrink-0 cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white sm:w-[260px]"
+                onClick={() => onSelect(index)}
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-48 w-full object-cover transition duration-300 hover:scale-105"
+                />
+              </figure>
+            ))}
+          </div>
+        </div>
+
+        <button
+          type="button"
+          onClick={() => handleScroll('next')}
+          aria-label="Ver imágenes siguientes"
+          className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-xl text-slate-700 shadow-sm transition hover:border-brand-primary hover:text-brand-primary sm:inline-flex"
+        >
+          →
+        </button>
+      </div>
+    </section>
+  )
+}
+
+const initialGalleryItems = buildGalleryItemsFromGlob(
+  import.meta.glob('./imagenes/Inicial/*.{jpg,jpeg}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const primaryGalleryItems = buildGalleryItemsFromGlob(
+  import.meta.glob('./imagenes/Primaria/*.{jpg,jpeg}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const secondaryGalleryItems = buildGalleryItemsFromGlob(
+  import.meta.glob('./imagenes/Secundaria/*.{jpg,jpeg}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const initialLevelResources = buildResourcesFromGlob(
+  import.meta.glob('./recursos/recursos/inicial/*.{pdf,doc,docx,html,pps,ppsx}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const primaryLevelResources = buildResourcesFromGlob(
+  import.meta.glob('./recursos/recursos/primaria/*.{pdf,doc,docx,html,pps,ppsx}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const secondaryLevelResources = buildResourcesFromGlob(
+  import.meta.glob('./recursos/recursos/secundaria/*.{pdf,doc,docx,html,pps,ppsx}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const comedorResources = buildResourcesFromGlob(
+  import.meta.glob('./recursos/recursos/comedor/*.{pdf,doc,docx,html,pps,ppsx}', {
+    eager: true,
+    query: '?url',
+    import: 'default',
+  }) as Record<string, string>,
+)
+
+const levelResourceGroups: Record<LevelKey, ResourceGroup[]> = {
+  inicial: [
+    { id: 'nivel-inicial', label: 'Nivel Inicial', resources: initialLevelResources },
+    { id: 'comedor-inicial', label: 'Comedor', resources: comedorResources },
+  ],
+  primario: [
+    { id: 'nivel-primario', label: 'Nivel Primario', resources: primaryLevelResources },
+    { id: 'comedor-primario', label: 'Comedor', resources: comedorResources },
+  ],
+  secundario: [
+    { id: 'nivel-secundario', label: 'Nivel Secundario', resources: secondaryLevelResources },
+  ],
+}
+
 const missionData: DetailData = {
   title: 'Nuestra Misión',
   subtitle: 'Educar con alegría en valores para una sociedad fraterna, justa y solidaria.',
-  image: colegioMission,
+  image: primariaGallery3,
   highlights: [
     'Pedagogía del amor como base institucional.',
     'Formación integral con foco humano y académico.',
@@ -78,7 +251,7 @@ const missionData: DetailData = {
 const visionData: DetailData = {
   title: 'Nuestra Visión',
   subtitle: 'Educación integral, participativa y personalizada para dignificar la vida.',
-  image: colegioVision,
+  image: primariaGallery3,
   highlights: [
     'Escuela participativa y personalizada.',
     'Compromiso con la vida, la sociedad y la naturaleza.',
@@ -102,7 +275,7 @@ const visionData: DetailData = {
 const profileData: DetailData = {
   title: 'Perfil de Nuestros Alumnos',
   subtitle: 'Rasgos distintivos del estudiante que buscamos formar.',
-  image: colegioProfile,
+  image: primariaGallery3,
   highlights: [
     'Visión positiva y esperanzadora de la vida.',
     'Pensamiento crítico y trabajo en equipo.',
@@ -131,7 +304,7 @@ const profileData: DetailData = {
 const historyData: DetailData = {
   title: 'Nuestra Historia',
   subtitle: 'Memorias de los primeros 113 años del Colegio Nuestra Señora del Sagrado Corazón.',
-  image: colegioHistory,
+  image: primariaGallery2,
   highlights: [
     'Fundación iniciada en Buenos Aires en 1913.',
     'Crámer 2370 como sede histórica desde 1921.',
@@ -241,12 +414,7 @@ const levelData: Record<string, DetailData> = {
       'Vínculo afectivo y mirada personalizada.',
       'Escuela Verde, ESI y talleres de jornada extendida.',
     ],
-    gallery: [
-      { src: inicialGallery1, alt: 'Actividad de Nivel Inicial 1' },
-      { src: inicialGallery2, alt: 'Actividad de Nivel Inicial 2' },
-      { src: inicialGallery3, alt: 'Actividad de Nivel Inicial 3' },
-      { src: inicialGallery4, alt: 'Actividad de Nivel Inicial 4' },
-    ],
+    gallery: initialGalleryItems,
     resources: [
       { title: 'Información de niveles', file: infoNivelesPdf },
       { title: 'Comunicación institucional CNSSC', file: comunicacionCnsccPdf },
@@ -295,12 +463,7 @@ const levelData: Record<string, DetailData> = {
       'Trabajo colaborativo y robótica por ciclos.',
       'Vida escolar intensa: lectura, deporte, campamentos y música.',
     ],
-    gallery: [
-      { src: primariaGallery1, alt: 'Actividad de Nivel Primario 1' },
-      { src: primariaGallery2, alt: 'Actividad de Nivel Primario 2' },
-      { src: primariaGallery3, alt: 'Actividad de Nivel Primario 3' },
-      { src: primariaGallery4, alt: 'Actividad de Nivel Primario 4' },
-    ],
+    gallery: primaryGalleryItems,
     resources: [
       { title: 'Información de niveles', file: infoNivelesPdf },
       { title: 'Comunicación institucional CNSSC', file: comunicacionCnsccPdf },
@@ -352,12 +515,7 @@ const levelData: Record<string, DetailData> = {
       'Puente universitario-laboral con proyectos reales.',
       'Alto nivel de propuesta en idiomas, tecnología y ciudadanía.',
     ],
-    gallery: [
-      { src: secundariaGallery1, alt: 'Actividad de Nivel Secundario 1' },
-      { src: secundariaGallery2, alt: 'Actividad de Nivel Secundario 2' },
-      { src: secundariaGallery3, alt: 'Actividad de Nivel Secundario 3' },
-      { src: secundariaGallery4, alt: 'Actividad de Nivel Secundario 4' },
-    ],
+    gallery: secondaryGalleryItems,
     resources: [
       { title: 'Información de niveles', file: infoNivelesPdf },
       { title: 'Comunicación institucional CNSSC', file: comunicacionCnsccPdf },
@@ -406,10 +564,12 @@ const detailBySlug: Record<string, DetailData> = {
 }
 
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkjN87op04dEUE761SWoOmeGJBk80pL-m0QzEoSNnhuZNDZt1cebEjFKjx3J7YBXK5Ow/exec'
+const SITE_TITLE = 'Colegio Nuestra Señora del Sagrado Corazón'
 
 function App() {
   return (
     <>
+      <TitleManager />
       <ScrollManager />
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -417,12 +577,24 @@ function App() {
         <Route path="/admisiones/inicial" element={<AdmissionsPage title="Admisiones Inicial" subtitle="Completá el formulario para solicitar información del proceso de ingreso al nivel inicial." levelLabel="Inicial" scriptUrl={SCRIPT_URL} />} />
         <Route path="/admisiones/primaria" element={<AdmissionsPage title="Admisiones Primaria" subtitle="Completá el formulario para solicitar información del proceso de ingreso al nivel primario." levelLabel="Primaria" scriptUrl={SCRIPT_URL} />} />
         <Route path="/admisiones/secundaria" element={<AdmissionsPage title="Admisiones Secundaria" subtitle="Completá el formulario para solicitar información del proceso de ingreso al nivel secundario." levelLabel="Secundaria" scriptUrl={SCRIPT_URL} />} />
+        <Route path="/autoridades" element={<AuthoritiesPage />} />
+        <Route path="/recursos" element={<ResourcesHubPage />} />
         <Route path="/detalle/:slug" element={<DetailPage />} />
         <Route path="/nivel/:level" element={<LevelPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
   )
+}
+
+function TitleManager() {
+  const location = useLocation()
+
+  useEffect(() => {
+    document.title = SITE_TITLE
+  }, [location.pathname])
+
+  return null
 }
 
 function ScrollManager() {
@@ -526,14 +698,14 @@ function HomePage() {
   ]
 
   return (
-    <div id="inicio" className="bg-gradient-to-b from-slate-50 via-white to-slate-100 text-slate-900">
+    <div id="inicio" className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
       <HomeHeroSection
         backgroundImage={colegioHero}
         title="Colegio Nuestra Señora del Sagrado Corazón"
         subtitle="113 años de historia"
       />
 
-      <main className="mx-auto w-full max-w-6xl space-y-14 px-5 py-14 sm:px-8 md:px-12">
+      <main className="mx-auto w-full max-w-6xl space-y-16 px-5 py-16 sm:px-8 md:px-12">
         <HomeIntroSection
           title="Nuestro Colegio"
           description="Descubrí la experiencia educativa que ofrecemos a nuestros estudiantes y familias."
@@ -562,34 +734,6 @@ function HomePage() {
           title="Nuestros Niveles Educativos"
           intro="Cada nivel cuenta con su página específica, en coherencia con la información del PDF institucional."
           items={levelCards}
-        />
-
-        <ManagementSection
-          title="Equipo de gestión"
-          intro="Un equipo cercano y comprometido que acompaña a cada estudiante, familia y docente en el día a día escolar."
-          members={[
-            { role: 'Directora', description: 'Orientación institucional y acompañamiento general.' },
-            { role: 'Vicedirectora', description: 'Coordinación pedagógica y seguimiento de la propuesta.' },
-            { role: 'Coordinación pedagógica', description: 'Articulación de proyectos, trayectorias y enseñanza.' },
-            { role: 'Coordinación administrativa', description: 'Gestión operativa, organización y bienestar institucional.' },
-          ]}
-        />
-
-        <InstitutionalResourcesSection
-          title="Recursos institucionales"
-          intro="Accedé a los documentos y materiales oficiales que acompañan la propuesta educativa del colegio."
-          resources={[
-            {
-              title: 'Información de niveles',
-              description: 'Documento institucional con la propuesta por niveles.',
-              href: infoNivelesPdf,
-            },
-            {
-              title: 'Comunicación institucional CNSSC',
-              description: 'Material de difusión y orientación institucional.',
-              href: comunicacionCnsccPdf,
-            },
-          ]}
         />
 
         <HomeDetailLinksSection
@@ -714,8 +858,8 @@ function InscripcionesPage() {
   }
 
   return (
-    <div className="bg-slate-100 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
         <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
           <SiteNavigationBar />
         </div>
@@ -861,28 +1005,182 @@ function InscripcionesPage() {
   )
 }
 
-function LevelPage() {
-  const { level } = useParams()
-  const data = useMemo(() => (level ? levelData[level] : undefined), [level])
-  if (!data) {
-    return <Navigate to="/" replace />
-  }
-  return <LevelDetailTemplate data={data} />
+function ResourcesHubPage() {
+  const institutionalResources = [
+    {
+      title: 'Información de niveles',
+      description: 'Documento institucional con la propuesta educativa por nivel.',
+      href: infoNivelesPdf,
+    },
+    {
+      title: 'Comunicación institucional CNSSC',
+      description: 'Material institucional de difusión y orientación para familias.',
+      href: comunicacionCnsccPdf,
+    },
+  ].filter((resource) => isResourceFromSelectedYear(resource.title))
+
+  const levelLinks = [
+    {
+      title: 'Nivel Inicial',
+      description: 'Accedé a los recursos específicos del nivel inicial.',
+      to: '/nivel/inicial#recursos-nivel',
+    },
+    {
+      title: 'Nivel Primario',
+      description: 'Consultá los materiales y documentos del nivel primario.',
+      to: '/nivel/primario#recursos-nivel',
+    },
+    {
+      title: 'Nivel Secundario',
+      description: 'Revisá recursos y archivos del nivel secundario.',
+      to: '/nivel/secundario#recursos-nivel',
+    },
+  ]
+
+  return (
+    <div className="min-h-screen bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-sm">
+        <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
+          <SiteNavigationBar />
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-6xl space-y-8 px-5 py-10 sm:px-8 md:px-12">
+        <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] md:p-8">
+          <Link to="/" className="text-sm font-medium text-brand-primary transition hover:text-brand-navy">
+            ← Volver al inicio
+          </Link>
+          <h1 className="mt-3 text-4xl font-semibold text-slate-900">Recursos Institucionales</h1>
+          <p className="mt-2 max-w-3xl text-slate-700">
+            Encontrá aquí los documentos institucionales principales y accesos directos a los recursos de cada nivel educativo.
+          </p>
+        </section>
+
+        <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] md:p-8">
+          <h2 className="text-3xl font-semibold text-slate-900">Documentos Institucionales 2026</h2>
+          {institutionalResources.length > 0 ? (
+            <div className="mt-5 grid gap-4 md:grid-cols-2">
+              {institutionalResources.map((resource) => (
+                <article key={resource.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)]">
+                  <h3 className="text-xl font-semibold text-slate-900">{resource.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.description}</p>
+                  <a
+                    href={resource.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-4 inline-flex rounded-full bg-sand-50 px-4 py-2 text-sm font-semibold text-brand-primary ring-1 ring-slate-200 transition hover:bg-brand-primary hover:text-white"
+                  >
+                    Abrir documento
+                  </a>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="mt-4 text-sm text-slate-600">No hay documentos institucionales etiquetados como 2026.</p>
+          )}
+        </section>
+
+        <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] md:p-8">
+          <h2 className="text-3xl font-semibold text-slate-900">Recursos por Nivel</h2>
+          <p className="mt-2 text-slate-700">Ingresá al nivel que necesites para ver sus materiales específicos.</p>
+          <div className="mt-5 grid gap-4 md:grid-cols-3">
+            {levelLinks.map((item) => (
+              <Link
+                key={item.to}
+                to={item.to}
+                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)] transition hover:-translate-y-0.5 hover:border-brand-sky/40 hover:bg-sand-50"
+              >
+                <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.description}</p>
+                <p className="mt-4 text-sm font-semibold text-brand-primary">Ver recursos</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  )
 }
 
-function LevelDetailTemplate({ data }: { data: DetailData }) {
+function LevelPage() {
+  const { level } = useParams()
+  const levelKey = level as LevelKey | undefined
+  const data = useMemo(() => (levelKey ? levelData[levelKey] : undefined), [levelKey])
+  if (!levelKey || !data) {
+    return <Navigate to="/" replace />
+  }
+  return <LevelDetailTemplate data={data} levelKey={levelKey} />
+}
+
+function AuthoritiesPage() {
+  return (
+    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
+        <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
+          <SiteNavigationBar />
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 md:px-12">
+        <Link to="/" className="text-sm font-medium text-brand-primary transition hover:text-brand-navy">
+          ← Volver al inicio
+        </Link>
+
+        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Institucional</p>
+        <h1 className="mt-2 text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">Autoridades</h1>
+        <p className="mt-4 max-w-3xl text-lg text-slate-700">
+          Equipo directivo y apoderado legal del colegio.
+        </p>
+
+        <section className="mt-8 grid gap-4 md:grid-cols-2">
+          <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+            <h2 className="text-2xl font-semibold text-slate-900">Nivel Inicial</h2>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Directora: Prof. Adriana Gighlioni</p>
+          </article>
+
+          <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+            <h2 className="text-2xl font-semibold text-slate-900">Nivel Primario</h2>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Directora: Prof. Florencia Farías</p>
+            <p className="mt-2 text-base leading-relaxed text-slate-700">Vicedirectora: Prof. Mariana Maggi</p>
+          </article>
+
+          <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+            <h2 className="text-2xl font-semibold text-slate-900">Nivel Secundario</h2>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Rectora: Mg. Eugenia Benvenuto</p>
+            <p className="mt-2 text-base leading-relaxed text-slate-700">Dir. de Estudios: Prof. Vanesa Trani</p>
+          </article>
+
+          <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+            <h2 className="text-2xl font-semibold text-slate-900">Apoderado legal</h2>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Lic. Rafael Cuervo Alarcón</p>
+          </article>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  )
+}
+
+function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: LevelKey }) {
   const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null)
   const [galleryMotion, setGalleryMotion] = useState<'next' | 'prev' | 'zoom'>('zoom')
   const touchStartX = useRef<number | null>(null)
   const touchStartY = useRef<number | null>(null)
+  const [activeResourceGroupId, setActiveResourceGroupId] = useState('')
+  const [activeView, setActiveView] = useState<'info' | 'resources'>('info')
+  const location = useLocation()
 
   const galleryItems = data.gallery ?? []
-  const resources = data.resources ?? []
+  const resourceGroups = levelResourceGroups[levelKey] ?? []
   const isLightboxOpen = activeGalleryIndex !== null
   const introText = data.highlights?.[0] ?? data.sections[0]?.paragraphs?.[0] ?? data.subtitle
   const leftColumnSection = data.sections[0]
   const rightColumnSection = data.sections[1]
   const remainingSections = data.sections.slice(2)
+  const activeResourceGroup = resourceGroups.find((group) => group.id === activeResourceGroupId) ?? resourceGroups[0]
 
   const lightboxAnimationClass =
     galleryMotion === 'next'
@@ -920,6 +1218,15 @@ function LevelDetailTemplate({ data }: { data: DetailData }) {
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [galleryItems.length, isLightboxOpen])
+
+  useEffect(() => {
+    const defaultGroup = resourceGroups[0]
+    setActiveResourceGroupId(defaultGroup?.id ?? '')
+  }, [resourceGroups])
+
+  useEffect(() => {
+    setActiveView(location.hash.includes('recursos') ? 'resources' : 'info')
+  }, [location.hash])
 
   const showNextImage = () => {
     if (!galleryItems.length) return
@@ -973,8 +1280,8 @@ function LevelDetailTemplate({ data }: { data: DetailData }) {
   }
 
   return (
-    <div className="bg-slate-100 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
         <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
           <SiteNavigationBar />
         </div>
@@ -1005,148 +1312,200 @@ function LevelDetailTemplate({ data }: { data: DetailData }) {
 
         <p className="mt-5 max-w-5xl leading-relaxed text-slate-700">{introText}</p>
 
-        <img
-          src={data.image}
-          alt={data.title}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          className="mt-5 h-[340px] w-full rounded-xl border border-slate-200 object-cover shadow-sm md:h-[420px]"
-        />
+        <div className="mt-6 flex flex-wrap items-center gap-2 rounded-full border border-slate-200 bg-white/90 p-1.5 shadow-sm">
+          <button
+            type="button"
+            onClick={() => setActiveView('info')}
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+              activeView === 'info'
+                ? 'bg-brand-primary text-white shadow-sm'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+            }`}
+          >
+            Información
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveView('resources')}
+            className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+              activeView === 'resources'
+                ? 'bg-brand-primary text-white shadow-sm'
+                : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+            }`}
+          >
+            Recursos
+          </button>
+        </div>
 
-        {(leftColumnSection || rightColumnSection) && (
-          <section className="mt-6 grid gap-4 md:grid-cols-2">
-            {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-              <article key={section!.title} className="rounded-xl border border-slate-200 bg-slate-200/55 p-5">
-                <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
+        {activeView === 'resources' && (
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link
+              to="/"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+            >
+              Inicio
+            </Link>
+            <Link
+              to="/recursos"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+            >
+              Institucionales
+            </Link>
+            <Link
+              to="/nivel/inicial#recursos-nivel"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+            >
+              Inicial
+            </Link>
+            <Link
+              to="/nivel/primario#recursos-nivel"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+            >
+              Primario
+            </Link>
+            <Link
+              to="/nivel/secundario#recursos-nivel"
+              className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+            >
+              Secundario
+            </Link>
+          </div>
+        )}
 
-                {section!.paragraphs?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
-                    {paragraph}
-                  </p>
-                ))}
+        {activeView === 'info' ? (
+          <>
+            <img
+              src={data.image}
+              alt={data.title}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              className="mt-5 h-[340px] w-full rounded-xl border border-slate-200 object-cover shadow-sm md:h-[420px]"
+            />
 
-                {section!.bullets && (
-                  <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                    {section!.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-brand-primary" />
-                        <span>{bullet}</span>
-                      </li>
+            {(leftColumnSection || rightColumnSection) && (
+              <section className="mt-6 grid gap-4 md:grid-cols-2">
+                {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
+                  <article key={section!.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)]">
+                    <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
+
+                    {section!.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                        {paragraph}
+                      </p>
                     ))}
-                  </ul>
-                )}
-              </article>
-            ))}
-          </section>
-        )}
 
-        {remainingSections.length > 0 && (
-          <section className="mt-5 space-y-4">
-            {remainingSections.map((section) => (
-              <article key={section.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
-
-                {section.paragraphs?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
-                    {paragraph}
-                  </p>
+                    {section!.bullets && (
+                      <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                        {section!.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-2">
+                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-brand-primary" />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
                 ))}
+              </section>
+            )}
 
-                {section.bullets && (
-                  <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-2">
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                        {bullet}
-                      </li>
+            {remainingSections.length > 0 && (
+              <section className="mt-5 space-y-4">
+                {remainingSections.map((section) => (
+                  <article key={section.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                    <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
+
+                    {section.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                        {paragraph}
+                      </p>
                     ))}
-                  </ul>
+
+                    {section.bullets && (
+                      <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-2">
+                        {section.bullets.map((bullet) => (
+                          <li key={bullet} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
+                ))}
+              </section>
+            )}
+
+            {galleryItems.length > 0 && <GalleryCarousel items={galleryItems} onSelect={openLightboxAt} />}
+          </>
+        ) : (
+          resourceGroups.length > 0 && (
+            <section id="recursos-nivel" className="mt-6 scroll-mt-28">
+              <div className="rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)] sm:p-5">
+                <div className="flex flex-wrap gap-2">
+                  {resourceGroups.map((group) => {
+                    const isActive = group.id === activeResourceGroup?.id
+                    return (
+                      <button
+                        key={group.id}
+                        type="button"
+                        onClick={() => setActiveResourceGroupId(group.id)}
+                        className={`rounded-full px-3 py-1.5 text-sm font-medium transition ${
+                          isActive
+                            ? 'bg-brand-primary text-white shadow-sm'
+                            : 'border border-slate-200 bg-white text-slate-700 hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary'
+                        }`}
+                      >
+                        {group.label}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                {activeResourceGroup && activeResourceGroup.resources.length > 0 ? (
+                  <div className="mt-4 grid gap-3">
+                    {activeResourceGroup.resources.map((resource) => {
+                      return (
+                        <article
+                          key={resource.file}
+                          className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-brand-sky/40 hover:bg-sand-50"
+                        >
+                          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                            <div className="min-w-0">
+                              <p className="text-sm font-semibold text-slate-900">{resource.title}</p>
+                              <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{resource.format ?? 'archivo'}</p>
+                            </div>
+                            <div className="flex flex-wrap gap-2">
+                              <a
+                                href={resource.file}
+                                target="_blank"
+                                rel="noreferrer"
+                                className="inline-flex rounded-full bg-sand-50 px-3 py-1.5 text-xs font-semibold text-brand-primary ring-1 ring-slate-200 transition hover:bg-brand-primary hover:text-white"
+                              >
+                                Ver
+                              </a>
+                              <a
+                                href={resource.file}
+                                download
+                                className="inline-flex rounded-full bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 ring-1 ring-slate-200 transition hover:bg-slate-100"
+                              >
+                                Descargar
+                              </a>
+                            </div>
+                          </div>
+                        </article>
+                      )
+                    })}
+                  </div>
+                ) : (
+                  <p className="mt-4 text-sm text-slate-600">No se encontraron archivos en esta categoría.</p>
                 )}
-              </article>
-            ))}
-          </section>
-        )}
-
-        {galleryItems.length > 0 && (
-          <section id="galeria-nivel" className="mt-8">
-            <h2 className="text-center text-4xl font-semibold text-slate-900">Galería de Fotos</h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {galleryItems.map((item, index) => (
-                <figure
-                  key={item.src}
-                  className="group cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white"
-                  onClick={() => openLightboxAt(index)}
-                >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-36 w-full object-cover transition duration-300 group-hover:scale-105"
-                  />
-                </figure>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {resources.length > 0 && (
-          <section id="recursos-nivel" className="mt-8 scroll-mt-28">
-            <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-3xl font-semibold text-slate-900">Recursos para Descargar</h2>
-              <div className="flex flex-wrap gap-2">
-                <Link
-                  to="/"
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  Inicio
-                </Link>
-                <Link
-                  to="/#recursos-institucionales"
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  Recursos institucionales
-                </Link>
-                <Link
-                  to="/nivel/inicial#recursos-nivel"
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  Inicial
-                </Link>
-                <Link
-                  to="/nivel/primario#recursos-nivel"
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  Primario
-                </Link>
-                <Link
-                  to="/nivel/secundario#recursos-nivel"
-                  className="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm font-medium text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  Secundario
-                </Link>
               </div>
-            </div>
-            <div className="mt-4 grid gap-4 md:grid-cols-3">
-              {resources.map((resource) => (
-                <article key={resource.title} className="rounded-xl border border-slate-300 bg-slate-100 p-4">
-                  <h3 className="text-sm font-semibold text-slate-900">{resource.title}</h3>
-                  <p className="mt-2 text-xs text-slate-600">Archivo PDF institucional</p>
-                  <a
-                    href={resource.file}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="mt-3 inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-brand-primary ring-1 ring-slate-300 transition hover:bg-brand-primary hover:text-white"
-                  >
-                    Abrir PDF
-                  </a>
-                </article>
-              ))}
-            </div>
-          </section>
+            </section>
+          )
         )}
 
-        <section className="mt-8 rounded-xl bg-gradient-to-r from-brand-primary to-brand-navy px-5 py-8 text-center text-white shadow-md">
+        <section className="mt-8 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(180deg,rgba(53,95,151,0.96)_0%,rgba(26,53,88,0.98)_100%)] px-5 py-8 text-center text-white shadow-[0_18px_45px_-30px_rgba(15,23,42,0.45)]">
           <h2 className="text-4xl font-semibold">¿Desea inscribir a su hijo/a?</h2>
           <p className="mt-2 text-white/90">Estamos aquí para acompañarlos en este importante paso.</p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
@@ -1245,29 +1604,6 @@ function DetailTemplate({ data }: { data: DetailData }) {
     return `seccion-${slugify(section.title)}-${originalIndex}`
   }
 
-  const sectionAnchors = useMemo(() => {
-    const anchors: Array<{ id: string; label: string }> = []
-
-    if (data.facts && data.facts.length > 0) {
-      anchors.push({ id: 'ficha-rapida', label: 'Ficha rápida' })
-    }
-    if (data.highlights && data.highlights.length > 0) {
-      anchors.push({ id: 'puntos-clave', label: 'Puntos clave' })
-    }
-    if (galleryItems.length > 0) {
-      anchors.push({ id: 'galeria-nivel', label: 'Galería' })
-    }
-    if (resources.length > 0) {
-      anchors.push({ id: 'recursos-nivel', label: 'Recursos' })
-    }
-
-    data.sections.forEach((section) => {
-      anchors.push({ id: getSectionId(section), label: section.title })
-    })
-
-    return anchors
-  }, [data.facts, data.highlights, data.sections, galleryItems.length, resources.length])
-
   const lightboxAnimationClass =
     galleryMotion === 'next'
       ? 'lightbox-image-next'
@@ -1357,8 +1693,8 @@ function DetailTemplate({ data }: { data: DetailData }) {
   }
 
   return (
-    <div className="bg-slate-100 text-slate-900">
-      <header className="border-b border-slate-200 bg-white">
+    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
         <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
           <SiteNavigationBar />
         </div>
@@ -1377,7 +1713,7 @@ function DetailTemplate({ data }: { data: DetailData }) {
             {data.facts.map((fact) => (
               <span
                 key={fact.label}
-                className="inline-flex items-center gap-1 rounded-md border border-blue-100 bg-blue-50 px-3 py-1 text-xs text-slate-700"
+                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-sand-50 px-3 py-1 text-xs text-slate-700 shadow-sm"
               >
                 <InfoIcon text={fact.label} className="h-3.5 w-3.5 text-brand-primary" />
                 <span className="font-semibold">{fact.label}:</span>
@@ -1398,46 +1734,10 @@ function DetailTemplate({ data }: { data: DetailData }) {
           className="mt-5 h-[340px] w-full rounded-xl border border-slate-200 object-cover shadow-sm md:h-[420px]"
         />
 
-        {sectionAnchors.length > 0 && (
-          <section className="mt-6 rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
-            <p className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">Accesos rápidos</p>
-            <div className="flex flex-wrap gap-2">
-              {sectionAnchors.map((anchor) => (
-                <a
-                  key={anchor.id}
-                  href={`#${anchor.id}`}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-sm text-slate-700 transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
-                >
-                  {anchor.label}
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {data.highlights && data.highlights.length > 0 && (
-          <section id="puntos-clave" className="mt-6 rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-            <h2 className="text-2xl font-semibold text-slate-900">Puntos clave</h2>
-            <div className="mt-4 grid gap-3 md:grid-cols-2">
-              {data.highlights.map((highlight) => (
-                <div
-                  key={highlight}
-                  className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700"
-                >
-                  <span className="mb-2 inline-flex rounded-md bg-white p-1.5 text-brand-primary">
-                    <InfoIcon text={highlight} className="h-4 w-4" />
-                  </span>
-                  {highlight}
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
         {(leftColumnSection || rightColumnSection) && (
-          <section className="mt-6 grid gap-4 md:grid-cols-2">
+          <section className="mt-6 grid gap-5 md:grid-cols-2">
             {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-              <article id={getSectionId(section!)} key={section!.title} className="rounded-xl border border-slate-200 bg-slate-200/55 p-5">
+              <article id={getSectionId(section!)} key={section!.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
                 <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
 
                 {section!.paragraphs?.map((paragraph) => (
@@ -1464,7 +1764,7 @@ function DetailTemplate({ data }: { data: DetailData }) {
         {remainingSections.length > 0 && (
           <section className="mt-5 space-y-4">
             {remainingSections.map((section) => (
-              <article id={getSectionId(section)} key={section.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+              <article id={getSectionId(section)} key={section.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
                 <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
 
                 {section.paragraphs?.map((paragraph) => (
@@ -1487,42 +1787,21 @@ function DetailTemplate({ data }: { data: DetailData }) {
           </section>
         )}
 
-        {galleryItems.length > 0 && (
-          <section id="galeria-nivel" className="mt-8">
-            <h2 className="text-center text-4xl font-semibold text-slate-900">Galería de Fotos</h2>
-            <div className="mt-4 grid grid-cols-2 gap-3 md:grid-cols-4">
-              {galleryItems.map((item, index) => (
-                <figure
-                  key={item.src}
-                  className="group cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white"
-                  onClick={() => openLightboxAt(index)}
-                >
-                  <img
-                    src={item.src}
-                    alt={item.alt}
-                    loading="lazy"
-                    decoding="async"
-                    className="h-36 w-full object-cover transition duration-300 group-hover:scale-105"
-                  />
-                </figure>
-              ))}
-            </div>
-          </section>
-        )}
+        {galleryItems.length > 0 && <GalleryCarousel items={galleryItems} onSelect={openLightboxAt} />}
 
         {resources.length > 0 && (
           <section id="recursos-nivel" className="mt-8">
             <h2 className="text-center text-4xl font-semibold text-slate-900">Recursos para Descargar</h2>
             <div className="mt-4 grid gap-4 md:grid-cols-3">
               {resources.map((resource) => (
-                <article key={resource.title} className="rounded-xl border border-slate-300 bg-slate-100 p-4">
+                <article key={resource.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
                   <h3 className="text-sm font-semibold text-slate-900">{resource.title}</h3>
                   <p className="mt-2 text-xs text-slate-600">Archivo PDF institucional</p>
                   <a
                     href={resource.file}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-3 inline-flex rounded-md bg-white px-3 py-1.5 text-xs font-semibold text-brand-primary ring-1 ring-slate-300 transition hover:bg-brand-primary hover:text-white"
+                    className="mt-3 inline-flex rounded-full bg-sand-50 px-3 py-1.5 text-xs font-semibold text-brand-primary ring-1 ring-slate-200 transition hover:bg-brand-primary hover:text-white"
                   >
                     Abrir PDF
                   </a>
