@@ -45,6 +45,8 @@ type ResourceGroup = {
 }
 
 const RESOURCE_YEAR = '2026'
+const WHATSAPP_PHONE = '541135057434'
+const WHATSAPP_URL = `https://wa.me/${WHATSAPP_PHONE}`
 
 function getFileExtension(filePath: string) {
   const extension = filePath.split('.').pop()
@@ -504,6 +506,7 @@ function App() {
     <>
       <TitleManager />
       <ScrollManager />
+      <WhatsAppFloatingButton />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/inscripciones" element={<InscripcionesPage />} />
@@ -517,6 +520,33 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </>
+  )
+}
+
+function WhatsAppFloatingButton() {
+  return (
+    <a
+      href={WHATSAPP_URL}
+      target="_blank"
+      rel="noreferrer"
+      aria-label="Contactar por WhatsApp"
+      className="fixed bottom-20 right-5 z-[60] inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#22c55e] text-white shadow-[0_12px_28px_-16px_rgba(21,128,61,0.7)] transition hover:-translate-y-0.5 hover:bg-[#16a34a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#22c55e] focus-visible:ring-offset-2"
+    >
+      <svg viewBox="0 0 24 24" className="h-6 w-6" fill="none" aria-hidden="true">
+        <path
+          d="M12 3.75a8.25 8.25 0 0 0-7.18 12.31L3.75 20.25l4.33-1.03A8.25 8.25 0 1 0 12 3.75Z"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M9.5 8.9c0-.42.34-.77.77-.77h.57c.29 0 .56.16.69.42l.58 1.15a.77.77 0 0 1-.12.86l-.52.62a6.15 6.15 0 0 0 2.35 2.35l.62-.52a.77.77 0 0 1 .86-.12l1.15.58c.26.13.42.4.42.69v.57a.77.77 0 0 1-.77.77h-.3a7.8 7.8 0 0 1-6.18-6.18v-.3Z"
+          fill="currentColor"
+        />
+      </svg>
+      <span className="sr-only">WhatsApp</span>
+    </a>
   )
 }
 

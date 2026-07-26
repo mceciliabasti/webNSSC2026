@@ -35,15 +35,6 @@ export function SiteFooter() {
             <li>
               <Link to="/inscripciones" className="hover:text-white">Inscripciones</Link>
             </li>
-            <li>
-              <Link to="/admisiones/inicial" className="hover:text-white">Admisiones Inicial</Link>
-            </li>
-            <li>
-              <Link to="/admisiones/primaria" className="hover:text-white">Admisiones Primaria</Link>
-            </li>
-            <li>
-              <Link to="/admisiones/secundaria" className="hover:text-white">Admisiones Secundaria</Link>
-            </li>
           </ul>
         </div>
 

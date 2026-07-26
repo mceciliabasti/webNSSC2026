@@ -227,9 +227,6 @@ export function LevelsSection({
                 decoding="async"
                 className="h-44 w-full object-cover"
               />
-              <span className="absolute right-3 top-3 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold text-brand-primary shadow-sm">
-                Nivel
-              </span>
             </div>
             <div className="p-5">
               <h3 className="text-2xl font-semibold text-slate-900">{item.title}</h3>
