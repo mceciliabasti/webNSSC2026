@@ -19,7 +19,6 @@ export type GalleryItem = {
 export type ResourceItem = {
   title: string
   file: string
-  format?: string
 }
 
 export type DetailData = {

@@ -67,8 +67,8 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
   }
 
   return (
-    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
-      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
+    <div className="bg-slate-100 text-slate-900">
+      <header className="border-b border-slate-200 bg-white">
         <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
           <SiteNavigationBar />
         </div>
@@ -80,7 +80,7 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
         </Link>
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
-          <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
+          <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
             <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">{title}</p>
             <h1 className="mt-3 text-4xl font-semibold text-slate-900">{title}</h1>
             <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">{subtitle}</p>
@@ -188,7 +188,7 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy hover:shadow-md disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-primary px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-navy disabled:cursor-not-allowed disabled:opacity-70 sm:w-auto"
               >
                 {isSubmitting && (
                   <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true" />
@@ -199,7 +199,7 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
           </section>
 
           <section className="space-y-6">
-            <div className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
               <h2 className="text-2xl font-semibold text-slate-900">Preguntas frecuentes</h2>
               <div className="mt-4 space-y-3">
                 {faqItems.map((item) => (
@@ -211,7 +211,7 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
               </div>
             </div>
 
-            <div className="rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(180deg,rgba(239,229,215,0.88)_0%,rgba(255,255,255,0.96)_100%)] p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
+            <div className="rounded-[2rem] border border-slate-200 bg-brand-sky/10 p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
               <h2 className="text-2xl font-semibold text-slate-900">¿Necesitás ayuda?</h2>
               <p className="mt-3 text-sm leading-relaxed text-slate-700">
                 Podés completar el formulario y nos pondremos en contacto para acompañarte en el proceso de ingreso.

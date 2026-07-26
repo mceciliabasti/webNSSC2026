@@ -5,10 +5,10 @@
   --font-sans: "Plus Jakarta Sans", "Kayak", "Segoe UI", sans-serif;
   --font-display: "Rufina", "Times New Roman", serif;
 
-  --color-brand-navy: #1a3558;
-  --color-brand-primary: #355f97;
-  --color-brand-sky: #86a5c5;
-  --color-brand-turquoise: #7ba7a1;
+  --color-brand-navy: #13129a;
+  --color-brand-primary: #0344dc;
+  --color-brand-sky: #0080c8;
+  --color-brand-turquoise: #00bdb5;
   --color-brand-orange: #ff9500;
   --color-brand-red: #d63149;
   --color-brand-lime: #abc80f;
@@ -19,8 +19,8 @@
   --color-ink-800: #334155;
   --color-ink-700: #475569;
 
-  --color-sand-50: #fbf7f2;
-  --color-sand-100: #efe5d7;
+  --color-sand-50: #f8fafc;
+  --color-sand-100: #e2e8f0;
 
   --color-copper-300: #60a5fa;
   --color-copper-500: #2563eb;
@@ -46,8 +46,6 @@
   body {
     margin: 0;
     font-family: var(--font-sans);
-    background: linear-gradient(180deg, #fbf7f2 0%, #ffffff 44%, #f3f6f9 100%);
-    color: var(--color-ink-900);
   }
 
   h1,
@@ -59,11 +57,6 @@
 
   #root {
     min-height: 100vh;
-  }
-
-  ::selection {
-    background: rgba(53, 95, 151, 0.16);
-    color: var(--color-ink-950);
   }
 }
 
