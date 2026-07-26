@@ -245,36 +245,6 @@ export function LevelsSection({
   )
 }
 
-export function ManagementSection({
-  title,
-  intro,
-  members,
-}: {
-  title: string
-  intro: string
-  members: Array<{ role: string; description: string }>
-}) {
-  return (
-    <section id="equipo-gestion" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
-      <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
-        <p className="mt-3 text-slate-700">{intro}</p>
-      </div>
-      <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-        {members.map((member) => (
-          <article key={member.role} className="rounded-2xl border border-slate-200 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
-            <div className="inline-flex rounded-full bg-sand-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary shadow-sm">
-              Gestión
-            </div>
-            <h3 className="mt-3 text-xl font-semibold text-slate-900">{member.role}</h3>
-            <p className="mt-2 text-sm leading-relaxed text-slate-700">{member.description}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )
-}
-
 export function InstitutionalResourcesSection({
   title,
   intro,
@@ -363,6 +333,14 @@ export function HomeIntroSection({
       </div>
     </section>
   )
+}
+
+export function ManagementSection(_props: {
+  title?: string
+  intro?: string
+  members?: Array<{ role: string; description: string }>
+}) {
+  return null
 }
 
 export function HomeSectionIcon({ text }: { text: string }) {

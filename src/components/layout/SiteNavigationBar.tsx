@@ -105,6 +105,10 @@ export function SiteNavigationBar() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }
 
+  const handleNavigate = () => {
+    setIsOpen(false)
+  }
+
   const navContent = (
     <>
       <div className="fixed left-1/2 top-4 z-[2147483647] isolate w-[calc(100%-1rem)] -translate-x-1/2 rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-2.5 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.42)] backdrop-blur-md md:w-[calc(100%-2rem)] md:max-w-6xl">
@@ -150,7 +154,8 @@ export function SiteNavigationBar() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="block rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
+                  onClick={handleNavigate}
+                  className="block w-full rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
@@ -176,7 +181,8 @@ export function SiteNavigationBar() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="block rounded-xl px-2 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
+                  onClick={handleNavigate}
+                  className="block w-full rounded-xl px-2 py-2 text-left text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
@@ -253,7 +259,8 @@ export function SiteNavigationBar() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
+                  onClick={handleNavigate}
+                  className="rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
@@ -270,7 +277,8 @@ export function SiteNavigationBar() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
+                  onClick={handleNavigate}
+                  className="rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
