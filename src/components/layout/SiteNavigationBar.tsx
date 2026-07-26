@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
 
 const topNavItems = [
@@ -6,28 +7,24 @@ const topNavItems = [
   { to: '/#nuestro-colegio', label: 'Nuestro Colegio' },
   { to: '/#nuestra-historia', label: 'Historia' },
   { to: '/#nuestra-institucion', label: 'Institución' },
-  { to: '/#equipo-gestion', label: 'Equipo' },
   { to: '/inscripciones', label: 'Inscripciones' },
   { to: '/#contacto', label: 'Contacto' },
 ]
+
+const CONTACT_LINK = '/#contacto'
 
 const levelNavItems = [
   { to: '/nivel/inicial', label: 'Nivel Inicial' },
   { to: '/nivel/primario', label: 'Nivel Primario' },
   { to: '/nivel/secundario', label: 'Nivel Secundario' },
+  { to: '/autoridades', label: 'Autoridades' },
 ]
 
-const institutionalResourceItems = [
-  { to: '/#recursos-institucionales', label: 'Recursos institucionales' },
-  { to: '/detalle/mision', label: 'Misión' },
-  { to: '/detalle/vision', label: 'Visión' },
-  { to: '/detalle/pastoral', label: 'Pastoral' },
-]
-
-const levelResourceItems = [
+const resourceNavItems = [
+  { to: '/recursos', label: 'Institucionales' },
   { to: '/nivel/inicial#recursos-nivel', label: 'Inicial' },
-  { to: '/nivel/primario#recursos-nivel', label: 'Primario' },
-  { to: '/nivel/secundario#recursos-nivel', label: 'Secundario' },
+  { to: '/nivel/primario#recursos-nivel', label: 'Primaria' },
+  { to: '/nivel/secundario#recursos-nivel', label: 'Secundaria' },
 ]
 
 export function SiteNavigationBar() {
@@ -35,14 +32,17 @@ export function SiteNavigationBar() {
   const [activeSection, setActiveSection] = useState('inicio')
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const location = useLocation()
+  const mainNavItems = useMemo(() => topNavItems.filter((item) => item.to !== CONTACT_LINK), [])
+  const contactNavItem = useMemo(() => topNavItems.find((item) => item.to === CONTACT_LINK), [])
   const sectionIds = useMemo(
     () => topNavItems.map((item) => item.to.split('#')[1]).filter((id): id is string => Boolean(id)),
     [],
   )
 
   const sectionIdFromTo = (to: string) => to.split('#')[1] ?? ''
-  const isLevelsActive = location.pathname.startsWith('/nivel/') || (location.pathname === '/' && activeSection === 'niveles')
-  const isResourcesActive = location.pathname.startsWith('/nivel/') || (location.pathname === '/' && activeSection === 'recursos-institucionales')
+  const isLevelsActive =
+    location.pathname.startsWith('/nivel/') || location.pathname === '/autoridades' || (location.pathname === '/' && activeSection === 'niveles')
+  const isResourcesActive = location.pathname.startsWith('/nivel/') || location.pathname === '/recursos'
 
   useEffect(() => {
     const hashSection = location.hash.replace('#', '')
@@ -105,12 +105,12 @@ export function SiteNavigationBar() {
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })
   }
 
-  return (
+  const navContent = (
     <>
-      <div className="sticky top-4 z-40 w-full rounded-2xl border border-white/35 bg-white/92 p-2 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.7)] backdrop-blur-md md:fixed md:left-1/2 md:top-4 md:w-[calc(100%-2rem)] md:max-w-6xl md:-translate-x-1/2">
+      <div className="fixed left-1/2 top-4 z-[2147483647] isolate w-[calc(100%-1rem)] -translate-x-1/2 rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-2.5 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.42)] backdrop-blur-md md:w-[calc(100%-2rem)] md:max-w-6xl">
       <div className="flex items-center justify-between gap-3 px-2 py-1">
-        <nav className="hidden items-center gap-1 md:flex">
-          {topNavItems.map((item) => {
+        <nav className="hidden items-center gap-1.5 md:flex">
+          {mainNavItems.map((item) => {
             const sectionId = sectionIdFromTo(item.to)
             const isSectionLink = item.to.includes('#')
             const isActive = isSectionLink
@@ -121,10 +121,10 @@ export function SiteNavigationBar() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`rounded-xl px-3 py-2 text-sm font-medium transition ${
+                className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
                   isActive
-                    ? 'bg-brand-primary text-white'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
                 }`}
               >
                 {item.label}
@@ -135,22 +135,22 @@ export function SiteNavigationBar() {
           <div className="group relative">
             <button
               type="button"
-              className={`rounded-xl px-3 py-2 text-sm font-medium transition ${
+              className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
                 isLevelsActive
-                  ? 'bg-brand-primary text-white'
-                  : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-brand-primary text-white shadow-sm'
+                  : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
               }`}
               aria-haspopup="menu"
             >
               Niveles
             </button>
 
-            <div className="invisible absolute left-0 top-[calc(100%+0.4rem)] z-20 w-56 translate-y-1 rounded-xl border border-slate-200 bg-white p-1.5 opacity-0 shadow-lg transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+            <div className="invisible absolute left-0 top-[calc(100%+0.4rem)] z-20 w-56 translate-y-1 rounded-[1.25rem] border border-slate-200 bg-white/96 p-1.5 opacity-0 shadow-[0_16px_35px_-24px_rgba(15,23,42,0.35)] transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
               {levelNavItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="block rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                  className="block rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
@@ -161,49 +161,56 @@ export function SiteNavigationBar() {
           <div className="group relative">
             <button
               type="button"
-              className={`rounded-xl px-3 py-2 text-sm font-medium transition ${
+              className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
                 isResourcesActive
-                  ? 'bg-brand-primary text-white'
-                  : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                  ? 'bg-brand-primary text-white shadow-sm'
+                  : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
               }`}
               aria-haspopup="menu"
             >
               Recursos
             </button>
 
-            <div className="invisible absolute right-0 top-[calc(100%+0.4rem)] z-20 w-64 translate-y-1 rounded-xl border border-slate-200 bg-white p-1.5 opacity-0 shadow-lg transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
-              <div className="mb-1 border-b border-slate-100 px-2 pb-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">Institucionales</p>
-                {institutionalResourceItems.map((item) => (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className="mt-1 block rounded-lg px-2 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
-              <div className="px-2 pt-2">
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-slate-500">Por nivel</p>
-                {levelResourceItems.map((item) => (
-                  <Link
-                    key={item.to}
-                    to={item.to}
-                    className="mt-1 block rounded-lg px-2 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
-                  >
-                    {item.label}
-                  </Link>
-                ))}
-              </div>
+            <div className="invisible absolute right-0 top-[calc(100%+0.4rem)] z-20 w-64 translate-y-1 rounded-[1.25rem] border border-slate-200 bg-white/96 p-1.5 opacity-0 shadow-[0_16px_35px_-24px_rgba(15,23,42,0.35)] transition group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+              {resourceNavItems.map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  className="block rounded-xl px-2 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
+                >
+                  {item.label}
+                </Link>
+              ))}
             </div>
           </div>
+
+          {contactNavItem && (() => {
+            const sectionId = sectionIdFromTo(contactNavItem.to)
+            const isSectionLink = contactNavItem.to.includes('#')
+            const isActive = isSectionLink
+              ? location.pathname === '/' && activeSection === sectionId
+              : location.pathname === contactNavItem.to
+
+            return (
+              <Link
+                key={contactNavItem.to}
+                to={contactNavItem.to}
+                className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
+                }`}
+              >
+                {contactNavItem.label}
+              </Link>
+            )
+          })()}
         </nav>
 
         <button
           type="button"
           onClick={() => setIsOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-100 md:hidden"
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:bg-sand-100 md:hidden"
           aria-expanded={isOpen}
           aria-label="Toggle menu"
         >
@@ -214,8 +221,8 @@ export function SiteNavigationBar() {
       </div>
 
       {isOpen && (
-        <nav className="mt-2 grid gap-1 border-t border-slate-200 px-1 pt-2 md:hidden">
-          {topNavItems.map((item) => {
+        <nav className="mt-2 grid gap-1.5 border-t border-slate-200 px-1 pt-2 md:hidden">
+          {mainNavItems.map((item) => {
             const sectionId = sectionIdFromTo(item.to)
             const isSectionLink = item.to.includes('#')
             const isActive = isSectionLink
@@ -226,10 +233,10 @@ export function SiteNavigationBar() {
               <Link
                 key={item.to}
                 to={item.to}
-                className={`rounded-xl px-3 py-2 text-sm font-medium transition ${
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${
                   isActive
-                    ? 'bg-brand-primary text-white'
-                    : 'text-slate-700 hover:bg-slate-100 hover:text-slate-900'
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
                 }`}
               >
                 {item.label}
@@ -237,8 +244,8 @@ export function SiteNavigationBar() {
             )
           })}
 
-          <details className="rounded-xl border border-slate-200 bg-white">
-            <summary className="cursor-pointer list-none rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+          <details className="rounded-[1.25rem] border border-slate-200 bg-white/96">
+            <summary className="cursor-pointer list-none rounded-[1.25rem] px-3 py-2 text-sm font-medium text-slate-700 hover:bg-sand-100 hover:text-slate-900">
               Niveles
             </summary>
             <div className="grid gap-1 px-2 pb-2">
@@ -246,7 +253,7 @@ export function SiteNavigationBar() {
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                  className="rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
@@ -254,31 +261,44 @@ export function SiteNavigationBar() {
             </div>
           </details>
 
-          <details className="rounded-xl border border-slate-200 bg-white">
-            <summary className="cursor-pointer list-none rounded-xl px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900">
+          <details className="rounded-[1.25rem] border border-slate-200 bg-white/96">
+            <summary className="cursor-pointer list-none rounded-[1.25rem] px-3 py-2 text-sm font-medium text-slate-700 hover:bg-sand-100 hover:text-slate-900">
               Recursos
             </summary>
             <div className="grid gap-1 px-2 pb-2">
-              {institutionalResourceItems.map((item) => (
+              {resourceNavItems.map((item) => (
                 <Link
                   key={item.to}
                   to={item.to}
-                  className="rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              {levelResourceItems.map((item) => (
-                <Link
-                  key={item.to}
-                  to={item.to}
-                  className="rounded-lg px-3 py-2 text-sm text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                  className="rounded-xl px-3 py-2 text-sm text-slate-700 transition hover:bg-sand-100 hover:text-slate-900"
                 >
                   {item.label}
                 </Link>
               ))}
             </div>
           </details>
+
+          {contactNavItem && (() => {
+            const sectionId = sectionIdFromTo(contactNavItem.to)
+            const isSectionLink = contactNavItem.to.includes('#')
+            const isActive = isSectionLink
+              ? location.pathname === '/' && activeSection === sectionId
+              : location.pathname === contactNavItem.to
+
+            return (
+              <Link
+                key={contactNavItem.to}
+                to={contactNavItem.to}
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
+                }`}
+              >
+                {contactNavItem.label}
+              </Link>
+            )
+          })()}
         </nav>
       )}
       </div>
@@ -297,4 +317,10 @@ export function SiteNavigationBar() {
       )}
     </>
   )
+
+  if (typeof document === 'undefined') {
+    return navContent
+  }
+
+  return createPortal(navContent, document.body)
 }

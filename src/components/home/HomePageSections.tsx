@@ -49,7 +49,7 @@ export function HomeHeroSection({
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-slate-900/58" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,24,40,0.34)_0%,rgba(13,24,40,0.6)_100%)]" />
 
       <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-between px-5 py-8 sm:px-8 md:px-12 md:py-10">
         <div className="pt-16 md:pt-20">
@@ -57,11 +57,16 @@ export function HomeHeroSection({
         </div>
 
         <div className="max-w-3xl pb-8 pt-8 text-white md:pt-10">
-          <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.02em] sm:text-5xl md:text-6xl">
-            {title}
-          </h1>
-          <p className="mt-5 text-2xl font-normal text-white/90">{subtitle}</p>
-          <span className="mt-7 block h-1 w-28 rounded-full bg-brand-primary" />
+          <div className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-white/90 backdrop-blur-sm">
+            Comunidad educativa Vedruna
+          </div>
+          <div className="mt-5 rounded-[2rem] border border-white/18 bg-white/12 p-6 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.7)] backdrop-blur-md md:p-8">
+            <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.02em] sm:text-5xl md:text-6xl">
+              {title}
+            </h1>
+            <p className="mt-5 text-2xl font-normal text-white/90">{subtitle}</p>
+            <span className="mt-7 block h-1 w-28 rounded-full bg-brand-primary" />
+          </div>
         </div>
       </div>
     </header>
@@ -82,7 +87,7 @@ export function HomeHistorySection({
   link: string
 }) {
   return (
-    <section id="nuestra-historia" className="scroll-mt-28 grid gap-7 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_12px_40px_-22px_rgba(15,23,42,0.38)] md:grid-cols-2 md:p-8">
+    <section id="nuestra-historia" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_14px_45px_-28px_rgba(15,23,42,0.35)] backdrop-blur-sm md:grid-cols-2 md:p-8">
       <img
         src={image}
         alt={title}
@@ -106,7 +111,7 @@ export function HomeHistorySection({
         </ul>
         <Link
           to={link}
-          className="mt-6 inline-flex rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-navy"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy hover:shadow-md"
         >
           Conocer más
         </Link>
@@ -131,13 +136,13 @@ export function InstitutionSection({
   onTabChange: (tabId: string) => void
 }) {
   return (
-    <section id="nuestra-institucion" className="scroll-mt-28 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
+    <section id="nuestra-institucion" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.36)] backdrop-blur-sm md:p-8">
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
           <p className="mt-3 text-slate-700">{intro}</p>
         </div>
-        <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-slate-50 p-1.5">
+        <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(239,229,215,0.62)_0%,rgba(255,255,255,0.9)_100%)] p-1.5">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -145,7 +150,7 @@ export function InstitutionSection({
               onClick={() => onTabChange(tab.id)}
               className={`rounded-xl px-4 py-2 text-sm font-semibold transition ${
                 activeInstitutionId === tab.id
-                  ? 'bg-white text-brand-primary shadow-sm ring-1 ring-brand-sky/35'
+                  ? 'bg-white text-brand-primary shadow-sm ring-1 ring-slate-200'
                   : 'text-slate-600 hover:bg-white/80 hover:text-slate-900'
               }`}
             >
@@ -155,16 +160,16 @@ export function InstitutionSection({
         </div>
       </div>
 
-      <div className="mt-6 grid gap-6 rounded-2xl border border-slate-200 bg-slate-50/80 p-4 md:grid-cols-[1fr_1.1fr] md:p-6">
+      <div className="mt-6 grid gap-6 rounded-2xl border border-slate-200 bg-white/80 p-4 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.32)] md:grid-cols-[1fr_1.1fr] md:p-6">
         <div className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white">
           <img
             src={activeInstitution.data.image}
             alt={activeInstitution.data.title}
             loading="lazy"
             decoding="async"
-            className="h-full min-h-72 w-full object-cover"
+            className="h-full min-h-64 w-full object-cover md:max-h-[28rem]"
           />
-          <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold tracking-wide text-brand-primary">
+          <span className="absolute left-4 top-4 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold tracking-wide text-brand-primary">
             {activeInstitution.label}
           </span>
         </div>
@@ -183,7 +188,7 @@ export function InstitutionSection({
 
           <Link
             to={activeInstitution.link}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-navy"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy hover:shadow-md"
           >
             Ver página completa
             <span aria-hidden>→</span>
@@ -212,7 +217,7 @@ export function LevelsSection({
           <Link
             key={item.key}
             to={`/nivel/${item.key}`}
-            className="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+            className="group overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/96 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.3)] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_-30px_rgba(15,23,42,0.38)]"
           >
             <div className="relative">
               <img
@@ -222,7 +227,7 @@ export function LevelsSection({
                 decoding="async"
                 className="h-44 w-full object-cover"
               />
-              <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-brand-primary">
+              <span className="absolute right-3 top-3 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold text-brand-primary shadow-sm">
                 Nivel
               </span>
             </div>
@@ -250,15 +255,15 @@ export function ManagementSection({
   members: Array<{ role: string; description: string }>
 }) {
   return (
-    <section id="equipo-gestion" className="scroll-mt-28 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
+    <section id="equipo-gestion" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
       <div className="max-w-2xl">
         <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
         <p className="mt-3 text-slate-700">{intro}</p>
       </div>
       <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         {members.map((member) => (
-          <article key={member.role} className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-            <div className="inline-flex rounded-full bg-brand-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary">
+          <article key={member.role} className="rounded-2xl border border-slate-200 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
+            <div className="inline-flex rounded-full bg-sand-100 px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-brand-primary shadow-sm">
               Gestión
             </div>
             <h3 className="mt-3 text-xl font-semibold text-slate-900">{member.role}</h3>
@@ -280,7 +285,7 @@ export function InstitutionalResourcesSection({
   resources: ResourceLink[]
 }) {
   return (
-    <section id="recursos-institucionales" className="scroll-mt-28 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
+    <section id="recursos-institucionales" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
       <div className="max-w-2xl">
         <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
         <p className="mt-3 text-slate-700">{intro}</p>
@@ -292,7 +297,7 @@ export function InstitutionalResourcesSection({
             href={resource.href}
             target="_blank"
             rel="noreferrer"
-            className="rounded-2xl border border-slate-200 bg-slate-50 p-5 transition hover:-translate-y-1 hover:bg-white"
+            className="rounded-2xl border border-slate-200 bg-white/96 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.22)] transition hover:-translate-y-1 hover:bg-white hover:shadow-[0_14px_35px_-26px_rgba(15,23,42,0.28)]"
           >
             <h3 className="text-xl font-semibold text-slate-900">{resource.title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.description}</p>
@@ -329,13 +334,13 @@ export function HomeIntroSection({
   image: string
 }) {
   return (
-    <section id="nuestro-colegio" className="scroll-mt-28 grid gap-8 rounded-[2rem] border border-slate-200/80 bg-white p-7 shadow-[0_20px_60px_-34px_rgba(15,23,42,0.45)] lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
-      <div className="rounded-2xl bg-gradient-to-br from-brand-sky/10 to-white p-6">
+    <section id="nuestro-colegio" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-white/92 p-7 shadow-[0_20px_60px_-38px_rgba(15,23,42,0.38)] backdrop-blur-sm lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
+      <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(239,229,215,0.95)_0%,rgba(255,255,255,0.96)_100%)] p-6">
         <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
         <p className="mt-4 text-lg leading-relaxed text-slate-700">{description}</p>
         <p className="mt-4 leading-relaxed text-slate-600">{secondaryText}</p>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
         <div className="relative aspect-video bg-slate-900">
           <img
             src={image}
@@ -345,7 +350,7 @@ export function HomeIntroSection({
             className="h-full w-full object-cover opacity-70"
           />
           <div className="absolute inset-0 flex items-center justify-center px-4">
-            <div className="flex items-center gap-3 rounded-full bg-black/55 px-5 py-3 text-sm text-white">
+            <div className="flex items-center gap-3 rounded-full bg-black/52 px-5 py-3 text-sm text-white backdrop-blur-sm">
               <span className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-primary">
                 <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor">
                   <path d="M8 5v14l11-7z" />
@@ -362,7 +367,7 @@ export function HomeIntroSection({
 
 export function HomeSectionIcon({ text }: { text: string }) {
   return (
-    <div className="mb-3 inline-flex rounded-xl bg-brand-sky/10 p-2 text-brand-primary">
+    <div className="mb-3 inline-flex rounded-xl bg-sand-100 p-2 text-brand-primary shadow-sm">
       <InfoIcon text={text} className="h-4 w-4" />
     </div>
   )
