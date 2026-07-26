@@ -23,7 +23,7 @@ import primariaGallery3 from './imagenes/Primaria/IMG_2246.jpg'
 import secundariaMain from './imagenes/Secundaria/20250626_095050.jpg'
 import secundariaCard from './imagenes/Secundaria/20250626_095831.jpg'
 import infoNivelesPdf from './info/info-niveles.pdf'
-import comunicacionCnsccPdf from './info/Comunicación CNSSC .pdf'
+import comunicacionCnsccPdf from './info/comunicacion-cnssc.pdf'
 import type { DetailData, ResourceItem, SectionData } from './types/content'
 import { InfoIcon } from './components/ui/InfoIcon'
 
@@ -82,76 +82,6 @@ function buildGalleryItemsFromGlob(modules: Record<string, string>) {
       alt: getResourceTitleFromPath(path),
     }))
     .sort((a, b) => a.alt.localeCompare(b.alt, 'es'))
-}
-
-type GalleryCarouselProps = {
-  items: Array<{ src: string; alt: string }>
-  onSelect: (index: number) => void
-}
-
-function GalleryCarousel({ items, onSelect }: GalleryCarouselProps) {
-  const scrollRef = useRef<HTMLDivElement>(null)
-
-  const handleScroll = (direction: 'prev' | 'next') => {
-    const container = scrollRef.current
-    if (!container) return
-
-    const scrollAmount = 320
-    container.scrollBy({
-      left: direction === 'next' ? scrollAmount : -scrollAmount,
-      behavior: 'smooth',
-    })
-  }
-
-  if (!items.length) return null
-
-  return (
-    <section id="galeria-nivel" className="mt-8">
-      <h2 className="text-center text-4xl font-semibold text-slate-900">Galería de Fotos</h2>
-      <div className="mt-4 flex items-center gap-2">
-        <button
-          type="button"
-          onClick={() => handleScroll('prev')}
-          aria-label="Ver imágenes anteriores"
-          className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-xl text-slate-700 shadow-sm transition hover:border-brand-primary hover:text-brand-primary sm:inline-flex"
-        >
-          ←
-        </button>
-
-        <div
-          ref={scrollRef}
-          className="flex-1 overflow-x-auto scroll-smooth pb-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-        >
-          <div className="flex w-max gap-3">
-            {items.map((item, index) => (
-              <figure
-                key={item.src}
-                className="w-[220px] flex-shrink-0 cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white sm:w-[260px]"
-                onClick={() => onSelect(index)}
-              >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="h-48 w-full object-cover transition duration-300 hover:scale-105"
-                />
-              </figure>
-            ))}
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={() => handleScroll('next')}
-          aria-label="Ver imágenes siguientes"
-          className="hidden h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-xl text-slate-700 shadow-sm transition hover:border-brand-primary hover:text-brand-primary sm:inline-flex"
-        >
-          →
-        </button>
-      </div>
-    </section>
-  )
 }
 
 const initialGalleryItems = buildGalleryItemsFromGlob(
@@ -567,6 +497,9 @@ const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkjN87op04dEUE761SW
 const SITE_TITLE = 'Colegio Nuestra Señora del Sagrado Corazón'
 
 function App() {
+  const location = useLocation()
+  console.log('app-location', location.pathname, location.search, location.hash)
+
   return (
     <>
       <TitleManager />
@@ -1137,7 +1070,7 @@ function AuthoritiesPage() {
         <section className="mt-8 grid gap-4 md:grid-cols-2">
           <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
             <h2 className="text-2xl font-semibold text-slate-900">Nivel Inicial</h2>
-            <p className="mt-3 text-base leading-relaxed text-slate-700">Directora: Prof. Adriana Gighlioni</p>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Directora: Prof. Adriana Gighiloni</p>
           </article>
 
           <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
@@ -1148,12 +1081,12 @@ function AuthoritiesPage() {
 
           <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
             <h2 className="text-2xl font-semibold text-slate-900">Nivel Secundario</h2>
-            <p className="mt-3 text-base leading-relaxed text-slate-700">Rectora: Mg. Eugenia Benvenuto</p>
+            <p className="mt-3 text-base leading-relaxed text-slate-700">Rectora: Mg. Ma. Eugenia Benvenuto</p>
             <p className="mt-2 text-base leading-relaxed text-slate-700">Dir. de Estudios: Prof. Vanesa Trani</p>
           </article>
 
           <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
-            <h2 className="text-2xl font-semibold text-slate-900">Apoderado legal</h2>
+            <h2 className="text-2xl font-semibold text-slate-900">Apoderado Legal</h2>
             <p className="mt-3 text-base leading-relaxed text-slate-700">Lic. Rafael Cuervo Alarcón</p>
           </article>
         </section>
@@ -1169,6 +1102,7 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
   const [galleryMotion, setGalleryMotion] = useState<'next' | 'prev' | 'zoom'>('zoom')
   const touchStartX = useRef<number | null>(null)
   const touchStartY = useRef<number | null>(null)
+  const galleryViewportRef = useRef<HTMLDivElement | null>(null)
   const [activeResourceGroupId, setActiveResourceGroupId] = useState('')
   const [activeView, setActiveView] = useState<'info' | 'resources'>('info')
   const location = useLocation()
@@ -1249,6 +1183,17 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
   const openLightboxAt = (index: number) => {
     setGalleryMotion('zoom')
     setActiveGalleryIndex(index)
+  }
+
+  const scrollGallery = (direction: 'prev' | 'next') => {
+    const container = galleryViewportRef.current
+    if (!container) return
+
+    const scrollAmount = Math.max(220, container.clientWidth * 0.82)
+    container.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth',
+    })
   }
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
@@ -1436,7 +1381,74 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
               </section>
             )}
 
-            {galleryItems.length > 0 && <GalleryCarousel items={galleryItems} onSelect={openLightboxAt} />}
+            {galleryItems.length > 0 && (
+              <section id="galeria-nivel" className="mt-8">
+                <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Galería de Fotos</h2>
+
+                <div className="mt-4 flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={() => scrollGallery('prev')}
+                    aria-label="Mostrar miniaturas anteriores"
+                    className="hidden rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary sm:inline-flex"
+                  >
+                    ←
+                  </button>
+
+                  <div
+                    ref={galleryViewportRef}
+                    className="flex-1 overflow-x-auto pb-2"
+                    style={{ scrollbarWidth: 'none', touchAction: 'pan-x' }}
+                  >
+                    <div className="flex w-max gap-3">
+                      {galleryItems.map((item, index) => (
+                        <figure
+                          key={item.src}
+                          className="group w-32 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm sm:w-40"
+                          onClick={() => openLightboxAt(index)}
+                        >
+                          <img
+                            src={item.src}
+                            alt={item.alt}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-24 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-28"
+                          />
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => scrollGallery('next')}
+                    aria-label="Mostrar miniaturas siguientes"
+                    className="hidden rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary sm:inline-flex"
+                  >
+                    →
+                  </button>
+                </div>
+
+                <div className="mt-3 flex items-center justify-center gap-3 sm:hidden">
+                  <button
+                    type="button"
+                    onClick={() => scrollGallery('prev')}
+                    aria-label="Mostrar miniaturas anteriores"
+                    className="rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollGallery('next')}
+                    aria-label="Mostrar miniaturas siguientes"
+                    className="rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+                  >
+                    →
+                  </button>
+                </div>
+              </section>
+            )}
           </>
         ) : (
           resourceGroups.length > 0 && (
@@ -1590,6 +1602,7 @@ function DetailTemplate({ data }: { data: DetailData }) {
   const [galleryMotion, setGalleryMotion] = useState<'next' | 'prev' | 'zoom'>('zoom')
   const touchStartX = useRef<number | null>(null)
   const touchStartY = useRef<number | null>(null)
+  const galleryViewportRef = useRef<HTMLDivElement | null>(null)
 
   const galleryItems = data.gallery ?? []
   const resources = data.resources ?? []
@@ -1662,6 +1675,17 @@ function DetailTemplate({ data }: { data: DetailData }) {
   const openLightboxAt = (index: number) => {
     setGalleryMotion('zoom')
     setActiveGalleryIndex(index)
+  }
+
+  const scrollGallery = (direction: 'prev' | 'next') => {
+    const container = galleryViewportRef.current
+    if (!container) return
+
+    const scrollAmount = Math.max(220, container.clientWidth * 0.82)
+    container.scrollBy({
+      left: direction === 'next' ? scrollAmount : -scrollAmount,
+      behavior: 'smooth',
+    })
   }
 
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
@@ -1787,7 +1811,74 @@ function DetailTemplate({ data }: { data: DetailData }) {
           </section>
         )}
 
-        {galleryItems.length > 0 && <GalleryCarousel items={galleryItems} onSelect={openLightboxAt} />}
+        {galleryItems.length > 0 && (
+          <section id="galeria-nivel" className="mt-8">
+            <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Galería de Fotos</h2>
+
+            <div className="mt-4 flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => scrollGallery('prev')}
+                aria-label="Mostrar miniaturas anteriores"
+                className="hidden rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary sm:inline-flex"
+              >
+                ←
+              </button>
+
+              <div
+                ref={galleryViewportRef}
+                className="flex-1 overflow-x-auto pb-2"
+                style={{ scrollbarWidth: 'none', touchAction: 'pan-x' }}
+              >
+                <div className="flex w-max gap-3">
+                  {galleryItems.map((item, index) => (
+                    <figure
+                      key={item.src}
+                      className="group w-32 shrink-0 cursor-pointer overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm sm:w-40"
+                      onClick={() => openLightboxAt(index)}
+                    >
+                      <img
+                        src={item.src}
+                        alt={item.alt}
+                        loading="lazy"
+                        decoding="async"
+                        className="h-24 w-full object-cover transition duration-300 group-hover:scale-105 sm:h-28"
+                      />
+                    </figure>
+                  ))}
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => scrollGallery('next')}
+                aria-label="Mostrar miniaturas siguientes"
+                className="hidden rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary sm:inline-flex"
+              >
+                →
+              </button>
+            </div>
+
+            <div className="mt-3 flex items-center justify-center gap-3 sm:hidden">
+              <button
+                type="button"
+                onClick={() => scrollGallery('prev')}
+                aria-label="Mostrar miniaturas anteriores"
+                className="rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+              >
+                ←
+              </button>
+              <button
+                type="button"
+                onClick={() => scrollGallery('next')}
+                aria-label="Mostrar miniaturas siguientes"
+                className="rounded-full border border-slate-200 bg-white p-2 text-slate-700 shadow-sm transition hover:border-brand-sky/40 hover:bg-brand-sky/10 hover:text-brand-primary"
+              >
+                →
+              </button>
+            </div>
+          </section>
+        )}
 
         {resources.length > 0 && (
           <section id="recursos-nivel" className="mt-8">
