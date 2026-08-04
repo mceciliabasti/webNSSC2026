@@ -157,7 +157,7 @@ const levelResourceGroups: Record<LevelKey, ResourceGroup[]> = {
 }
 
 const missionData: DetailData = {
-  title: 'Nuestra Misión',
+  title: 'Misión',
   subtitle: 'Educar con alegría en valores para una sociedad fraterna, justa y solidaria.',
   image: primariaGallery3,
   highlights: [
@@ -172,7 +172,7 @@ const missionData: DetailData = {
   ],
   sections: [
     {
-      title: 'Misión institucional',
+      title: 'Misión',
       paragraphs: [
         'Educar con alegría en valores, para contribuir a una sociedad más fraterna, justa y solidaria, inspirados en el Evangelio, basados en la pedagogía del amor.',
       ],
@@ -181,7 +181,7 @@ const missionData: DetailData = {
 }
 
 const visionData: DetailData = {
-  title: 'Nuestra Visión',
+  title: 'Visión',
   subtitle: 'Educación integral, participativa y personalizada para dignificar la vida.',
   image: primariaGallery3,
   highlights: [
@@ -196,7 +196,7 @@ const visionData: DetailData = {
   ],
   sections: [
     {
-      title: 'Visión institucional',
+      title: 'Visión',
       paragraphs: [
         'Ser un colegio de educación integral, participativa y personalizada que busca generar, dignificar y comprometerse con la vida de las personas, la sociedad y la naturaleza.',
       ],
@@ -206,12 +206,10 @@ const visionData: DetailData = {
 
 const profileData: DetailData = {
   title: 'Perfil de Nuestros Alumnos',
-  subtitle: 'Rasgos distintivos del estudiante que buscamos formar.',
+  subtitle: 'Buscamos desarrollar una identidad institucional en nuestros estudiantes, caracterizada por valores fundamentales que los preparen para los desafíos del futuro.\n\nEsta formación integral constituye el núcleo de nuestra propuesta educativa, buscando que cada estudiante desarrolle al máximo sus potencialidades en un ambiente de respeto, calidez y solidez académica adecuada.',
   image: primariaGallery3,
   highlights: [
-    'Visión positiva y esperanzadora de la vida.',
-    'Pensamiento crítico y trabajo en equipo.',
-    'Respeto por las diferencias y compromiso comunitario.',
+    
   ],
   facts: [
     { label: 'Identidad', value: 'Vedruna' },
@@ -220,14 +218,39 @@ const profileData: DetailData = {
   ],
   sections: [
     {
-      title: 'Perfil Vedruna',
+      title: 'Perfil del Alumno que Aspiramos Formar',
+      paragraphs: [
+        'En el Colegio Nuestra Señora del Sagrado Corazón, buscamos desarrollar una identidad institucional en nuestros estudiantes, caracterizada por valores fundamentales que los preparen para los desafíos del futuro. Nuestros egresados se distinguen por:',
+      ],
+    },
+    {
+      title: 'Valores Humanos',
       bullets: [
-        'Visión positiva y esperanzadora de la vida.',
-        'Valores evangélicos, alegría y actuar fraterno y solidario.',
-        'Respeto por las diferencias personales, sociales, culturales y religiosas.',
-        'Rol protagónico en su proceso educativo y formación integral.',
-        'Herramientas para pensamiento crítico e inserción universitaria y laboral.',
-        'Compromiso con una mirada holística y el cuidado de la Tierra como Casa Común.',
+        'Actitud positiva y esperanzadora.',
+        'Alegría, fraternidad y solidaridad.',
+        'Respeto por las diferencias.',
+      ],
+    },
+    {
+      title: 'Formación Integral',
+      bullets: [
+        'Valores evangélicos.',
+        'Capacidad de trabajo en equipo.',
+        'Pensamiento crítico.',
+      ],
+    },
+    {
+      title: 'Proyección al Futuro',
+      bullets: [
+        'Herramientas para el ámbito universitario.',
+        'Preparación para el mundo laboral.',
+        'Conciencia ambiental y responsabilidad global.',
+      ],
+    },
+    {
+      title: 'Cierre del Perfil',
+      paragraphs: [
+        'Esta formación integral constituye el núcleo de nuestra propuesta educativa, buscando que cada estudiante desarrolle al máximo sus potencialidades en un ambiente de respeto, calidez y solidez académica adecuada.',
       ],
     },
   ],
@@ -235,7 +258,7 @@ const profileData: DetailData = {
 
 const institutionData: DetailData = {
   title: 'Nuestra Institución',
-  subtitle: 'Misión, Visión y Perfil de Nuestros Alumnos en una misma página.',
+  subtitle: '',
   image: primariaGallery3,
   highlights: [
     ...(missionData.highlights ?? []),
@@ -751,7 +774,7 @@ function HomePage() {
           style={{ transform: `translate3d(0, ${Math.min(18, scrollOffset * 0.009)}px, 0)` }}
         >
           <InstitutionSection
-            title="Nuestra Institución"
+            title="Nuestra Identidad Institucional"
             intro="Los pilares que guían nuestra propuesta educativa."
             tabs={institutionTabs}
             activeInstitutionId={activeInstitutionId}
@@ -1345,7 +1368,13 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
         </Link>
 
         <h1 className="mt-3 text-4xl font-semibold text-slate-900">{data.title}</h1>
-        <p className="mt-1 text-lg font-medium text-brand-primary">{data.subtitle}</p>
+        <p
+          className={`mt-1 text-lg font-medium text-brand-primary ${
+            data.title === 'Perfil de Nuestros Alumnos' ? 'whitespace-pre-line text-justify' : ''
+          }`}
+        >
+          {data.subtitle}
+        </p>
 
         {data.facts && data.facts.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-2">
@@ -1718,6 +1747,33 @@ function DetailTemplate({ data }: { data: DetailData }) {
   const leftColumnSection = data.sections[0]
   const rightColumnSection = data.sections[1]
   const remainingSections = data.sections.slice(2)
+  const profileCardTitles = new Set(['Valores Humanos', 'Formación Integral', 'Proyección al Futuro'])
+  const profileIntroSection = remainingSections.find((section) => section.title === 'Perfil del Alumno que Aspiramos Formar')
+  const profileOutroSection = remainingSections.find((section) => section.title === 'Cierre del Perfil')
+  const profileHighlightSections = remainingSections.filter((section) => profileCardTitles.has(section.title))
+  const profileCardToneStyles: Record<string, { card: string; title: string; dot: string }> = {
+    'Valores Humanos': {
+      card: 'border-sky-200 bg-sky-50/90',
+      title: 'text-sky-900',
+      dot: 'bg-sky-500',
+    },
+    'Formación Integral': {
+      card: 'border-sky-200 bg-sky-50/90',
+      title: 'text-sky-900',
+      dot: 'bg-sky-500',
+    },
+    'Proyección al Futuro': {
+      card: 'border-sky-200 bg-sky-50/90',
+      title: 'text-sky-900',
+      dot: 'bg-sky-500',
+    },
+  }
+  const regularRemainingSections = remainingSections.filter(
+    (section) =>
+      section.title !== 'Perfil del Alumno que Aspiramos Formar' &&
+      section.title !== 'Cierre del Perfil' &&
+      !profileCardTitles.has(section.title),
+  )
 
   const getSectionId = (section: SectionData) => {
     const originalIndex = data.sections.findIndex((item) => item.title === section.title)
@@ -1892,9 +1948,56 @@ function DetailTemplate({ data }: { data: DetailData }) {
           </section>
         )}
 
-        {remainingSections.length > 0 && (
+        {profileHighlightSections.length > 0 && (
+          <section className="mt-5 rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+            <h2 className="text-2xl font-semibold text-slate-900">
+              {profileIntroSection?.title ?? 'Perfil del Alumno que Aspiramos Formar'}
+            </h2>
+
+            {profileIntroSection?.paragraphs?.map((paragraph) => (
+              <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                {paragraph}
+              </p>
+            ))}
+
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {profileHighlightSections.map((section) => {
+                const tone = profileCardToneStyles[section.title] ?? {
+                  card: 'border-slate-200 bg-slate-50/95',
+                  title: 'text-slate-900',
+                  dot: 'bg-brand-primary',
+                }
+
+                return (
+                <article key={section.title} className={`rounded-xl border p-4 shadow-sm ${tone.card}`}>
+                  <h3 className={`text-xl font-semibold ${tone.title}`}>{section.title}</h3>
+
+                  {section.bullets && (
+                    <ul className="mt-3 space-y-2 text-sm text-slate-700">
+                      {section.bullets.map((bullet) => (
+                        <li key={bullet} className="flex items-start gap-2">
+                          <span className={`mt-1.5 h-1.5 w-1.5 rounded-full ${tone.dot}`} />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+                )
+              })}
+            </div>
+
+            {profileOutroSection?.paragraphs?.map((paragraph) => (
+              <p key={paragraph} className="mt-5 text-sm leading-relaxed text-slate-700">
+                {paragraph}
+              </p>
+            ))}
+          </section>
+        )}
+
+        {regularRemainingSections.length > 0 && (
           <section className="mt-5 space-y-4">
-            {remainingSections.map((section) => (
+            {regularRemainingSections.map((section) => (
               <article id={getSectionId(section)} key={section.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
                 <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
 

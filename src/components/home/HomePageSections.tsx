@@ -217,7 +217,14 @@ export function InstitutionSection({
 
         <div className="rounded-2xl bg-white p-5 shadow-sm md:p-6">
           <h3 className="text-3xl font-semibold text-slate-900">{activeInstitution.data.title}</h3>
-          <p className="mt-3 leading-relaxed text-slate-700">{activeInstitution.data.subtitle}</p>
+          <p
+            className={`mt-3 leading-relaxed text-slate-700 ${
+              activeInstitution.id === 'perfil' ? 'whitespace-pre-line text-justify' : ''
+            }`}
+          >
+            {activeInstitution.data.subtitle}
+          </p>
+
           <ul className="mt-5 space-y-2.5 text-sm text-slate-700">
             {(activeInstitution.data.highlights ?? []).slice(0, 4).map((item) => (
               <li key={item} className="flex items-start gap-2">
@@ -229,10 +236,9 @@ export function InstitutionSection({
 
           <Link
             to={activeInstitution.link}
-            className="mt-6 inline-flex items-center gap-2 rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy hover:shadow-md"
+            className="mt-6 inline-flex items-center justify-center rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-navy hover:shadow-md"
           >
             Ver página completa
-            <span aria-hidden>→</span>
           </Link>
         </div>
       </div>
@@ -276,9 +282,9 @@ export function LevelsSection({
             <div className="p-5">
               <h3 className="text-2xl font-semibold text-slate-900">{item.title}</h3>
               <p className="mt-2 text-sm text-slate-700">{item.description}</p>
-              <p className="mt-4 text-sm font-semibold text-brand-primary group-hover:text-brand-navy">
+              <span className="mt-4 inline-flex items-center justify-center rounded-full bg-brand-primary px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition group-hover:bg-brand-navy group-hover:shadow-md">
                 Ver más información
-              </p>
+              </span>
             </div>
           </Link>
         ))}
