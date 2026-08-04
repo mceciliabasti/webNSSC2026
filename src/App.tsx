@@ -24,8 +24,9 @@ import secundariaMain from './imagenes/Secundaria/20250626_095050.jpg'
 import secundariaCard from './imagenes/Secundaria/20250626_095831.jpg'
 import infoNivelesPdf from './info/info-niveles.pdf'
 import comunicacionCnsccPdf from './info/comunicacion-cnssc.pdf'
+import propuestaEducativaVedrunaPdf from './recursos/recursos/Propuesta Educativa Vedruna.pdf'
+import vedrunaEnElMundoPreview from './imagenes/Colegio/vedruna-en-el-mundo-preview.png'
 import type { DetailData, ResourceItem, SectionData } from './types/content'
-import { InfoIcon } from './components/ui/InfoIcon'
 
 function slugify(value: string) {
   return value
@@ -279,37 +280,51 @@ const institutionData: DetailData = {
 
 const historyData: DetailData = {
   title: 'Nuestra Historia',
-  subtitle: 'Memorias de los primeros 113 años del Colegio Nuestra Señora del Sagrado Corazón.',
+  subtitle: 'Más de un siglo de solidez educativa, tradición Vedruna y compromiso con cada generación.',
   image: primariaGallery2,
   highlights: [
-    'Fundación iniciada en Buenos Aires en 1913.',
-    'Crámer 2370 como sede histórica desde 1921.',
-    'Más de un siglo educando en valores para la vida.',
+    'En noviembre de 1912 llegan a Buenos Aires las Hermanas Carmelitas de la Caridad Vedruna.',
+    'En 1913 nace el colegio en Belgrano, con aprobación oficial y una primera matrícula de 26 alumnas.',
+    'Una historia de crecimiento sostenido, identidad Vedruna y adaptación a cada época educativa.',
   ],
   facts: [
     { label: 'Fundación', value: '1913' },
     { label: 'Sede', value: 'Crámer 2370' },
-    { label: 'Trayectoria', value: '113 años' },
+    { label: 'Trayectoria', value: 'Más de un siglo' },
   ],
   sections: [
     {
-      title: 'Orígenes y fundación',
+      title: 'Nuestros inicios (1912-1913)',
       paragraphs: [
-        'El apostolado docente de las Hermanas Carmelitas de la Caridad Vedruna comienza en Buenos Aires en 1912 con la llegada de las primeras hermanas desde España.',
-        'En 1913 se consolidan los inicios del colegio en Belgrano, primero en Crámer 2005 y luego en Vidal 2025, con crecimiento sostenido del nivel primario.',
+        'La historia del Colegio Nuestra Señora del Sagrado Corazón comienza en noviembre de 1912, con la llegada a Buenos Aires de tres Hermanas Carmelitas de la Caridad Vedruna: Concepción Figuerola, Eustaquia de Echeverría y Dolores Mascaró.',
+        'Ellas dejaron su España natal para traer el carisma Vedruna a tierras argentinas. El comienzo fue modesto, pero lleno de esperanza: en 1913 se alquiló un pequeño chalet en Crámer 2005, en el barrio de Belgrano.',
+        'En pocos meses, el colegio recibió su aprobación oficial y comenzó su misión educativa con 26 alumnas, sentando las bases de una institución que marcaría la educación porteña.',
       ],
     },
     {
-      title: 'Casa propia y crecimiento institucional',
+      title: 'Crecimiento y consolidación',
       paragraphs: [
-        'En 1919 se adquiere el inmueble de Crámer y en 1921 el colegio se traslada definitivamente a Crámer 2370.',
-        'Con el paso de los años se expanden aulas, comedor, capilla y nuevas propuestas educativas y pastorales, manteniendo como eje la pedagogía del amor.',
+        'Con el crecimiento de la comunidad educativa, el colegio se trasladó temporalmente a Vidal 2025, donde amplió su matrícula para recibir alumnas internas y externas.',
+        'En esa etapa también incorporó formación musical a través del Conservatorio Tibaud Piazzini. Con el tiempo, la institución fue consolidando su presencia con una propuesta que conjugó tradición e innovación sin perder su identidad Vedruna.',
       ],
+    },
+    {
+      title: 'Línea de tiempo institucional',
       bullets: [
-        '1949: inauguración del Salón de Actos.',
-        '1971: apertura del Jardín de Infantes.',
-        '1996: el colegio se transforma en mixto.',
-        '2013: celebración de los primeros 100 años.',
+        '1919: Se adquiere el edificio Las Cuatro Estaciones en Crámer 2370, estableciendo una sede propia para el crecimiento institucional. Tres años más tarde, el colegio se traslada definitivamente a Crámer 2370, dirección que continúa siendo su casa hasta hoy.',
+        '1930: Según registros internos, ya funcionaba el Nivel Inicial de manera no formal y mixta, como una respuesta temprana a las necesidades educativas de la comunidad.',
+        '1931: Se inaugura la sección secundaria oficial con el Liceo Nacional de Señoritas Nº 2, ampliando la propuesta formativa y fortaleciendo el proyecto educativo.',
+        '1937-1940: Se proyecta y construye la Capilla, consagrada con el nombre de Nuestra Señora del Carmen, patrona de la congregación. Su inauguración oficial, con la bendición del Cardenal Copello, la consolida como espacio de recogimiento, oración y vida comunitaria.',
+        '1971: Se crea formalmente el Jardín de Infantes, completando los niveles educativos y permitiendo una trayectoria escolar continua desde los primeros años.',
+        '1992: Comienzan los bachilleratos con orientación laboral en Informática y Comunicación Social, en sintonía con las demandas formativas y profesionales de la época.',
+        '1996: El colegio se transforma en mixto y ese mismo año incorpora la doble escolaridad, profundizando su propuesta integral y su apertura a nuevos tiempos.',
+      ],
+    },
+    {
+      title: 'Legado que continúa',
+      paragraphs: [
+        'Cada etapa de esta historia refleja el compromiso con la excelencia educativa y la capacidad de adaptación a los tiempos, manteniendo siempre la esencia de los valores Vedruna.',
+        'El colegio ha sabido evolucionar sin perder su identidad, conjugando tradición e innovación al servicio de la comunidad educativa. Hoy continúa construyendo comunidad con la misma convicción de sus orígenes: educar con sentido, cercanía y vocación de servicio.',
       ],
     },
   ],
@@ -317,34 +332,70 @@ const historyData: DetailData = {
 
 const pastoralData: DetailData = {
   title: 'Pastoral',
-  subtitle: 'Síntesis entre fe, cultura y vida en toda la trayectoria escolar.',
+  subtitle: 'Fe, servicio y encuentro como eje transversal de la propuesta educativa Vedruna.',
   image: colegioPastoral,
   highlights: [
-    'Escuela católica con identidad Vedruna.',
-    'Acompañamiento espiritual desde Inicial hasta Secundario.',
-    'Misión Juvenil Vedruna y acción comunitaria en El Manso.',
+    'Plan Pastoral articulado entre escuela y congregación.',
+    'Educación en valores desde la fe y el carisma Vedruna.',
+    'Experiencias de acompañamiento, reflexión, sacramentos y servicio comunitario.',
   ],
   facts: [
     { label: 'Eje', value: 'Fe, cultura y vida' },
-    { label: 'Alcance', value: 'Todos los niveles' },
-    { label: 'Comunidad', value: 'MJV + El Manso' },
+    { label: 'Alcance', value: 'Toda la comunidad educativa' },
+    { label: 'Comunidad', value: 'MJV, El Manso y proyectos pastorales' },
   ],
   sections: [
     {
       title: 'Identidad pastoral',
       paragraphs: [
-        'Somos una escuela católica de la congregación Vedruna. Nuestro carisma se basa en presencia cercana, sencillez y espíritu de familia.',
-        'Promovemos una escuela donde aprender y convivir sean parte de un mismo proceso, con alegría compartida, mirada compasiva y compromiso comunitario.',
+        'La dimensión pastoral constituye un eje transversal en la propuesta educativa del Colegio Nuestra Señora del Sagrado Corazón. A través de ella promovemos un enfoque integrador que vincula la fe, la cultura y la vida cotidiana.',
+        'El Plan Pastoral articula actividades y proyectos que vinculan escuela y congregación, fomentando la educación en valores desde la fe y el carisma Vedruna, con alegría, compasión y sentido de comunidad.',
       ],
     },
     {
-      title: 'Propuesta por niveles',
+      title: 'Origen y fundamentación',
+      paragraphs: [
+        'El Plan Pastoral surge para consolidar estructuras organizativas, profundizar proyectos ya en curso y establecer un sistema de seguimiento, comunicación y evaluación más sostenido.',
+        'Coordinado por agentes de pastoral y referentes institucionales, busca fortalecer la vinculación, la reflexión y la profundización de todos los participantes con el carisma Vedruna.',
+      ],
+    },
+    {
+      title: 'Metas concretas',
       bullets: [
-        'Nivel Inicial: catequesis y celebraciones.',
-        'Nivel Primario: catequesis sacramental, reconciliación y eucaristía.',
-        'Nivel Secundario: proceso catequístico y confirmación.',
-        'Misión Juvenil Vedruna: encuentros, retiros, convivencias y acciones solidarias.',
-        'Centro Comunitario El Manso: compromiso social y servicio.',
+        'Concientización efectiva de las distintas dimensiones de la pastoral por parte del estudiantado.',
+        'Difusión periódica de producciones vinculadas al carisma Vedruna.',
+        'Coordinación y desarrollo de propuestas sacramentales de opción institucional.',
+        'Acciones solidarias que integren a estudiantes, personal, familias, egresados y comunidad cercana.',
+        'Sistema fluido de comunicación, planificación y seguimiento de proyectos pastorales transversales.',
+      ],
+    },
+    {
+      title: 'Actividades y proyectos destacados',
+      bullets: [
+        'Catequesis curricular y familiar por niveles educativos, con sacramentos de opción institucional.',
+        'Taller de Visión Pastoral como espacio de reflexión integral e interdisciplinaria.',
+        'Misión Juvenil Vedruna con retiros, encuentros, acciones solidarias y eventos comunitarios.',
+        'Laicado Vedruna como propuesta de fe, espiritualidad y carisma para adultos.',
+        'Centro Comunitario Vedruna El Manso con campañas y acciones de acercamiento comunitario.',
+      ],
+    },
+    {
+      title: 'Acompañamiento sacramental por niveles',
+      bullets: [
+        'Nivel Inicial: catequesis sistemática, celebraciones litúrgicas, primeros encuentros con Jesús y vivencia cotidiana de valores.',
+        'Nivel Primario: catequesis sacramental y celebraciones institucionales en el camino de reconciliación y eucaristía.',
+        'Nivel Secundario: profundización en la fe, confirmación, convivencias y proyectos de servicio comunitario.',
+      ],
+    },
+    {
+      title: 'Misión Juvenil Vedruna y acción solidaria',
+      paragraphs: [
+        'La Misión Juvenil Vedruna representa un espacio privilegiado para vivir experiencias transformadoras de fe, encuentro y compromiso social.',
+      ],
+      bullets: [
+        'Retiros espirituales por nivel, encuentros de reflexión y oración, campamentos de integración y celebraciones litúrgicas significativas.',
+        'Proyectos de voluntariado, apoyo al Centro Comunitario El Manso, campañas solidarias estacionales y acompañamiento a comunidades vulnerables.',
+        'Desarrollo de sensibilidad social y compromiso activo con una sociedad más justa y fraterna, en consonancia con los valores evangélicos.',
       ],
     },
   ],
@@ -352,12 +403,12 @@ const pastoralData: DetailData = {
 
 const vedrunaData: DetailData = {
   title: 'Somos Vedruna',
-  subtitle: 'Una familia educativa con casi 200 años de presencia y servicio.',
+  subtitle: 'Carisma Vedruna: nuestra esencia fundacional al servicio de la educación y la vida.',
   image: colegioVedruna,
   highlights: [
-    'Pertenece a la congregación Carmelitas de la Caridad Vedruna.',
-    'Presencia en educación, salud y acción social.',
-    'Compromiso histórico con los más vulnerables.',
+    '"La educación es obra del corazón" - Santa Joaquina de Vedruna.',
+    'Enfoque educativo basado en el amor, la ternura y la dedicación.',
+    'Casi dos siglos de compromiso en educación, salud y acción social.',
   ],
   facts: [
     { label: 'Legado', value: 'Casi 200 años' },
@@ -366,10 +417,35 @@ const vedrunaData: DetailData = {
   ],
   sections: [
     {
+      title: 'Carisma Vedruna: nuestra esencia fundacional',
+      paragraphs: [
+        '"La educación es obra del corazón". Inspirados en Santa Joaquina de Vedruna, asumimos una pedagogía que pone en el centro el amor, la ternura, la dedicación y la compasión para acompañar el crecimiento de cada estudiante.',
+        'El Colegio Nuestra Señora del Sagrado Corazón pertenece a la Familia Vedruna y forma parte de la congregación Hermanas Carmelitas de la Caridad, con casi dos siglos de compromiso en educación, salud y acción social en diversos países del mundo.',
+      ],
+    },
+    {
       title: 'Familia Vedruna',
       paragraphs: [
-        'Nuestro colegio forma parte de la Congregación Carmelitas de la Caridad Vedruna, presente en educación, salud y acción social, con foco en los más vulnerables.',
-        'En red con comunidades de distintos países, Vedruna sostiene una presencia itinerante, de sobriedad, fraternidad y compromiso evangélico al servicio de la vida.',
+        'Nuestra comunidad educativa se sustenta en un carisma que impulsa el desarrollo integral de la persona y reconoce la dignidad de cada vida como principio irrenunciable.',
+        'Este carisma no se limita a un área puntual: impregna la enseñanza, la convivencia cotidiana, los vínculos y cada propuesta formativa del colegio.',
+      ],
+    },
+    {
+      title: 'Elementos fundamentales del carisma',
+      bullets: [
+        'Pedagogía del amor: educar desde la cercanía, la ternura y la confianza.',
+        'Dignidad de cada persona: acompañamiento personalizado y mirada integral.',
+        'Compasión activa: sensibilidad ante las necesidades de los demás y compromiso con el bien común.',
+        'Trabajo en comunión: articulación entre docentes, directivos, personal y religiosas Vedruna.',
+        'Servicio transformador: presencia en educación, salud y acción social con foco en los más vulnerables.',
+        'Fidelidad creativa: adaptación a los desafíos del siglo XXI sin perder la esencia fundacional.',
+      ],
+    },
+    {
+      title: 'Un legado vivo para hoy',
+      paragraphs: [
+        'Docentes, directivos y personal no docente, junto con las religiosas Vedruna, trabajan en comunión para transmitir estos valores a las nuevas generaciones.',
+        'Así, la tradición Vedruna continúa viva en nuestra institución, conjugando raíces profundas e innovación educativa al servicio de una formación humana, académica y espiritual completa.',
       ],
     },
   ],
@@ -932,7 +1008,6 @@ function InscripcionesPage() {
         <Link to="/" className="text-sm font-medium text-brand-primary transition hover:text-brand-navy">
           ← Volver al inicio
         </Link>
-        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Admisiones</p>
         <h1 className="mt-2 text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">Formulario de Inscripciones</h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-700">
           Completá tus datos y nos vamos a comunicar con vos para continuar el proceso de admisión.
@@ -1191,7 +1266,6 @@ function AuthoritiesPage() {
           ← Volver al inicio
         </Link>
 
-        <p className="mt-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-primary">Institucional</p>
         <h1 className="mt-2 text-4xl font-semibold leading-tight text-slate-900 sm:text-5xl">Autoridades</h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-700">
           Equipo directivo y apoderado legal del colegio.
@@ -1245,6 +1319,11 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
   const rightColumnSection = data.sections[1]
   const remainingSections = data.sections.slice(2)
   const activeResourceGroup = resourceGroups.find((group) => group.id === activeResourceGroupId) ?? resourceGroups[0]
+  const levelHeaderAccentClass: Record<LevelKey, string> = {
+    inicial: 'bg-[linear-gradient(90deg,#7c2d12_0%,#f59e0b_100%)]',
+    primario: 'bg-[linear-gradient(90deg,#0f766e_0%,#2dd4bf_100%)]',
+    secundario: 'bg-[linear-gradient(90deg,#0f3b77_0%,#60a5fa_100%)]',
+  }
 
   const lightboxAnimationClass =
     galleryMotion === 'next'
@@ -1368,28 +1447,15 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
         </Link>
 
         <h1 className="mt-3 text-4xl font-semibold text-slate-900">{data.title}</h1>
+        <div className={`mt-3 h-1 w-28 rounded-full ${levelHeaderAccentClass[levelKey]}`} aria-hidden="true" />
         <p
-          className={`mt-1 text-lg font-medium text-brand-primary ${
+          className={`mt-3 text-lg font-medium text-brand-primary ${
             data.title === 'Perfil de Nuestros Alumnos' ? 'whitespace-pre-line text-justify' : ''
           }`}
         >
           {data.subtitle}
         </p>
 
-        {data.facts && data.facts.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2">
-            {data.facts.map((fact) => (
-              <span
-                key={fact.label}
-                className="inline-flex items-center gap-1 rounded-md border border-blue-100 bg-blue-50 px-3 py-1 text-xs text-slate-700"
-              >
-                <InfoIcon text={fact.label} className="h-3.5 w-3.5 text-brand-primary" />
-                <span className="font-semibold">{fact.label}:</span>
-                <span>{fact.value}</span>
-              </span>
-            ))}
-          </div>
-        )}
 
         <p className="mt-5 max-w-5xl leading-relaxed text-slate-700">{introText}</p>
 
@@ -1621,7 +1687,6 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
                           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                             <div className="min-w-0">
                               <p className="text-sm font-semibold text-slate-900">{resource.title}</p>
-                              <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{resource.format ?? 'archivo'}</p>
                             </div>
                             <div className="flex flex-wrap gap-2">
                               <a
@@ -1736,13 +1801,20 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
 function DetailTemplate({ data }: { data: DetailData }) {
   const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null)
   const [galleryMotion, setGalleryMotion] = useState<'next' | 'prev' | 'zoom'>('zoom')
+  const [timelineProgress, setTimelineProgress] = useState(0)
   const touchStartX = useRef<number | null>(null)
   const touchStartY = useRef<number | null>(null)
   const galleryViewportRef = useRef<HTMLDivElement | null>(null)
+  const timelineRef = useRef<HTMLDivElement | null>(null)
 
   const galleryItems = data.gallery ?? []
   const resources = data.resources ?? []
   const isLightboxOpen = activeGalleryIndex !== null
+  const isInstitutionDetailPage = data.title === 'Nuestra Institución'
+  const isPastoralDetailPage = data.title === 'Pastoral'
+  const isHistoryDetailPage = data.title === 'Nuestra Historia'
+  const isVedrunaDetailPage = data.title === 'Somos Vedruna'
+  const usesAccentedDetailHeader = isInstitutionDetailPage || isPastoralDetailPage || isHistoryDetailPage || isVedrunaDetailPage
   const introText = data.highlights?.[0] ?? data.sections[0]?.paragraphs?.[0] ?? data.subtitle
   const leftColumnSection = data.sections[0]
   const rightColumnSection = data.sections[1]
@@ -1816,6 +1888,34 @@ function DetailTemplate({ data }: { data: DetailData }) {
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [galleryItems.length, isLightboxOpen])
+
+  useEffect(() => {
+    if (!isHistoryDetailPage) {
+      setTimelineProgress(0)
+      return
+    }
+
+    const updateTimelineProgress = () => {
+      const container = timelineRef.current
+      if (!container) return
+
+      const rect = container.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+      const total = rect.height + viewportHeight * 0.4
+      const covered = viewportHeight - rect.top - viewportHeight * 0.2
+      const progress = Math.max(0, Math.min(1, covered / total))
+      setTimelineProgress(progress)
+    }
+
+    updateTimelineProgress()
+    window.addEventListener('scroll', updateTimelineProgress, { passive: true })
+    window.addEventListener('resize', updateTimelineProgress)
+
+    return () => {
+      window.removeEventListener('scroll', updateTimelineProgress)
+      window.removeEventListener('resize', updateTimelineProgress)
+    }
+  }, [isHistoryDetailPage])
 
   const showNextImage = () => {
     if (!galleryItems.length) return
@@ -1892,60 +1992,108 @@ function DetailTemplate({ data }: { data: DetailData }) {
           ← Volver al inicio
         </Link>
 
-        <h1 className="mt-3 text-4xl font-semibold text-slate-900">{data.title}</h1>
-        <p className="mt-1 text-lg font-medium text-brand-primary">{data.subtitle}</p>
+        <h1 className={`mt-3 text-4xl font-semibold ${usesAccentedDetailHeader ? 'text-brand-primary' : 'text-slate-900'}`}>{data.title}</h1>
+        {usesAccentedDetailHeader && (
+          <div className="mt-3 h-1 w-28 rounded-full bg-[linear-gradient(90deg,#0f3b77_0%,#60a5fa_100%)]" aria-hidden="true" />
+        )}
+        <p className={`mt-3 text-lg font-medium ${usesAccentedDetailHeader ? 'text-brand-primary' : 'text-brand-primary'}`}>{data.subtitle}</p>
 
-        {data.facts && data.facts.length > 0 && (
-          <section id="ficha-rapida" className="mt-4 flex flex-wrap gap-2">
-            {data.facts.map((fact) => (
-              <span
-                key={fact.label}
-                className="inline-flex items-center gap-1 rounded-full border border-slate-200 bg-sand-50 px-3 py-1 text-xs text-slate-700 shadow-sm"
-              >
-                <InfoIcon text={fact.label} className="h-3.5 w-3.5 text-brand-primary" />
-                <span className="font-semibold">{fact.label}:</span>
-                <span>{fact.value}</span>
-              </span>
-            ))}
-          </section>
+        {isVedrunaDetailPage ? (
+          <blockquote className="mt-5 max-w-5xl rounded-2xl border border-brand-primary/25 bg-[linear-gradient(110deg,rgba(15,42,96,0.15),rgba(96,165,250,0.2)_50%,rgba(47,141,138,0.14))] px-5 py-4 text-brand-primary shadow-[0_14px_34px_-24px_rgba(15,42,96,0.45)]">
+            <p className="overflow-x-auto whitespace-nowrap text-lg font-semibold leading-relaxed text-brand-navy">
+              "La educación es obra del corazón" - <span className="text-sm font-normal italic text-brand-navy">Santa Joaquina de Vedruna</span>
+            </p>
+          </blockquote>
+        ) : (
+          <p className={`mt-5 max-w-5xl leading-relaxed ${isPastoralDetailPage ? 'text-slate-800' : 'text-slate-700'} ${isVedrunaDetailPage ? 'text-justify' : ''}`}>{introText}</p>
         )}
 
-        <p className="mt-5 max-w-5xl leading-relaxed text-slate-700">{introText}</p>
+        {isInstitutionDetailPage ? (
+          <section className="soft-reveal mt-6 grid gap-5 lg:grid-cols-[1fr_1.05fr] lg:items-start">
+            <div className="space-y-5">
+              {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
+                <article id={getSectionId(section!)} key={section!.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
+                  <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
 
-        <img
-          src={data.image}
-          alt={data.title}
-          loading="eager"
-          decoding="async"
-          fetchPriority="high"
-          className="mt-5 h-[340px] w-full rounded-xl border border-slate-200 object-cover shadow-sm md:h-[420px]"
-        />
+                  {section!.paragraphs?.map((paragraph) => (
+                    <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                      {paragraph}
+                    </p>
+                  ))}
 
-        {(leftColumnSection || rightColumnSection) && (
-          <section className="soft-reveal mt-6 grid gap-5 md:grid-cols-2">
-            {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-              <article id={getSectionId(section!)} key={section!.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
-                <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
+                  {section!.bullets && (
+                    <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                      {section!.bullets.map((bullet) => (
+                        <li key={bullet} className="flex gap-2">
+                          <span className="mt-2 h-1.5 w-1.5 rounded-full bg-brand-primary" />
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </article>
+              ))}
+            </div>
 
-                {section!.paragraphs?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
-                    {paragraph}
-                  </p>
-                ))}
-
-                {section!.bullets && (
-                  <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                    {section!.bullets.map((bullet) => (
-                      <li key={bullet} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 rounded-full bg-brand-primary" />
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </article>
-            ))}
+            <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
+              <img
+                src={data.image}
+                alt={data.title}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className="h-[260px] w-full object-cover object-top md:h-[320px]"
+              />
+            </div>
           </section>
+        ) : (
+          <>
+            {!isVedrunaDetailPage && (
+              <img
+                src={data.image}
+                alt={data.title}
+                loading="eager"
+                decoding="async"
+                fetchPriority="high"
+                className={`mt-5 h-[340px] w-full rounded-xl object-cover shadow-sm md:h-[420px] ${
+                  isPastoralDetailPage ? 'border border-sky-200' : 'border border-slate-200'
+                }`}
+              />
+            )}
+
+            {(leftColumnSection || rightColumnSection) && (
+              <section className={`soft-reveal mt-6 grid gap-5 ${isVedrunaDetailPage ? '' : 'md:grid-cols-2'}`}>
+                {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
+                  <article
+                    id={getSectionId(section!)}
+                    key={section!.title}
+                    className={`section-card-hover rounded-[1.5rem] border p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)] ${
+                      isPastoralDetailPage ? 'border-sky-200/80 bg-[linear-gradient(180deg,rgba(239,246,255,0.98),rgba(255,255,255,0.96))]' : 'border-slate-200/70 bg-white/94'
+                    }`}
+                  >
+                    <h2 className={`text-3xl font-semibold ${isPastoralDetailPage ? 'text-brand-primary' : 'text-slate-900'}`}>{section!.title}</h2>
+
+                    {section!.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className={`mt-4 text-sm leading-relaxed text-slate-700 ${isVedrunaDetailPage ? 'text-justify' : ''}`}>
+                        {paragraph}
+                      </p>
+                    ))}
+
+                    {section!.bullets && (
+                      <ul className="mt-4 space-y-2 text-sm text-slate-700">
+                        {section!.bullets.map((bullet) => (
+                          <li key={bullet} className="flex gap-2">
+                            <span className={`mt-2 h-1.5 w-1.5 rounded-full ${isPastoralDetailPage ? 'bg-sky-600' : 'bg-brand-primary'}`} />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
+                ))}
+              </section>
+            )}
+          </>
         )}
 
         {profileHighlightSections.length > 0 && (
@@ -1995,29 +2143,180 @@ function DetailTemplate({ data }: { data: DetailData }) {
           </section>
         )}
 
+        {isInstitutionDetailPage && (
+          <section className="mt-5 rounded-2xl border border-sky-200 bg-sky-50/80 p-4 md:p-5">
+            <p className="text-base font-semibold text-slate-900">Mirá nuestra Propuesta Educativa Vedruna</p>
+            <div className="mt-3 flex flex-wrap gap-2">
+              <a
+                href={propuestaEducativaVedrunaPdf}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-brand-navy"
+              >
+                Ver archivo
+              </a>
+              <a
+                href={propuestaEducativaVedrunaPdf}
+                download="Propuesta Educativa Vedruna.pdf"
+                className="inline-flex items-center justify-center rounded-full border border-brand-primary bg-white px-4 py-2 text-xs font-semibold text-brand-primary transition hover:bg-brand-sky/10"
+              >
+                Descargar PDF
+              </a>
+            </div>
+          </section>
+        )}
+
         {regularRemainingSections.length > 0 && (
           <section className="mt-5 space-y-4">
             {regularRemainingSections.map((section) => (
-              <article id={getSectionId(section)} key={section.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
-                <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
+              (() => {
+                const isHistoryTimelineSection =
+                  isHistoryDetailPage &&
+                  section.title.toLowerCase().includes('línea de tiempo') &&
+                  Boolean(section.bullets?.length)
+                const isVedrunaCarismaSection =
+                  isVedrunaDetailPage &&
+                  section.title.toLowerCase().includes('elementos fundamentales') &&
+                  Boolean(section.bullets?.length)
 
-                {section.paragraphs?.map((paragraph) => (
-                  <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
-                    {paragraph}
-                  </p>
-                ))}
+                if (isVedrunaCarismaSection) {
+                  return (
+                    <article
+                      id={getSectionId(section)}
+                      key={section.title}
+                      className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]"
+                    >
+                      <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
 
-                {section.bullets && (
-                  <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-2">
-                    {section.bullets.map((bullet) => (
-                      <li key={bullet} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                        {bullet}
-                      </li>
+                      <div className="mt-4 grid gap-3 md:grid-cols-2">
+                        {section.bullets?.map((bullet, index) => {
+                          const separatorIndex = bullet.indexOf(':')
+                          const heading = separatorIndex > -1 ? bullet.slice(0, separatorIndex).trim() : ''
+                          const description = separatorIndex > -1 ? bullet.slice(separatorIndex + 1).trim() : bullet
+
+                          return (
+                            <article
+                              key={bullet}
+                              className="section-enter section-card-hover rounded-xl border border-sky-200 bg-[linear-gradient(180deg,rgba(239,246,255,0.95),rgba(255,255,255,0.98))] p-4 shadow-sm"
+                              style={{ animationDelay: `${index * 80}ms` }}
+                            >
+                              {heading && <h3 className="text-base font-semibold text-brand-primary">{heading}</h3>}
+                              <p className="mt-1.5 text-sm leading-relaxed text-slate-700 text-justify">{description}</p>
+                            </article>
+                          )
+                        })}
+                      </div>
+                    </article>
+                  )
+                }
+
+                if (isHistoryTimelineSection) {
+                  return (
+                    <article
+                      id={getSectionId(section)}
+                      key={section.title}
+                      className="section-card-hover rounded-[1.5rem] border border-sky-200/80 bg-[linear-gradient(180deg,rgba(239,246,255,0.97),rgba(255,255,255,0.95))] p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]"
+                    >
+                      <h2 className="text-2xl font-semibold text-brand-primary">{section.title}</h2>
+
+                      <div ref={timelineRef} className="relative mt-5 pl-6">
+                        <span className="absolute bottom-2 left-[9px] top-2 w-[2px] rounded-full bg-[linear-gradient(180deg,#60a5fa_0%,#0f3b77_100%)]" aria-hidden="true" />
+                        <span
+                          className="absolute left-[9px] top-2 w-[2px] rounded-full bg-[linear-gradient(180deg,#93c5fd_0%,#1d4ed8_100%)] shadow-[0_0_10px_rgba(59,130,246,0.5)]"
+                          style={{ height: `calc((100% - 1rem) * ${timelineProgress})` }}
+                          aria-hidden="true"
+                        />
+
+                        <ul className="space-y-3">
+                          {section.bullets?.map((bullet, index) => {
+                            const separatorIndex = bullet.indexOf(':')
+                            const year = separatorIndex > -1 ? bullet.slice(0, separatorIndex).trim() : ''
+                            const description = separatorIndex > -1 ? bullet.slice(separatorIndex + 1).trim() : bullet
+                            const offsetClass = index % 2 === 0 ? 'md:mr-10' : 'md:ml-10'
+                            const dotClass = index % 2 === 0 ? 'bg-brand-primary' : 'bg-sky-600'
+
+                            return (
+                              <li
+                                key={bullet}
+                                className={`section-enter section-card-hover relative rounded-xl border border-blue-800/70 bg-[linear-gradient(160deg,#0f2a60_0%,#10203f_100%)] p-3.5 text-white shadow-[0_14px_30px_-20px_rgba(15,42,96,0.85)] ${offsetClass}`}
+                                style={{ animationDelay: `${index * 90}ms` }}
+                              >
+                                <span className={`absolute -left-[23px] top-5 h-3.5 w-3.5 rounded-full border-2 border-white shadow ${dotClass}`} aria-hidden="true" />
+                                {year && <p className="text-sm font-bold tracking-wide text-sky-200">{year}</p>}
+                                <p className="mt-1 text-sm leading-relaxed text-white/95">{description}</p>
+                              </li>
+                            )
+                          })}
+                        </ul>
+                      </div>
+                    </article>
+                  )
+                }
+
+                return (
+                  <article
+                    id={getSectionId(section)}
+                    key={section.title}
+                    className={`section-card-hover rounded-[1.5rem] border p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)] ${
+                      isPastoralDetailPage ? 'border-blue-200/80 bg-[linear-gradient(180deg,rgba(239,246,255,0.96),rgba(255,255,255,0.95))]' : 'border-slate-200/70 bg-white/92'
+                    }`}
+                  >
+                    <h2 className={`text-2xl font-semibold ${isPastoralDetailPage ? 'text-brand-primary' : 'text-slate-900'}`}>{section.title}</h2>
+
+                    {section.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className={`mt-4 text-sm leading-relaxed text-slate-700 ${isVedrunaDetailPage ? 'text-justify' : ''}`}>
+                        {paragraph}
+                      </p>
                     ))}
-                  </ul>
-                )}
-              </article>
+
+                    {section.bullets && (
+                      <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-2">
+                        {section.bullets.map((bullet) => (
+                          <li
+                            key={bullet}
+                            className={`rounded-lg border px-3 py-2 ${
+                              isPastoralDetailPage ? 'border-blue-200 bg-sky-50/70' : 'border-slate-200 bg-slate-50'
+                            }`}
+                          >
+                            {bullet}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </article>
+                )
+              })()
             ))}
+          </section>
+        )}
+
+        {isVedrunaDetailPage && (
+          <section className="mt-6 rounded-[1.5rem] border border-slate-200 bg-[linear-gradient(160deg,rgba(255,255,255,0.98),rgba(241,245,255,0.96))] p-5 shadow-[0_14px_40px_-28px_rgba(15,23,42,0.38)]">
+            <h2 className="text-2xl font-semibold text-brand-primary">Vedruna en el mundo</h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-700 text-justify">
+              Conocé los lugares donde está presente la congregación y visitá la página oficial de la congregación.
+            </p>
+
+            <div className="relative mt-4 overflow-hidden rounded-2xl border border-brand-primary/20 bg-[radial-gradient(circle_at_18%_20%,rgba(96,165,250,0.35),rgba(15,42,96,0.92)_55%,rgba(9,18,42,0.96)_100%)] p-2 shadow-[0_18px_45px_-25px_rgba(15,42,96,0.75)]">
+              <img
+                src={vedrunaEnElMundoPreview}
+                alt="Vista previa del documento Vedruna en el mundo"
+                loading="lazy"
+                decoding="async"
+                className="h-auto max-h-[620px] w-full rounded-xl border border-white/20 bg-white/95 object-contain"
+              />
+            </div>
+
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href="https://vedruna.org"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-brand-navy"
+              >
+                Ir a vedruna.org
+              </a>
+            </div>
           </section>
         )}
 

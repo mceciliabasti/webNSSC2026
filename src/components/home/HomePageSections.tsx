@@ -95,7 +95,6 @@ export function HomeHeroSection({
         </div>
 
         <div className="hero-ambient max-w-3xl pb-8 pt-8 text-white md:pt-10" style={{ transform: `translate3d(0, ${contentOffset}px, 0)`, willChange: 'transform' }}>
-          <div className="brand-pill">Comunidad educativa Vedruna</div>
           <div className="mt-5 rounded-[2rem] border border-white/18 bg-white/12 p-6 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.7)] backdrop-blur-md md:p-8">
             <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.02em] sm:text-5xl md:text-6xl">
               {title}
@@ -210,9 +209,6 @@ export function InstitutionSection({
             decoding="async"
             className="h-full min-h-64 w-full object-cover md:max-h-[28rem]"
           />
-          <span className="absolute left-4 top-4 rounded-full bg-white/92 px-3 py-1 text-xs font-semibold tracking-wide text-brand-primary">
-            {activeInstitution.label}
-          </span>
         </div>
 
         <div className="rounded-2xl bg-white p-5 shadow-sm md:p-6">

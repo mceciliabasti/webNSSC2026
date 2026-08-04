@@ -81,7 +81,6 @@ export function AdmissionsPage({ title, subtitle, levelLabel, scriptUrl }: Admis
 
         <div className="mt-6 grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
           <section className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_18px_45px_-28px_rgba(15,23,42,0.45)] md:p-8">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-brand-primary">{title}</p>
             <h1 className="mt-3 text-4xl font-semibold text-slate-900">{title}</h1>
             <p className="mt-3 max-w-2xl leading-relaxed text-slate-700">{subtitle}</p>
             <p className="mt-2 text-sm text-slate-600">Nivel solicitado: {levelLabel}</p>

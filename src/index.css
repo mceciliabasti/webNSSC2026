@@ -1,9 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rufina:wght@400;700&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Plus Jakarta Sans", "Kayak", "Segoe UI", sans-serif;
-  --font-display: "Rufina", "Times New Roman", serif;
+  --font-sans: "Kayak", sans-serif;
+  --font-display: "Rufina", serif;
 
   --color-brand-navy: #13129a;
   --color-brand-primary: #0f2a60;
@@ -104,21 +104,6 @@
   .brand-grid {
     background-image: linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
     background-size: 26px 26px;
-  }
-
-  .brand-pill {
-    display: inline-flex;
-    align-items: center;
-    border-radius: 9999px;
-    border: 1px solid rgba(255, 255, 255, 0.18);
-    background: rgba(255, 255, 255, 0.12);
-    padding: 0.55rem 0.95rem;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
   }
 
   .brand-orb {
