@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import type { DetailData } from '../../types/content'
 import { HomeDetailCard } from '../cards/HomeDetailCard'
@@ -30,6 +31,37 @@ type ResourceLink = {
   href: string
 }
 
+function useScrollParallax(multiplier = 0.03, maxOffset = 10) {
+  const [offset, setOffset] = useState(0)
+
+  useEffect(() => {
+    let frame = 0
+
+    const handleScroll = () => {
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        const nextOffset = Math.max(-maxOffset, Math.min(maxOffset, window.scrollY * multiplier))
+        setOffset(nextOffset)
+      })
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [maxOffset, multiplier])
+
+  return offset
+}
+
 export function HomeHeroSection({
   backgroundImage,
   title,
@@ -39,6 +71,9 @@ export function HomeHeroSection({
   title: string
   subtitle: string
 }) {
+  const heroOffset = useScrollParallax(0.12, 30)
+  const contentOffset = useScrollParallax(0.06, 16)
+
   return (
     <header className="relative isolate h-[78vh] min-h-[560px] overflow-hidden">
       <img
@@ -48,24 +83,24 @@ export function HomeHeroSection({
         decoding="async"
         fetchPriority="high"
         className="absolute inset-0 h-full w-full object-cover"
+        style={{ transform: `translate3d(0, ${heroOffset}px, 0)`, willChange: 'transform' }}
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(13,24,40,0.34)_0%,rgba(13,24,40,0.6)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(10,21,42,0.82)_0%,rgba(13,24,40,0.64)_45%,rgba(15,42,96,0.86)_100%)]" />
+      <div className="brand-orb absolute -left-8 top-24 h-56 w-56 rounded-full bg-[#2f8d8a]/25 blur-3xl" />
+      <div className="brand-orb absolute bottom-12 right-0 h-64 w-64 rounded-full bg-[#d97b2c]/20 blur-3xl" />
 
       <div className="relative mx-auto flex h-full w-full max-w-6xl flex-col justify-between px-5 py-8 sm:px-8 md:px-12 md:py-10">
         <div className="pt-16 md:pt-20">
           <SiteNavigationBar />
         </div>
 
-        <div className="max-w-3xl pb-8 pt-8 text-white md:pt-10">
-          <div className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.22em] text-white/90 backdrop-blur-sm">
-            Comunidad educativa Vedruna
-          </div>
+        <div className="hero-ambient max-w-3xl pb-8 pt-8 text-white md:pt-10" style={{ transform: `translate3d(0, ${contentOffset}px, 0)`, willChange: 'transform' }}>
+          <div className="brand-pill">Comunidad educativa Vedruna</div>
           <div className="mt-5 rounded-[2rem] border border-white/18 bg-white/12 p-6 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.7)] backdrop-blur-md md:p-8">
             <h1 className="text-balance text-4xl font-semibold leading-[1.08] tracking-[-0.02em] sm:text-5xl md:text-6xl">
               {title}
             </h1>
-            <p className="mt-5 text-2xl font-normal text-white/90">{subtitle}</p>
-            <span className="mt-7 block h-1 w-28 rounded-full bg-brand-primary" />
+            <p className="mt-5 text-xl font-normal text-white/90 sm:text-2xl">{subtitle}</p>
           </div>
         </div>
       </div>
@@ -86,19 +121,23 @@ export function HomeHistorySection({
   bullets: string[]
   link: string
 }) {
+  const imageOffset = useScrollParallax(0.06, 18)
+  const sectionOffset = useScrollParallax(0.04, 12)
+
   return (
-    <section id="nuestra-historia" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_14px_45px_-28px_rgba(15,23,42,0.35)] backdrop-blur-sm md:grid-cols-2 md:p-8">
+    <section id="nuestra-historia" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,250,252,0.96))] p-6 shadow-[0_14px_45px_-28px_rgba(15,23,42,0.35)] backdrop-blur-sm section-card-hover md:grid-cols-2 md:p-8" style={{ transform: `translate3d(0, ${sectionOffset}px, 0)`, willChange: 'transform' }}>
       <img
         src={image}
         alt={title}
         loading="lazy"
         decoding="async"
         className="h-full min-h-64 w-full rounded-2xl object-cover"
+        style={{ transform: `translate3d(0, ${imageOffset}px, 0)`, willChange: 'transform' }}
       />
       <div>
         <div className="flex items-center gap-3">
           <span className="h-8 w-1.5 rounded-full bg-brand-primary" />
-          <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
+          <h2 className="relative inline-block pb-2 text-3xl font-semibold text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-14 after:rounded-full after:bg-[linear-gradient(90deg,#d97706_0%,#fb7185_100%)] md:text-4xl">{title}</h2>
         </div>
         <p className="mt-4 leading-relaxed text-slate-700">{description}</p>
         <ul className="mt-5 space-y-2 text-slate-700">
@@ -135,14 +174,16 @@ export function InstitutionSection({
   activeInstitution: InstitutionTab
   onTabChange: (tabId: string) => void
 }) {
+  const sectionOffset = useScrollParallax(0.04, 12)
+
   return (
-    <section id="nuestra-institucion" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.36)] backdrop-blur-sm md:p-8">
+    <section id="nuestra-institucion" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.99),rgba(248,250,252,0.95))] p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.36)] backdrop-blur-sm section-card-hover md:p-8" style={{ transform: `translate3d(0, ${sectionOffset}px, 0)`, willChange: 'transform' }}>
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
+          <h2 className="relative inline-block pb-2 text-3xl font-semibold text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-14 after:rounded-full after:bg-[linear-gradient(90deg,#d97706_0%,#fb7185_100%)] md:text-4xl">{title}</h2>
           <p className="mt-3 text-slate-700">{intro}</p>
         </div>
-        <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(239,229,215,0.62)_0%,rgba(255,255,255,0.9)_100%)] p-1.5">
+        <div className="flex flex-wrap gap-2 rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,rgba(75,106,147,0.1)_0%,rgba(255,255,255,0.9)_100%)] p-1.5">
           {tabs.map((tab) => (
             <button
               key={tab.id}
@@ -208,16 +249,20 @@ export function LevelsSection({
   intro: string
   items: LevelCardItem[]
 }) {
+  const sectionOffset = useScrollParallax(0.03, 10)
+
   return (
-    <section id="niveles" className="scroll-mt-28">
-      <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
+    <section id="niveles" className="scroll-mt-28" style={{ transform: `translate3d(0, ${sectionOffset}px, 0)`, willChange: 'transform' }}>
+      <div className="flex flex-wrap items-center gap-3">
+        <h2 className="relative inline-block pb-2 text-3xl font-semibold text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-14 after:rounded-full after:bg-[linear-gradient(90deg,#d97706_0%,#fb7185_100%)] md:text-4xl">{title}</h2>
+      </div>
       <p className="mt-3 text-slate-700">{intro}</p>
       <div className="mt-6 grid gap-5 md:grid-cols-3">
         {items.map((item) => (
           <Link
             key={item.key}
             to={`/nivel/${item.key}`}
-            className="group overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/96 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.3)] transition hover:-translate-y-1 hover:shadow-[0_18px_45px_-30px_rgba(15,23,42,0.38)]"
+            className="group section-card-hover overflow-hidden rounded-[2rem] border border-slate-200/70 bg-white/96 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.3)] transition"
           >
             <div className="relative">
               <img
@@ -251,10 +296,12 @@ export function InstitutionalResourcesSection({
   intro: string
   resources: ResourceLink[]
 }) {
+  const sectionOffset = useScrollParallax(0.04, 12)
+
   return (
-    <section id="recursos-institucionales" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm md:p-8">
+    <section id="recursos-institucionales" className="scroll-mt-28 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(135deg,rgba(255,255,255,0.98),rgba(248,250,252,0.95))] p-6 shadow-[0_18px_45px_-30px_rgba(15,23,42,0.34)] backdrop-blur-sm section-card-hover md:p-8" style={{ transform: `translate3d(0, ${sectionOffset}px, 0)`, willChange: 'transform' }}>
       <div className="max-w-2xl">
-        <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
+        <h2 className="relative inline-block pb-2 text-3xl font-semibold text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-14 after:rounded-full after:bg-[linear-gradient(90deg,#d97706_0%,#fb7185_100%)] md:text-4xl">{title}</h2>
         <p className="mt-3 text-slate-700">{intro}</p>
       </div>
       <div className="mt-6 grid gap-4 md:grid-cols-2">
@@ -300,14 +347,17 @@ export function HomeIntroSection({
   secondaryText: string
   image: string
 }) {
+  const mediaOffset = useScrollParallax(0.07, 20)
+  const sectionOffset = useScrollParallax(0.04, 12)
+
   return (
-    <section id="nuestro-colegio" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-white/92 p-7 shadow-[0_20px_60px_-38px_rgba(15,23,42,0.38)] backdrop-blur-sm lg:grid-cols-[1.05fr_0.95fr] lg:p-10">
+    <section id="nuestro-colegio" className="scroll-mt-28 grid gap-8 rounded-[1.75rem] border border-slate-200/70 bg-white/92 p-7 shadow-[0_20px_60px_-38px_rgba(15,23,42,0.38)] backdrop-blur-sm section-card-hover lg:grid-cols-[1.05fr_0.95fr] lg:p-10" style={{ transform: `translate3d(0, ${sectionOffset}px, 0)`, willChange: 'transform' }}>
       <div className="rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(239,229,215,0.95)_0%,rgba(255,255,255,0.96)_100%)] p-6">
-        <h2 className="text-3xl font-semibold text-slate-900 md:text-4xl">{title}</h2>
+        <h2 className="relative inline-block pb-2 text-3xl font-semibold text-slate-900 after:absolute after:bottom-0 after:left-0 after:h-1 after:w-14 after:rounded-full after:bg-[linear-gradient(90deg,#d97706_0%,#fb7185_100%)] md:text-4xl">{title}</h2>
         <p className="mt-4 text-lg leading-relaxed text-slate-700">{description}</p>
         <p className="mt-4 leading-relaxed text-slate-600">{secondaryText}</p>
       </div>
-      <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
+      <div className="overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm" style={{ transform: `translate3d(0, ${mediaOffset}px, 0)`, willChange: 'transform' }}>
         <div className="relative aspect-video bg-slate-900">
           <img
             src={image}

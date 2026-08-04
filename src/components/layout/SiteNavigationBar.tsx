@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link, useLocation } from 'react-router-dom'
+import nsscLogo from '../../elementos/Logos Sagrado-20260731T055841Z-1-001/Logos Sagrado/EscudoNSSC2.png'
+import bicentenarioVedrunaLogo from '../../elementos/Logos Sagrado-20260731T055841Z-1-001/Logos Sagrado/vedruna B.png'
 
 const topNavItems = [
   { to: '/#inicio', label: 'Inicio' },
@@ -12,6 +14,7 @@ const topNavItems = [
 ]
 
 const CONTACT_LINK = '/#contacto'
+const INSCRIPCIONES_LINK = '/inscripciones'
 
 const levelNavItems = [
   { to: '/nivel/inicial', label: 'Nivel Inicial' },
@@ -32,7 +35,11 @@ export function SiteNavigationBar() {
   const [activeSection, setActiveSection] = useState('inicio')
   const [showScrollToTop, setShowScrollToTop] = useState(false)
   const location = useLocation()
-  const mainNavItems = useMemo(() => topNavItems.filter((item) => item.to !== CONTACT_LINK), [])
+  const mainNavItems = useMemo(
+    () => topNavItems.filter((item) => item.to !== CONTACT_LINK && item.to !== INSCRIPCIONES_LINK),
+    [],
+  )
+  const inscripcionesNavItem = useMemo(() => topNavItems.find((item) => item.to === INSCRIPCIONES_LINK), [])
   const contactNavItem = useMemo(() => topNavItems.find((item) => item.to === CONTACT_LINK), [])
   const sectionIds = useMemo(
     () => topNavItems.map((item) => item.to.split('#')[1]).filter((id): id is string => Boolean(id)),
@@ -113,6 +120,21 @@ export function SiteNavigationBar() {
     <>
       <div className="fixed left-1/2 top-4 z-[2147483647] isolate w-[calc(100%-1rem)] -translate-x-1/2 rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-2.5 shadow-[0_18px_50px_-35px_rgba(15,23,42,0.42)] backdrop-blur-md md:w-[calc(100%-2rem)] md:max-w-6xl">
       <div className="flex items-center justify-between gap-3 px-2 py-1">
+        <div className="hidden items-center gap-2 md:flex">
+          <Link to="/" className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-2.5 py-2 transition hover:bg-white">
+            <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white p-1.5 shadow-[0_8px_22px_-14px_rgba(15,23,42,0.45)] ring-1 ring-slate-200">
+              <img src={nsscLogo} alt="Escudo del Colegio NSSC" className="h-7 w-7 object-contain" />
+            </span>
+            <span className="inline-flex h-11 items-center rounded-2xl border border-slate-200 bg-white/95 px-2 py-1 shadow-sm">
+              <img
+                src={bicentenarioVedrunaLogo}
+                alt="Logo Bicentenario Vedruna 1826-2026"
+                className="h-7 w-auto object-contain"
+              />
+            </span>
+          </Link>
+        </div>
+
         <nav className="hidden items-center gap-1.5 md:flex">
           {mainNavItems.map((item) => {
             const sectionId = sectionIdFromTo(item.to)
@@ -190,6 +212,24 @@ export function SiteNavigationBar() {
             </div>
           </div>
 
+          {inscripcionesNavItem && (() => {
+            const isActive = location.pathname === inscripcionesNavItem.to
+
+            return (
+              <Link
+                key={inscripcionesNavItem.to}
+                to={inscripcionesNavItem.to}
+                className={`rounded-full px-3.5 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
+                }`}
+              >
+                {inscripcionesNavItem.label}
+              </Link>
+            )
+          })()}
+
           {contactNavItem && (() => {
             const sectionId = sectionIdFromTo(contactNavItem.to)
             const isSectionLink = contactNavItem.to.includes('#')
@@ -213,17 +253,31 @@ export function SiteNavigationBar() {
           })()}
         </nav>
 
-        <button
-          type="button"
-          onClick={() => setIsOpen((value) => !value)}
-          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:bg-sand-100 md:hidden"
-          aria-expanded={isOpen}
-          aria-label="Toggle menu"
-        >
-          <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M4 7h16M4 12h16M4 17h16" />
-          </svg>
-        </button>
+        <div className="flex items-center gap-2 md:hidden">
+          <Link to="/" className="flex items-center gap-2 rounded-full border border-slate-200 bg-slate-50/80 px-2.5 py-2">
+            <span className="flex h-9 w-9 items-center justify-center rounded-2xl bg-white p-1 shadow-sm ring-1 ring-slate-200">
+              <img src={nsscLogo} alt="Escudo del Colegio NSSC" className="h-6 w-6 object-contain" />
+            </span>
+            <span className="inline-flex h-9 items-center rounded-xl border border-slate-200 bg-white px-1.5 py-1">
+              <img
+                src={bicentenarioVedrunaLogo}
+                alt="Logo Bicentenario Vedruna 1826-2026"
+                className="h-6 w-auto object-contain"
+              />
+            </span>
+          </Link>
+          <button
+            type="button"
+            onClick={() => setIsOpen((value) => !value)}
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition hover:bg-sand-100"
+            aria-expanded={isOpen}
+            aria-label="Toggle menu"
+          >
+            <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M4 7h16M4 12h16M4 17h16" />
+            </svg>
+          </button>
+        </div>
       </div>
 
       {isOpen && (
@@ -285,6 +339,24 @@ export function SiteNavigationBar() {
               ))}
             </div>
           </details>
+
+          {inscripcionesNavItem && (() => {
+            const isActive = location.pathname === inscripcionesNavItem.to
+
+            return (
+              <Link
+                key={inscripcionesNavItem.to}
+                to={inscripcionesNavItem.to}
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${
+                  isActive
+                    ? 'bg-brand-primary text-white shadow-sm'
+                    : 'text-slate-700 hover:bg-sand-100 hover:text-slate-900'
+                }`}
+              >
+                {inscripcionesNavItem.label}
+              </Link>
+            )
+          })()}
 
           {contactNavItem && (() => {
             const sectionId = sectionIdFromTo(contactNavItem.to)

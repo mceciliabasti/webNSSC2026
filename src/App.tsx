@@ -233,6 +233,27 @@ const profileData: DetailData = {
   ],
 }
 
+const institutionData: DetailData = {
+  title: 'Nuestra Institución',
+  subtitle: 'Misión, Visión y Perfil de Nuestros Alumnos en una misma página.',
+  image: primariaGallery3,
+  highlights: [
+    ...(missionData.highlights ?? []),
+    ...(visionData.highlights ?? []),
+    ...(profileData.highlights ?? []),
+  ],
+  facts: [
+    ...(missionData.facts ?? []),
+    ...(visionData.facts ?? []),
+    ...(profileData.facts ?? []),
+  ],
+  sections: [
+    ...(missionData.sections ?? []),
+    ...(visionData.sections ?? []),
+    ...(profileData.sections ?? []),
+  ],
+}
+
 const historyData: DetailData = {
   title: 'Nuestra Historia',
   subtitle: 'Memorias de los primeros 113 años del Colegio Nuestra Señora del Sagrado Corazón.',
@@ -488,9 +509,10 @@ const levelData: Record<string, DetailData> = {
 
 const detailBySlug: Record<string, DetailData> = {
   'nuestra-historia': historyData,
-  mision: missionData,
-  vision: visionData,
-  'perfil-estudiante': profileData,
+  'nuestra-institucion': institutionData,
+  mision: institutionData,
+  vision: institutionData,
+  'perfil-estudiante': institutionData,
   pastoral: pastoralData,
   'somos-vedruna': vedrunaData,
 }
@@ -615,23 +637,49 @@ function ScrollManager() {
 }
 
 function HomePage() {
+  const [scrollOffset, setScrollOffset] = useState(0)
+
+  useEffect(() => {
+    let frame = 0
+
+    const handleScroll = () => {
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+
+      frame = window.requestAnimationFrame(() => {
+        setScrollOffset(window.scrollY)
+      })
+    }
+
+    handleScroll()
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      if (frame) {
+        cancelAnimationFrame(frame)
+      }
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
   const institutionTabs = [
     {
       id: 'mision',
       label: 'Misión',
-      link: '/detalle/mision',
+      link: '/detalle/nuestra-institucion',
       data: missionData,
     },
     {
       id: 'vision',
       label: 'Visión',
-      link: '/detalle/vision',
+      link: '/detalle/nuestra-institucion',
       data: visionData,
     },
     {
       id: 'perfil',
       label: 'Perfil del Estudiante',
-      link: '/detalle/perfil-estudiante',
+      link: '/detalle/nuestra-institucion',
       data: profileData,
     },
   ]
@@ -669,50 +717,79 @@ function HomePage() {
       />
 
       <main className="mx-auto w-full max-w-6xl space-y-16 px-5 py-16 sm:px-8 md:px-12">
-        <HomeIntroSection
-          title="Nuestro Colegio"
-          description="Descubrí la experiencia educativa que ofrecemos a nuestros estudiantes y familias."
-          secondaryText="Conocé más sobre nuestra comunidad educativa y nuestros valores."
-          image={colegioVideo}
+        <div
+          className="pointer-events-none absolute inset-x-0 top-0 h-56 opacity-40"
+          style={{ transform: `translate3d(0, ${Math.min(24, scrollOffset * 0.015)}px, 0)` }}
         />
+        <div
+          className="rounded-[2rem] border border-slate-200/60 bg-white/70 p-1 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.3)] backdrop-blur-sm"
+          style={{ transform: `translate3d(0, ${Math.min(14, scrollOffset * 0.006)}px, 0)` }}
+        >
+          <HomeIntroSection
+            title="Nuestro Colegio"
+            description="Descubrí la experiencia educativa que ofrecemos a nuestros estudiantes y familias."
+            secondaryText="Conocé más sobre nuestra comunidad educativa y nuestros valores."
+            image={colegioVideo}
+          />
+        </div>
 
-        <HomeHistorySection
-          image={historyData.image}
-          title="Nuestra Historia"
-          description="Memorias de nuestros primeros 113 años: orígenes, crecimiento y una pedagogía del amor que sigue viva en cada etapa educativa."
-          bullets={['Tradición educativa desde 1913.', 'Crecimiento institucional en clave Vedruna.']}
-          link="/detalle/nuestra-historia"
-        />
+        <div
+          className="rounded-[2rem] border border-slate-200/60 bg-white/70 p-1 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.3)] backdrop-blur-sm"
+          style={{ transform: `translate3d(0, ${Math.min(16, scrollOffset * 0.008)}px, 0)` }}
+        >
+          <HomeHistorySection
+            image={historyData.image}
+            title="Nuestra Historia"
+            description="Memorias de nuestros primeros 113 años: orígenes, crecimiento y una pedagogía del amor que sigue viva en cada etapa educativa."
+            bullets={['Tradición educativa desde 1913.', 'Crecimiento institucional en clave Vedruna.']}
+            link="/detalle/nuestra-historia"
+          />
+        </div>
 
-        <InstitutionSection
-          title="Nuestra Institución"
-          intro="Los pilares que guían nuestra propuesta educativa."
-          tabs={institutionTabs}
-          activeInstitutionId={activeInstitutionId}
-          activeInstitution={activeInstitution}
-          onTabChange={setActiveInstitutionId}
-        />
+        <div
+          className="rounded-[2rem] border border-slate-200/60 bg-white/70 p-1 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.3)] backdrop-blur-sm"
+          style={{ transform: `translate3d(0, ${Math.min(18, scrollOffset * 0.009)}px, 0)` }}
+        >
+          <InstitutionSection
+            title="Nuestra Institución"
+            intro="Los pilares que guían nuestra propuesta educativa."
+            tabs={institutionTabs}
+            activeInstitutionId={activeInstitutionId}
+            activeInstitution={activeInstitution}
+            onTabChange={setActiveInstitutionId}
+          />
+        </div>
 
-        <LevelsSection
-          title="Nuestros Niveles Educativos"
-          intro="Cada nivel cuenta con su página específica, en coherencia con la información del PDF institucional."
-          items={levelCards}
-        />
+        <div
+          className="rounded-[2rem] border border-slate-200/60 bg-white/70 p-1 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.3)] backdrop-blur-sm"
+          style={{ transform: `translate3d(0, ${Math.min(20, scrollOffset * 0.01)}px, 0)` }}
+        >
+          <LevelsSection
+            title="Nuestros Niveles Educativos"
+            intro="Cada nivel cuenta con su página específica, en coherencia con la información del PDF institucional."
+            items={levelCards}
+          />
+        </div>
 
-        <HomeDetailLinksSection
-          cards={[
-            {
-              title: 'Pastoral',
-              description: 'Síntesis entre fe, cultura y vida en los tres niveles.',
-              link: '/detalle/pastoral',
-            },
-            {
-              title: 'Somos Vedruna',
-              description: 'Identidad institucional y pertenencia a la familia Vedruna.',
-              link: '/detalle/somos-vedruna',
-            },
-          ]}
-        />
+        <div
+          className="rounded-[2rem] border border-slate-200/60 bg-white/70 p-1 shadow-[0_14px_40px_-30px_rgba(15,23,42,0.3)] backdrop-blur-sm"
+          style={{ transform: `translate3d(0, ${Math.min(22, scrollOffset * 0.011)}px, 0)` }}
+        >
+          <HomeDetailLinksSection
+            cards={[
+              {
+                title: 'Pastoral',
+                description: 'Síntesis entre fe, cultura y vida en los tres niveles.',
+                link: '/detalle/pastoral',
+              },
+              {
+                title: 'Somos Vedruna',
+                description: 'Identidad institucional y pertenencia a la familia Vedruna.',
+                link: '/detalle/somos-vedruna',
+              },
+            ]}
+          />
+        </div>
       </main>
 
       <SiteFooter />
@@ -838,7 +915,7 @@ function InscripcionesPage() {
           Completá tus datos y nos vamos a comunicar con vos para continuar el proceso de admisión.
         </p>
 
-        <section className="mt-6 max-w-3xl rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <section className="soft-reveal mt-6 max-w-3xl rounded-xl border border-slate-200 bg-white p-6 shadow-sm section-card-hover sm:p-8">
           <div
             id="alert-success"
             className={`mb-5 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900 ${
@@ -1019,12 +1096,12 @@ function ResourcesHubPage() {
           </p>
         </section>
 
-        <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] md:p-8">
+        <section className="soft-reveal rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] section-card-hover md:p-8">
           <h2 className="text-3xl font-semibold text-slate-900">Documentos Institucionales 2026</h2>
           {institutionalResources.length > 0 ? (
             <div className="mt-5 grid gap-4 md:grid-cols-2">
               {institutionalResources.map((resource) => (
-                <article key={resource.title} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)]">
+                <article key={resource.title} className="section-card-hover rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)]">
                   <h3 className="text-xl font-semibold text-slate-900">{resource.title}</h3>
                   <p className="mt-2 text-sm leading-relaxed text-slate-700">{resource.description}</p>
                   <a
@@ -1043,7 +1120,7 @@ function ResourcesHubPage() {
           )}
         </section>
 
-        <section className="rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] md:p-8">
+        <section className="soft-reveal rounded-[1.75rem] border border-slate-200/70 bg-white/94 p-6 shadow-[0_16px_42px_-30px_rgba(15,23,42,0.34)] section-card-hover md:p-8">
           <h2 className="text-3xl font-semibold text-slate-900">Recursos por Nivel</h2>
           <p className="mt-2 text-slate-700">Ingresá al nivel que necesites para ver sus materiales específicos.</p>
           <div className="mt-5 grid gap-4 md:grid-cols-3">
@@ -1051,7 +1128,7 @@ function ResourcesHubPage() {
               <Link
                 key={item.to}
                 to={item.to}
-                className="rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)] transition hover:-translate-y-0.5 hover:border-brand-sky/40 hover:bg-sand-50"
+                className="section-card-hover rounded-2xl border border-slate-200 bg-white p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.24)] transition hover:border-brand-sky/40 hover:bg-sand-50"
               >
                 <h3 className="text-xl font-semibold text-slate-900">{item.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-slate-700">{item.description}</p>
@@ -1097,7 +1174,7 @@ function AuthoritiesPage() {
           Equipo directivo y apoderado legal del colegio.
         </p>
 
-        <section className="mt-8 grid gap-4 md:grid-cols-2">
+        <section className="soft-reveal mt-8 grid gap-4 md:grid-cols-2">
           <article className="flex h-full flex-col rounded-[1.5rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
             <h2 className="text-2xl font-semibold text-slate-900">Nivel Inicial</h2>
             <p className="mt-3 text-base leading-relaxed text-slate-700">Directora: Prof. Adriana Gighiloni</p>
@@ -1359,9 +1436,9 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
             />
 
             {(leftColumnSection || rightColumnSection) && (
-              <section className="mt-6 grid gap-4 md:grid-cols-2">
+              <section className="soft-reveal mt-6 grid gap-4 md:grid-cols-2">
                 {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-                  <article key={section!.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)]">
+                  <article key={section!.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)]">
                     <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
 
                     {section!.paragraphs?.map((paragraph) => (
@@ -1386,9 +1463,9 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
             )}
 
             {remainingSections.length > 0 && (
-              <section className="mt-5 space-y-4">
+              <section className="soft-reveal mt-5 space-y-4">
                 {remainingSections.map((section) => (
-                  <article key={section.title} className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
+                  <article key={section.title} className="section-card-hover rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
                     <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
 
                     {section.paragraphs?.map((paragraph) => (
@@ -1412,7 +1489,7 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
             )}
 
             {galleryItems.length > 0 && (
-              <section id="galeria-nivel" className="mt-8">
+              <section id="galeria-nivel" className="soft-reveal mt-8">
                 <h2 className="text-3xl font-semibold text-slate-900 sm:text-4xl">Galería de Fotos</h2>
 
                 <div className="mt-4 flex items-center gap-2">
@@ -1482,8 +1559,8 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
           </>
         ) : (
           resourceGroups.length > 0 && (
-            <section id="recursos-nivel" className="mt-6 scroll-mt-28">
-              <div className="rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)] sm:p-5">
+            <section id="recursos-nivel" className="soft-reveal mt-6 scroll-mt-28">
+              <div className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-4 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)] sm:p-5">
                 <div className="flex flex-wrap gap-2">
                   {resourceGroups.map((group) => {
                     const isActive = group.id === activeResourceGroup?.id
@@ -1510,7 +1587,7 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
                       return (
                         <article
                           key={resource.file}
-                          className="rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-brand-sky/40 hover:bg-sand-50"
+                          className="section-card-hover rounded-xl border border-slate-200 bg-white p-3 shadow-sm transition hover:border-brand-sky/40 hover:bg-sand-50"
                         >
                           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                             <div className="min-w-0">
@@ -1547,7 +1624,7 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
           )
         )}
 
-        <section className="mt-8 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(180deg,rgba(53,95,151,0.96)_0%,rgba(26,53,88,0.98)_100%)] px-5 py-8 text-center text-white shadow-[0_18px_45px_-30px_rgba(15,23,42,0.45)]">
+        <section className="soft-reveal mt-8 rounded-[1.75rem] border border-slate-200/70 bg-[linear-gradient(180deg,rgba(53,95,151,0.96)_0%,rgba(26,53,88,0.98)_100%)] px-5 py-8 text-center text-white shadow-[0_18px_45px_-30px_rgba(15,23,42,0.45)]">
           <h2 className="text-4xl font-semibold">¿Desea inscribir a su hijo/a?</h2>
           <p className="mt-2 text-white/90">Estamos aquí para acompañarlos en este importante paso.</p>
           <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
@@ -1789,9 +1866,9 @@ function DetailTemplate({ data }: { data: DetailData }) {
         />
 
         {(leftColumnSection || rightColumnSection) && (
-          <section className="mt-6 grid gap-5 md:grid-cols-2">
+          <section className="soft-reveal mt-6 grid gap-5 md:grid-cols-2">
             {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-              <article id={getSectionId(section!)} key={section!.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
+              <article id={getSectionId(section!)} key={section!.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/94 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.28)]">
                 <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
 
                 {section!.paragraphs?.map((paragraph) => (
@@ -1818,7 +1895,7 @@ function DetailTemplate({ data }: { data: DetailData }) {
         {remainingSections.length > 0 && (
           <section className="mt-5 space-y-4">
             {remainingSections.map((section) => (
-              <article id={getSectionId(section)} key={section.title} className="rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
+              <article id={getSectionId(section)} key={section.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/92 p-5 shadow-[0_12px_35px_-26px_rgba(15,23,42,0.34)]">
                 <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
 
                 {section.paragraphs?.map((paragraph) => (
