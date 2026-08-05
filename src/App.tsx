@@ -17,6 +17,7 @@ import colegioVedruna from './imagenes/Colegio/3.png'
 import colegioPastoral from './imagenes/Colegio/8.png'
 import inicialMain from './imagenes/Inicial/PHOTO-2026-06-09-15-15-18 (1).jpg'
 import inicialCard from './imagenes/Inicial/Copia de 20260416_152802.jpg'
+import primariaMain from './imagenes/Primaria/IMG_2231.jpg'
 import primariaGallery1 from './imagenes/Primaria/IMG_2213.jpg'
 import primariaGallery2 from './imagenes/Primaria/IMG_2243.jpg'
 import primariaGallery3 from './imagenes/Primaria/IMG_2246.jpg'
@@ -25,6 +26,8 @@ import secundariaCard from './imagenes/Secundaria/20250626_095831.jpg'
 import infoNivelesPdf from './info/info-niveles.pdf'
 import comunicacionCnsccPdf from './info/comunicacion-cnssc.pdf'
 import propuestaEducativaVedrunaPdf from './recursos/recursos/Propuesta Educativa Vedruna.pdf'
+import planEstudiosPrimarioPdf from './recursos/recursos/PLAN DE ESTUDIOS - Nivel Primario.pdf'
+import planEstudiosSecundarioPdf from './recursos/recursos/PLANES DE ESTUDIOS - SECUNDARIA.pdf'
 import vedrunaEnElMundoPreview from './imagenes/Colegio/vedruna-en-el-mundo-preview.png'
 import type { DetailData, ResourceItem, SectionData } from './types/content'
 
@@ -454,7 +457,7 @@ const vedrunaData: DetailData = {
 const levelData: Record<string, DetailData> = {
   inicial: {
     title: 'Nivel Inicial',
-    subtitle: 'Propuesta Vedruna para salas de 2, 3, 4 y 5 años.',
+    subtitle: 'Pilares de la Propuesta Educativa Vedruna para salas de 2, 3, 4 y 5 años.',
     image: inicialMain,
     facts: [
       { label: 'Edades', value: '2 a 5 años' },
@@ -462,9 +465,9 @@ const levelData: Record<string, DetailData> = {
       { label: 'Extendida', value: 'Hasta 16:15' },
     ],
     highlights: [
-      'Juego como protagonista del aprendizaje.',
-      'Vínculo afectivo y mirada personalizada.',
-      'Escuela Verde, ESI y talleres de jornada extendida.',
+      'Comunidad familia-colegio, vínculo afectivo y aprendizaje con sentido.',
+      'Juego como protagonista y desarrollo integral de capacidades.',
+      'Ejes curriculares, proyectos institucionales y jornada extendida con talleres.',
     ],
     gallery: initialGalleryItems,
     resources: [
@@ -474,46 +477,90 @@ const levelData: Record<string, DetailData> = {
     sections: [
       {
         title: 'Pilares de la propuesta educativa',
+        paragraphs: [
+          'Nuestra propuesta educativa Vedruna en Nivel Inicial impulsa una comunidad familia-colegio que potencia el acompañamiento y las acciones formativas, con una mirada personalizada para cada niño y cada niña.',
+          'Sostenemos el juego como herramienta principal para explorar el mundo, expresar emociones, construir significados y aprender con sentido en un clima de libertad, afecto y contención.',
+        ],
         bullets: [
-          'Comunidad familia-colegio y acompañamiento conjunto.',
-          'Vínculo afectivo, escucha y mirada personalizada.',
-          'Juego como herramienta central de aprendizaje.',
-          'Aprendizaje con sentido y desarrollo de capacidades.',
-          'Variedad de propuestas, flexibilidad y equilibrio en experiencias.',
+          'Comunidad familia-colegio: trabajo conjunto para fortalecer acompañamiento y formación.',
+          'Vínculo afectivo como base: escucha, contención y mirada personalizada para aprendizajes profundos.',
+          'Juego protagonista: exploración, expresión, descubrimiento y construcción compartida de significados.',
+          'Aprendizaje con sentido: contenidos curriculares abordados según tiempos, capacidades e intereses.',
+          'Desarrollo de capacidades: comunicación, autonomía, pensamiento reflexivo y crítico, resolución de problemas, compromiso y colaboración.',
+          'Variedad de propuestas: modalidades y estructuras didácticas en ejes de experiencia y ejes transversales.',
+          'Flexibilidad: adecuación a los modos de aprendizaje e intereses de los niños.',
+          'Equilibrio: articulación entre campos de conocimiento y actividades cotidianas.',
         ],
       },
       {
-        title: 'Organización horaria',
+        title: 'Horario y dinámica escolar',
+        paragraphs: [
+          'El Nivel Inicial dispone de secciones para niños de 2, 3, 4 y 5 años, con propuestas obligatorias y optativas que acompañan el desarrollo integral durante toda la jornada escolar.',
+        ],
         bullets: [
-          'Turno mañana (obligatorio): 08:20 a 12:15.',
+          'Jornada turno mañana (curricular y obligatoria): 08:20 a 12:15 hs.',
           'Jornada extendida (optativa): 12:15 a 16:15.',
-          'Post-hora: extensión disponible hasta 17:00.',
+          'Post-hora: extensión disponible hasta las 17:00 hs.',
         ],
       },
       {
-        title: 'Ejes y proyectos destacados',
+        title: 'Ejes de aprendizaje de jornada simple',
         bullets: [
-          'Lengua y Matemática, educación ambiental y digital, juego, inglés y robótica.',
-          'Escuela Verde: guardianes del agua, mariposas, huerta y reciclado solidario.',
-          'Literatura, música, expresión corporal, ESI y comunidad-familia.',
-          'Talleres de jornada extendida: artes visuales, desafíos lúdicos, ciencia y exploración.',
+          'Lengua y Matemática: enseñanza sistemática, sostenida y contextualizada (salas de 4 y 5 años).',
+          'Educación ambiental.',
+          'Educación digital: pensamiento computacional, informática y robótica.',
+          'Juego.',
+          'Lenguajes expresivos.',
+          'Educación física.',
+          'Indagación del ambiente.',
+          'Inglés.',
+          'Robótica.',
+          'Música.',
+        ],
+      },
+      {
+        title: 'Proyectos institucionales',
+        paragraphs: [
+          'Los proyectos del nivel articulan experiencias ambientales, literarias, artísticas, corporales, emocionales y comunitarias, fortaleciendo valores y aprendizajes significativos.',
+        ],
+        bullets: [
+          'Ecología y medio ambiente (Escuela Verde): Guardianes del agua, Guardianes de mariposas, Somos recicladores y Somos jardineros.',
+          'Literatura, arte y expresión: maratón de lectura, espacios literarios, caja literaria itinerante y mundo de títeres.',
+          'Semana de la música: propuesta compartida entre los tres niveles para vivenciar el arte musical.',
+          'Desarrollo corporal, lúdico y emocional: juegos de roles, exploración de sentidos y gestión de emociones.',
+          'ESI transversal: valoración de la afectividad, el amor, la solidaridad, el respeto y la expresión de sentimientos.',
+          'Comunidad y valores: Día de la Familia, compromiso comunitario, salidas didácticas y formación espiritual/pastoral.',
+        ],
+      },
+      {
+        title: 'Jornada extendida (turno tarde)',
+        paragraphs: [
+          'La jornada extendida ofrece talleres que potencian curiosidad, imaginación y nuevas formas de vincularse con el conocimiento desde propuestas activas y expresivas.',
+        ],
+        bullets: [
+          'Artes visuales: ampliación del campo estético-expresivo y la producción cultural.',
+          'El cuerpo en movimiento: relajación, iniciación al yoga y expresión corporal para ganar seguridad.',
+          'Descubriendo la literatura: poesías, narraciones mágicas y creación de cuentos.',
+          'Desafíos lúdicos: resolución de problemas y trabajo grupal con juegos de construcción y dramatización.',
+          'Conciencia ecológica: separación de residuos, hábitos de higiene/alimentación y juguetes con reciclado.',
+          'Ciencia y exploración: experiencias directas y cocina para observar procesos y transformaciones.',
         ],
       },
     ],
   },
   primario: {
     title: 'Nivel Primario',
-    subtitle: 'Formación integral, aprendizaje significativo y trabajo colaborativo.',
-    image: colegioVedruna,
+    subtitle: 'Comunidad educativa, formación integral y aprendizaje crítico-liberador.',
+    image: primariaMain,
     facts: [
       { label: 'Jornada', value: '08:15 a 16:15' },
-      { label: 'Currículo', value: 'CABA actualizado' },
+      { label: 'Almuerzo', value: 'Hogar, comedor o buffet/vianda' },
       { label: 'Evaluación', value: 'Formativa continua' },
     ],
     highlights: [
-      'Metodologías activas y aprendizaje contextualizado.',
-      'Trabajo colaborativo y robótica por ciclos.',
-      'Vida escolar intensa: lectura, deporte, campamentos y música.',
+      'El alumno es el centro de la comunidad educativa y agente de su propio desarrollo.',
+      'Propuesta pedagógica significativa, contextualizada y participativa con metodologías activas.',
+      'Trabajo conjunto familia-colegio para potenciar acompañamiento y acciones formativas.',
     ],
     gallery: primaryGalleryItems,
     resources: [
@@ -522,50 +569,102 @@ const levelData: Record<string, DetailData> = {
     ],
     sections: [
       {
+        title: 'Identidad del Nivel Primario',
+        paragraphs: [
+          '"Queremos crear en nuestra escuela una auténtica comunidad educativa donde el clima de libertad y amor participe de su dinámica evangelizadora.',
+          'Los alumnos son el centro de nuestra comunidad educativa, agentes de su propio desarrollo en una educación crítica y liberadora orientada al hombre integral.',
+          'Impulsamos el trabajo educativo conjunto familia-colegio, potenciando el acompañamiento y las acciones formativas."',
+          'Propuesta Educativa Vedruna'
+        ],
+      },
+      {
         title: 'Horario y dinámica escolar',
         bullets: [
-          'Jornada completa: 08:15 a 16:15.',
-          'Opciones de almuerzo: hogar, comedor o buffet/vianda.',
-          'Trabajo educativo conjunto familia-colegio.',
+          'Jornada completa: 08:15 a 16:15 hs.',
+          'Almuerzo: retiro al hogar (12:15 a 13:25), comedor o buffet/vianda.',
+          'Acompañamiento cercano en el proceso educativo cotidiano.',
         ],
       },
       {
         title: 'Propuesta curricular',
         paragraphs: [
-          'La propuesta se apoya en metodologías activas, aprendizaje contextualizado y evaluación formativa continua para acompañar avances y necesidades.',
-        ],
-        bullets: [
-          'Implementación del nuevo diseño curricular CABA.',
-          'Plan Buenos Aires Aprende 2024-2027.',
-          'Evaluaciones formativas, pruebas FEPBA y fluidez lectora.',
-          'Aprendizaje colaborativo y robótica en ambos ciclos.',
+          'La propuesta pedagógica se basa en un aprendizaje significativo, contextualizado y participativo, mediante metodologías activas que estimulan curiosidad, reflexión y pensamiento crítico. Se promueve el trabajo colaborativo, el respeto, la empatía y la solidaridad para formar niños autónomos, críticos, creativos y responsables.',
+          'Se incentiva la formación integral de los alumnos, haciendo hincapié en el desarrollo de sus capacidades cognitivas, emocionales, sociales y espirituales. Se busca formar niños autónomos, críticos, creativos y responsables, capaces de enfrentar los desafíos de la sociedad actual. De esta forma, acompañamos los procesos individuales de aprendizaje, ofreciendo actividades diferenciadas y seguimiento personalizado, utilizando recursos didácticos variados, tecnológicos y audiovisuales. Promovemos el trabajo grupal y colaborativo para que los niños aprendan a trabajar en equipo y a valorar las diferentes opiniones y puntos de vista',
+          'La evaluación formativa se concibe como un proceso continuo, que tiene como objetivo identificar los avances, dificultades y necesidades de los alumnos. Se busca ofrecer una retroalimentación constante que permita mejorar el proceso de aprendizaje',
         ],
       },
       {
-        title: 'Proyectos y vida escolar',
+        title: 'Lineamientos y evaluación',
         bullets: [
-          'Escuelas Verdes, ESI, semana de la lectura y semana de la música.',
-          'Olimpíadas matemáticas y deportivas, intercolegiales y campamentos.',
-          'Concert en inglés y salidas didácticas.',
-          'Catequesis familiar, reconciliación y primera comunión.',
-          'Talleres extracurriculares: fútbol, patín, taekwondo, arte, ajedrez, teatro musical e inglés.',
+          'Implementación del nuevo diseño curricular CABA.',
+          'Plan Buenos Aires Aprende 2024-2027.',
+          'Evaluaciones formativas en Matemática, Alfabetización y Comprensión Lectora.',
+          'Pruebas FEPBA para 7º grado en Lengua y Matemática.',
+          'Fluidez lectora en 3º grado con cuadernillos del Ministerio de Educación.',
+          'Aprendizaje colaborativo con grupos flexibles y secciones paralelas.',
+        ],
+      },
+      {
+        title: 'Robótica por ciclos',
+        paragraphs: [
+          'La propuesta de robótica integra pensamiento técnico y pensamiento computacional para resolver situaciones problemáticas con programación en bloques y dispositivos automatizados.',
+        ],
+        bullets: [
+          'Primer ciclo: Comprender la necesidad e importancia de los conocimientos y habilidades para realizar operaciones y secuencias, incluida la programación en bloques de dispositivos automatizados.',
+          'Primer ciclo: Utilizar tecnologías digitales y dispositivos electrónicos programables con la consideración de alcances y límites como medios para resolver tareas escolares.',
+          'Primer ciclo: Resolver situaciones problemáticas mediante la codificación en bloques, permitiendo la exploración de conceptos básicos de programación.',
+          'Segundo ciclo: Presentar situaciones problemáticas que puedan ser resueltas por medio del pensamiento computacional, trabajando conceptos de programación en bloques y su relación con el código.',
+          'Segundo ciclo: Desarrollar situaciones que favorezcan un dominio creciente del proceso de resolución de problemas mediante la aplicación del pensamiento técnico y el pensamiento computacional, distinguiendo categorías de problemas y modalidades de resolución características.',
+          'Segundo ciclo: Plantear problemas de robótica que incluyan el diseño de soluciones, empleando pensamiento computacional, para que un simulador de robot se mueva por un recorrido preestablecido.',
+        ],
+      },
+      {
+        title: 'Proyectos institucionales y vida pastoral',
+        bullets: [
+          'Escuelas Verdes rumbo al Lazo III para promover sostenibilidad, uso eficiente de recursos y gestión de residuos.',
+          'Proyecto ESI: campaña contra bullying y ciberbullying, vínculos saludables y cuidado del cuerpo.',
+          'Semana de la Lectura con cuentos, talleres, dramatizaciones e intercambio entre niveles.',
+          'Olimpíadas Matemáticas con desafíos grupales de 1º a 7º grado.',
+          'Semana de la Música como espacio de encuentro e intercambio entre los tres niveles.',
+          'Catequesis familiar y preparación para Reconciliación (3º) y Primera Comunión (4º).',
+          'Convivencias por grado en el Campo del Colegio La Salle con catequistas y docentes.',
+        ],
+      },
+      {
+        title: 'Educación física y experiencias formativas',
+        bullets: [
+          'Educación física y deporte en grupos mixtos: softball, fútbol y hockey.',
+          'Encuentros intercolegiales en la institución para fortalecer vínculos y compañerismo.',
+          'Pernoctada de 1º grado con actividades campamentiles de integración.',
+          'Campamentos educativos de 48 horas de 2º a 7º grado.',
+          'Concert en inglés (3º y 7º) con trabajo interdisciplinario entre Inglés, Teatro, Plástica, Tecnología y Música.',
+          'Salidas didácticas a organismos e instituciones vinculadas a contenidos curriculares.',
+        ],
+      },
+      {
+        title: 'Talleres Extracurriculares (16:15 a 18:00 h)',
+        paragraphs: [
+          'Ofrecemos una variedad de talleres abiertos a alumnos del colegio y de otras instituciones.',
+        ],
+        bullets: [
+          'Fútbol - Patín - Taekwondo - Arte y Dibujo - Acrodanza - Ajedrez - Teatro Musical - Inglés',
         ],
       },
     ],
   },
   secundario: {
     title: 'Nivel Secundario',
-    subtitle: 'Pensamiento crítico, autonomía y preparación universitaria-laboral.',
+    subtitle: 'Pensamiento crítico, autonomía y preparación universitaria-laboral desde la propuesta educativa Vedruna.',
     image: secundariaMain,
     facts: [
       { label: 'Ingreso', value: '07:30' },
-      { label: 'Inglés', value: 'Hasta 7 h semanales' },
-      { label: '5° año', value: 'Régimen preuniversitario' },
+      { label: 'Inglés', value: '7 h en 1° / 6 h de 2° a 5°' },
+      { label: '5° año', value: 'Régimen pre universitario' },
     ],
     highlights: [
-      'Formación para pensamiento crítico y autonomía.',
-      'Puente universitario-laboral con proyectos reales.',
-      'Alto nivel de propuesta en idiomas, tecnología y ciudadanía.',
+      'Rol protagónico de los jóvenes en la construcción de una sociedad más fraterna, justa y solidaria.',
+      'Desarrollo del pensamiento crítico y de habilidades socioafectivas para la vida universitaria y laboral.',
+      'Proyectos institucionales, tecnológicos, pastorales y ciudadanos de alta participación estudiantil.',
     ],
     gallery: secondaryGalleryItems,
     resources: [
@@ -574,32 +673,54 @@ const levelData: Record<string, DetailData> = {
     ],
     sections: [
       {
-        title: 'Información general',
-        bullets: [
-          'Inicio de jornada: 07:30.',
-          'Horario extendido variable según año y día de cursada.',
-          'Intensificación de lengua extranjera en comprensión y producción oral/escrita.',
-          'Carga horaria de inglés: 7 horas en 1er año, 6 horas de 2do a 5to.',
+        title: 'Información',
+        paragraphs: [
+          'Aspiramos a que nuestros jóvenes se identifiquen con el proyecto educativo Vedruna, adquiriendo un rol protagónico en nuestra misión de contribuir a la construcción de una sociedad más fraterna, justa y solidaria.',
+          'Forjamos nuestros proyectos con el fin de darles herramientas para el desarrollo del pensamiento crítico en un espacio en donde se favorezca tanto el aprendizaje académico como el trabajo de habilidades y aptitudes socioafectivas para la inserción en el mundo universitario y laboral, siendo respetuosos de las diferencias personales, sociales, culturales y religiosas y capaces de trabajar en equipo.',
+          '"Se trata de hacer vida un proyecto cuya fuerza está orientada a formar personas nuevas para un mundo recreado."',
+          'Propuesta Educativa Vedruna.',
         ],
       },
       {
-        title: 'Régimen preuniversitario (5to año)',
+        title: 'Horario y dinámica escolar',
+        bullets: [
+          'Inicio: 07:30 hs.',
+          'Salida: nuestro horario se denomina horario extendido; hay días con salida más temprana y otros más tarde, según el año y el día de cursada.',
+        ],
+      },
+      {
+        title: 'Intensificación de lengua extranjera',
         paragraphs: [
-          'Funciona como puente hacia estudios superiores y mundo laboral, fortaleciendo autonomía, organización y desarrollo personal e intelectual.',
+          'Se propone un trabajo que aborde la lengua extranjera enfocándose en las cuatro habilidades articuladamente: comprensión escrita y oral, y producción escrita y oral. Cada habilidad es trabajada a través de diferentes unidades para que los estudiantes puedan alcanzar un manejo global de la lengua.',
+          'En 2025 la asignatura se intensificó con 2 horas cátedra más, quedando la carga horaria organizada de la siguiente manera: 1er año 7 horas semanales; de 2do a 5to año 6 horas semanales.',
+        ],
+      },
+      {
+        title: 'Régimen pre universitario - 5to año',
+        paragraphs: [
+          'El Colegio Nuestra Señora del Sagrado Corazón, mediante el desarrollo de su Proyecto Educativo Institucional basado en el Proyecto Educativo Vedruna (PEV), aspira a la formación de un estudiante cuyo perfil personal demuestre identidad con este y que valore su proceso educativo en beneficio de su formación integral, asumiendo un rol protagónico.',
+          'Buscamos que cuente con herramientas para el desarrollo del pensamiento crítico en un espacio donde se favorezca el trabajo de habilidades y aptitudes para su inserción en el mundo universitario y laboral.',
+          'El régimen pre universitario colabora con la gestión de autonomía y organización a la que se aspira que nuestros estudiantes adquieran en el último año del nivel secundario. Nuestro objetivo es que transiten 5to año como un puente hacia el mundo universitario y de realización profesional, propiciando al máximo su desarrollo personal e intelectual, motivándolos y brindando oportunidades que los acerquen a continuar sus estudios y a ampliar su campo laboral y de desarrollo.',
         ],
         bullets: [
           'Rol protagónico del estudiante en su formación integral.',
-          'Herramientas para pensamiento crítico y proyecto de futuro.',
+          'Autonomía, organización y transición cuidada hacia estudios superiores.',
         ],
       },
       {
-        title: 'Proyectos destacados',
-        bullets: [
-          'Artes, ESI, inglés por niveles y encuentros deportivos intercolegiales.',
-          'Convenios universitarios: Di Tella, UADE, UB, UCA, UCES y USAL.',
-          'Digital Junior UTN, Junior Achievement, ONU modelo y TED-Ed.',
-          'PUL (Puente Universitario-Laboral), streaming/taller de radio y museo Vedruna.',
-          'Misión Juvenil Vedruna, escuelas verdes y acciones solidarias con Hospital Garrahan.',
+        title: 'Planes de Estudio',
+        bullets: [],
+      },
+      {
+        title: 'Proyectos institucionales',
+        paragraphs: [
+          'La propuesta de Secundaria articula proyectos académicos, pastorales, tecnológicos, artísticos, deportivos y de ciudadanía para acompañar el desarrollo integral de los estudiantes.',
+        ],
+      },
+      {
+        title: 'Talleres Extracurriculares (16:15 a 18:00 h)',
+        paragraphs: [
+          'Conocé más sobre la propuesta completa de talleres.',
         ],
       },
     ],
@@ -635,6 +756,7 @@ function App() {
         <Route path="/admisiones/primaria" element={<AdmissionsPage title="Admisiones Primaria" subtitle="Completá el formulario para solicitar información del proceso de ingreso al nivel primario." levelLabel="Primaria" scriptUrl={SCRIPT_URL} />} />
         <Route path="/admisiones/secundaria" element={<AdmissionsPage title="Admisiones Secundaria" subtitle="Completá el formulario para solicitar información del proceso de ingreso al nivel secundario." levelLabel="Secundaria" scriptUrl={SCRIPT_URL} />} />
         <Route path="/autoridades" element={<AuthoritiesPage />} />
+        <Route path="/talleres" element={<TalleresPage />} />
         <Route path="/recursos" element={<ResourcesHubPage />} />
         <Route path="/detalle/:slug" element={<DetailPage />} />
         <Route path="/nivel/:level" element={<LevelPage />} />
@@ -1301,6 +1423,45 @@ function AuthoritiesPage() {
   )
 }
 
+function TalleresPage() {
+  const workshopItems = ['Fútbol', 'Patín', 'Taekwondo', 'Arte y Dibujo', 'Acrodanza', 'Ajedrez', 'Teatro Musical', 'Inglés']
+
+  return (
+    <div className="bg-gradient-to-b from-sand-50 via-white to-slate-100 text-slate-900">
+      <header className="border-b border-slate-200/70 bg-white/88 backdrop-blur-md">
+        <div className="mx-auto w-full max-w-6xl px-5 py-7 sm:px-8 md:px-12 md:py-9">
+          <SiteNavigationBar />
+        </div>
+      </header>
+
+      <main className="mx-auto w-full max-w-6xl px-5 py-10 sm:px-8 md:px-12">
+        <Link to="/" className="text-sm font-medium text-brand-primary transition hover:text-brand-navy">
+          ← Volver al inicio
+        </Link>
+
+        <h1 className="mt-3 text-4xl font-semibold text-brand-primary sm:text-5xl">Talleres Extracurriculares</h1>
+        <div className="mt-3 h-1 w-28 rounded-full bg-[linear-gradient(90deg,#0f3b77_0%,#60a5fa_100%)]" aria-hidden="true" />
+        <p className="mt-3 text-lg font-medium text-brand-primary">16:15 a 18:00 h</p>
+
+        <section className="soft-reveal mt-5 rounded-[1.75rem] border border-slate-200/70 bg-white/95 p-6 shadow-[0_16px_40px_-30px_rgba(15,23,42,0.35)] sm:p-8">
+          <p className="max-w-3xl leading-relaxed text-slate-700">
+            Ofrecemos una variedad de talleres abiertos a alumnos del colegio y de otras instituciones.
+          </p>
+          <ul className="mt-5 grid gap-2 text-sm font-medium text-slate-800 sm:grid-cols-2">
+            {workshopItems.map((item) => (
+              <li key={item} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                {item}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </main>
+
+      <SiteFooter />
+    </div>
+  )
+}
+
 function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: LevelKey }) {
   const [activeGalleryIndex, setActiveGalleryIndex] = useState<number | null>(null)
   const [galleryMotion, setGalleryMotion] = useState<'next' | 'prev' | 'zoom'>('zoom')
@@ -1309,21 +1470,277 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
   const galleryViewportRef = useRef<HTMLDivElement | null>(null)
   const [activeResourceGroupId, setActiveResourceGroupId] = useState('')
   const [activeView, setActiveView] = useState<'info' | 'resources'>('info')
+  const [openPrimaryProject, setOpenPrimaryProject] = useState<string | null>(null)
   const location = useLocation()
 
   const galleryItems = data.gallery ?? []
   const resourceGroups = levelResourceGroups[levelKey] ?? []
   const isLightboxOpen = activeGalleryIndex !== null
+  const isPrimaryLevel = levelKey === 'primario'
+  const isInitialLevel = levelKey === 'inicial'
+  const isSecondaryLevel = levelKey === 'secundario'
   const introText = data.highlights?.[0] ?? data.sections[0]?.paragraphs?.[0] ?? data.subtitle
   const leftColumnSection = data.sections[0]
   const rightColumnSection = data.sections[1]
+  const topColumnsGridClass = rightColumnSection?.title === 'Horario y dinámica escolar'
+    ? 'md:grid-cols-[1.35fr_0.95fr]'
+    : 'md:grid-cols-2'
   const remainingSections = data.sections.slice(2)
+  const initialAxesSection = isInitialLevel
+    ? remainingSections.find((section) => section.title === 'Ejes de aprendizaje de jornada simple')
+    : undefined
+  const visibleRemainingSections = isInitialLevel
+    ? remainingSections.filter((section) => section.title !== 'Ejes de aprendizaje de jornada simple')
+    : remainingSections
   const activeResourceGroup = resourceGroups.find((group) => group.id === activeResourceGroupId) ?? resourceGroups[0]
   const levelHeaderAccentClass: Record<LevelKey, string> = {
     inicial: 'bg-[linear-gradient(90deg,#7c2d12_0%,#f59e0b_100%)]',
     primario: 'bg-[linear-gradient(90deg,#0f766e_0%,#2dd4bf_100%)]',
     secundario: 'bg-[linear-gradient(90deg,#0f3b77_0%,#60a5fa_100%)]',
   }
+
+  const getTopSectionStyles = (title: string) => {
+    if ((isPrimaryLevel || isInitialLevel || isSecondaryLevel) && title === 'Horario y dinámica escolar') {
+      return {
+        card: 'border-slate-800/70 bg-[linear-gradient(145deg,rgba(15,23,42,0.97)_0%,rgba(30,41,59,0.94)_100%)] shadow-[0_18px_44px_-30px_rgba(2,6,23,0.85)]',
+        title: 'text-white',
+        paragraph: 'text-slate-100',
+        bullets: 'text-slate-100',
+        dot: 'bg-cyan-300',
+      }
+    }
+
+    return {
+      card: 'border-slate-200/70 bg-white/90 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)]',
+      title: 'text-slate-900',
+      paragraph: 'text-slate-700',
+      bullets: 'text-slate-700',
+      dot: 'bg-brand-primary',
+    }
+  }
+
+  const getRemainingSectionStyles = () => {
+    return {
+      card: 'border-slate-200 bg-white shadow-sm',
+      title: 'text-slate-900',
+      paragraph: 'text-slate-700',
+      bullets: 'text-slate-700',
+    }
+  }
+
+  const roboticsSection = isPrimaryLevel ? data.sections.find((section) => section.title === 'Robótica por ciclos') : undefined
+  const roboticsFirstCycleBullets = (roboticsSection?.bullets ?? [])
+    .filter((bullet) => bullet.toLowerCase().startsWith('primer ciclo:'))
+    .map((bullet) => bullet.replace(/^Primer ciclo:\s*/i, '').trim())
+  const roboticsSecondCycleBullets = (roboticsSection?.bullets ?? [])
+    .filter((bullet) => bullet.toLowerCase().startsWith('segundo ciclo:'))
+    .map((bullet) => bullet.replace(/^Segundo ciclo:\s*/i, '').trim())
+
+  const primaryProjects = isPrimaryLevel
+    ? [
+        {
+          title: 'Escuelas Verdes',
+          description:
+            'Rumbo al Lazo III, promovemos sostenibilidad, uso eficiente de recursos y gestión responsable de residuos mediante acciones concretas en la vida escolar.',
+        },
+        {
+          title: 'Proyecto ESI',
+          description:
+            'Desarrollamos campañas contra bullying y ciberbullying, trabajamos vínculos saludables y fortalecemos el cuidado del cuerpo con propuestas por edades.',
+        },
+        {
+          title: 'Semana de la Lectura',
+          description:
+            'Realizamos cuentos, talleres, dramatizaciones e instancias de intercambio entre niveles para estimular el hábito lector y la expresión oral.',
+        },
+        {
+          title: 'Olimpíadas Matemáticas',
+          description:
+            'Se proponen desafíos grupales de 1º a 7º grado para ejercitar estrategias de resolución, razonamiento lógico y trabajo colaborativo.',
+        },
+        {
+          title: 'Semana de la Música',
+          description:
+            'Es un espacio de encuentro e intercambio entre Inicial, Primario y Secundario, donde se comparten producciones y experiencias artísticas.',
+        },
+        {
+          title: 'Catequesis Familiar',
+          description:
+            'Acompañamos la preparación para Reconciliación en 3º grado y Primera Comunión en 4º grado, fortaleciendo el vínculo escuela-familia-parroquia.',
+        },
+        {
+          title: 'Convivencias por grado',
+          description:
+            'Se realizan en el Campo del Colegio La Salle con catequistas y docentes para favorecer integración, reflexión y crecimiento comunitario.',
+        },
+      ]
+    : []
+
+  const initialProjects = isInitialLevel
+    ? [
+        {
+          title: 'Ecología y Medio Ambiente (Escuela Verde)',
+          description: `El nivel inicial está comprometido con el cuidado ambiental a través del proyecto "Guardianes del planeta":
+
+• Guardianes del agua: Campañas informativas para concientizar a la comunidad.
+• Guardianes de Mariposas: Acompañamiento del ciclo vital de las mariposas en un jardín con plantas nativas.
+• Somos recicladores: Trabajo con la regla de las 3R y recolección de "Tapitas solidarias" para el Hospital Garrahan.
+• Somos jardineros: Proyecto anual de huerta escolar.`,
+        },
+        {
+          title: 'Literatura, Arte y Expresión',
+          description: `Iniciativas para fomentar la creatividad y el vínculo emocional con el arte y la lectura:
+
+• Literatura en acción:
+  - Maratón de lectura: Semana institucional dedicada a narraciones y cuentos.
+  - Espacios literarios: Ambientación especial (telas, luces, música) para despertar el interés por la lectura.
+  - La caja literaria: Proyecto itinerante (casa por casa) para fomentar la lectura en familia.
+  - Mundo de los títeres: Herramienta lúdica para la expresión oral y emocional.
+• Semana de la música: Proyecto compartido entre los tres niveles para vivenciar y disfrutar el arte musical.`,
+        },
+        {
+          title: 'Semana de la Música',
+          description:
+            'Proyecto compartido entre los tres niveles para vivenciar y disfrutar el arte musical.',
+        },
+        {
+          title: 'Desarrollo Corporal, Lúdico y Emocional',
+          description: `Espacios diseñados para el autoconocimiento y el movimiento libre:
+
+• El cuerpo en movimiento: Incluye juegos de roles, exploración de los sentidos, gestión de emociones.
+• Escenarios lúdicos: Espacios preparados con materiales específicos para que los niños exploren, creen y afiancen movimientos.`,
+        },
+        {
+          title: 'ESI Transversal',
+          description:
+            'ESI (Educación Sexual Integral): Implementado como un proyecto transversal. Desde su concepción de integralidad, acompaña e invita a promover la valoración de la afectividad, el amor, la solidaridad, el respeto por los demás, y la expresión de sentimientos y emociones, lo que facilita experiencias educativas enriquecedoras para la formación integral.',
+        },
+        {
+          title: 'Comunidad y Valores',
+          description: `Actividades que integran a las familias y trabajan la dimensión espiritual y social:
+
+• Integración familiar y comunitaria: "Día de la Familia" (jornada de talleres y juegos) y "Compromiso comunitario" (talleres solidarios junto al centro comunitario del colegio).
+• Eventos y salidas: Salidas didácticas, festejo del Día de la Primavera y Jornada vespertina de Educación Física.
+• Formación Espiritual / Pastoral: Trabajo sobre valores a través de temas como "Dios creador", "Jesús y sus amigos/familia" y el Bicentenario de Sta. Joaquina de Vedruna.`,
+        },
+      ]
+    : []
+
+  const initialExtendedWorkshops = isInitialLevel
+    ? [
+        {
+          title: 'Artes Visuales',
+          description:
+            'Ampliación del campo estético-expresivo y la producción cultural.',
+        },
+        {
+          title: 'El cuerpo en movimiento',
+          description:
+            'Relajación, iniciación al yoga y expresión corporal para ganar seguridad.',
+        },
+        {
+          title: 'Descubriendo la literatura',
+          description:
+            'Inmersión en portadores de texto a través de poesías, narraciones mágicas y creación de cuentos.',
+        },
+        {
+          title: 'Desafíos lúdicos',
+          description:
+            'Resolución de problemas y trabajo grupal mediante juegos de construcción, dramatización y laberintos.',
+        },
+        {
+          title: 'Conciencia ecológica',
+          description:
+            'Separación de residuos, hábitos de higiene/alimentación y creación de juguetes con materiales reciclados.',
+        },
+        {
+          title: 'Ciencia y exploración',
+          description:
+            'Experiencias directas y cocina, siguiendo la evolución y los procesos de los elementos.',
+        },
+      ]
+    : []
+
+  const secondaryProjects = isSecondaryLevel
+    ? [
+        {
+          title: 'Artes',
+          description: 'Lenguajes artísticos: Música y Artes Visuales.',
+        },
+        {
+          title: 'Convenio con universidades privadas',
+          description: 'Di Tella - UADE - UB - UCA - UCES - USAL.',
+        },
+        {
+          title: 'Digital Junior - UTN',
+          description: 'Exámenes de certificación de conocimientos informáticos.',
+        },
+        {
+          title: 'Encuentros deportivos intercolegiales',
+          description: 'Encuentros deportivos intercolegiales.',
+        },
+        {
+          title: 'ESI - Programa de Educación Sexual Integral',
+          description: 'Comunicación, equidad, afectividad, diversidad, derechos, respeto, reflexión y responsabilidad.',
+        },
+        {
+          title: 'Hospital Garrahan',
+          description: 'Colaboración en la campaña de donación de sangre.',
+        },
+        {
+          title: 'Inglés por niveles',
+          description: 'Trabajo por niveles - taller extraprogramático a contraturno.',
+        },
+        {
+          title: 'Junior Achievement',
+          description: 'Aprendizaje activo en educación financiera, futuro laboral y emprendimiento.',
+        },
+        {
+          title: 'Mejores Ciudadanos para una Ciudad Mejor',
+          description: 'Evento que tiene por objetivo contribuir al conocimiento de la Constitución Nacional y de los valores cívicos.',
+        },
+        {
+          title: 'MJV - Misión Juvenil Vedruna',
+          description: 'Tiene como objetivo compartir momentos de reflexión, trabajo en grupo y ayuda social. Está compuesto por: grupos juveniles, grupo misionero, centro comunitario, actividades y eventos solidarios, Pascua juvenil y otras tantas propuestas.',
+        },
+        {
+          title: 'Olimpiadas deportivas',
+          description: 'Evento que involucra a toda la comunidad: docentes, estudiantes y familias, hace más de 30 años.',
+        },
+        {
+          title: 'ONU (Organización de las Naciones Unidas) programa modelo',
+          description: 'Con el auspicio de la Vicaría de Educación del Arzobispado de Buenos Aires. Proyecto que fomenta la investigación, la argumentación oral y escrita, y fundamentalmente la mirada sobre el mundo que nos rodea.',
+        },
+        {
+          title: 'Olimpíadas Contables UCA',
+          description: 'Facultad de Ciencias Económicas. Este evento busca que los alumnos desarrollen competencias relacionadas con saberes teóricos y el ejercicio de prácticas sociales y económicas aplicadas a la disciplina contable.',
+        },
+        {
+          title: 'PUL - Puente Universitario-Laboral',
+          description: 'Proyecto de actividades, visitas a universidades, conferencias, paneles de profesionales y talleres que favorecen la transición hacia el futuro.',
+        },
+        {
+          title: 'Proyecto Streaming - taller de radio',
+          description: 'En la búsqueda de nuevos lenguajes en la comunicación y la innovación educativa, se desarrolla el proyecto streaming que apela a desarrollar las herramientas comunicacionales de nuestros estudiantes con tecnología de avanzada.',
+        },
+        {
+          title: 'Ted Ed',
+          description: 'Evento donde los chicos viven la experiencia de convertirse en oradores de un evento tipo TED como parte de un proceso educativo que los inspira para difundir sus ideas.',
+        },
+        {
+          title: 'Visión Pastoral 1° y 2° año',
+          description: 'Materia destinada a profundizar el trabajo en valores desde el encuentro, la acción solidaria, talleres y convivencias.',
+        },
+        {
+          title: 'Escuelas Verdes - Rumbo al Lazo III',
+          description: 'Escuelas Verdes - Rumbo al Lazo III.',
+        },
+        {
+          title: 'Museo Vedruna',
+          description: 'En la búsqueda por valorar nuestras raíces, este proyecto involucra a toda la comunidad educativa y tiene por objetivo poder realizar una muestra abierta a todo el barrio.',
+        },
+      ]
+    : []
 
   const lightboxAnimationClass =
     galleryMotion === 'next'
@@ -1370,6 +1787,12 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
   useEffect(() => {
     setActiveView(location.hash.includes('recursos') ? 'resources' : 'info')
   }, [location.hash])
+
+  useEffect(() => {
+    if (!isPrimaryLevel && !isInitialLevel && !isSecondaryLevel) {
+      setOpenPrimaryProject(null)
+    }
+  }, [isPrimaryLevel, isInitialLevel, isSecondaryLevel])
 
   const showNextImage = () => {
     if (!galleryItems.length) return
@@ -1531,54 +1954,367 @@ function LevelDetailTemplate({ data, levelKey }: { data: DetailData; levelKey: L
             />
 
             {(leftColumnSection || rightColumnSection) && (
-              <section className="soft-reveal mt-6 grid gap-4 md:grid-cols-2">
-                {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
-                  <article key={section!.title} className="section-card-hover rounded-[1.5rem] border border-slate-200/70 bg-white/90 p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.3)]">
-                    <h2 className="text-3xl font-semibold text-slate-900">{section!.title}</h2>
+              isInitialLevel && leftColumnSection && rightColumnSection ? (
+                <section className={`soft-reveal mt-6 grid gap-4 ${topColumnsGridClass}`}>
+                  <article
+                    key={leftColumnSection.title}
+                    className={`section-card-hover rounded-[1.5rem] border p-5 ${getTopSectionStyles(leftColumnSection.title).card}`}
+                  >
+                    <h2 className={`text-3xl font-semibold ${getTopSectionStyles(leftColumnSection.title).title}`}>{leftColumnSection.title}</h2>
 
-                    {section!.paragraphs?.map((paragraph) => (
-                      <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                    {leftColumnSection.paragraphs?.map((paragraph) => (
+                      <p key={paragraph} className={`mt-4 text-sm leading-relaxed ${getTopSectionStyles(leftColumnSection.title).paragraph}`}>
                         {paragraph}
                       </p>
                     ))}
 
-                    {section!.bullets && (
-                      <ul className="mt-4 space-y-2 text-sm text-slate-700">
-                        {section!.bullets.map((bullet) => (
+                    {leftColumnSection.bullets && (
+                      <ul className={`mt-4 space-y-2 text-sm ${getTopSectionStyles(leftColumnSection.title).bullets}`}>
+                        {leftColumnSection.bullets.map((bullet) => (
                           <li key={bullet} className="flex gap-2">
-                            <span className="mt-2 h-1.5 w-1.5 rounded-full bg-brand-primary" />
+                            <span className={`mt-2 h-1.5 w-1.5 rounded-full ${getTopSectionStyles(leftColumnSection.title).dot}`} />
                             <span>{bullet}</span>
                           </li>
                         ))}
                       </ul>
                     )}
                   </article>
-                ))}
-              </section>
+
+                  <div className="flex h-full flex-col justify-between gap-4">
+                    <article
+                      key={rightColumnSection.title}
+                      className={`section-card-hover rounded-[1.5rem] border p-5 ${getTopSectionStyles(rightColumnSection.title).card}`}
+                    >
+                      <h2 className={`text-3xl font-semibold ${getTopSectionStyles(rightColumnSection.title).title}`}>{rightColumnSection.title}</h2>
+
+                      {rightColumnSection.paragraphs?.map((paragraph) => (
+                        <p key={paragraph} className={`mt-4 text-sm leading-relaxed ${getTopSectionStyles(rightColumnSection.title).paragraph}`}>
+                          {paragraph}
+                        </p>
+                      ))}
+
+                      {rightColumnSection.bullets && (
+                        <ul className={`mt-4 space-y-2 text-sm ${getTopSectionStyles(rightColumnSection.title).bullets}`}>
+                          {rightColumnSection.bullets.map((bullet) => (
+                            <li key={bullet} className="flex gap-2">
+                              <span className={`mt-2 h-1.5 w-1.5 rounded-full ${getTopSectionStyles(rightColumnSection.title).dot}`} />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </article>
+
+                    {initialAxesSection && (
+                      <article className="section-card-hover rounded-[1.5rem] border border-slate-300/80 bg-[linear-gradient(145deg,rgba(241,245,249,0.96)_0%,rgba(226,232,240,0.94)_100%)] p-5 shadow-[0_10px_28px_-24px_rgba(15,23,42,0.32)]">
+                        <h2 className="text-2xl font-semibold text-slate-900">{initialAxesSection.title}</h2>
+                        <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-1">
+                          {initialAxesSection.bullets?.map((bullet) => (
+                            <li key={bullet} className="rounded-lg border border-slate-200 bg-white/90 px-3 py-2">
+                              {bullet}
+                            </li>
+                          ))}
+                        </ul>
+                      </article>
+                    )}
+                  </div>
+                </section>
+              ) : (
+                <section className={`soft-reveal mt-6 grid gap-4 ${topColumnsGridClass} ${isInitialLevel ? 'md:items-start' : ''}`}>
+                  {[leftColumnSection, rightColumnSection].filter(Boolean).map((section) => (
+                    <article
+                      key={section!.title}
+                      className={`section-card-hover rounded-[1.5rem] border p-5 ${getTopSectionStyles(section!.title).card}`}
+                    >
+                      <h2 className={`text-3xl font-semibold ${getTopSectionStyles(section!.title).title}`}>{section!.title}</h2>
+
+                      {section!.paragraphs?.map((paragraph) => (
+                        <p key={paragraph} className={`mt-4 text-sm leading-relaxed ${getTopSectionStyles(section!.title).paragraph}`}>
+                          {paragraph}
+                        </p>
+                      ))}
+
+                      {section!.bullets && (
+                        <ul className={`mt-4 space-y-2 text-sm ${getTopSectionStyles(section!.title).bullets}`}>
+                          {section!.bullets.map((bullet) => (
+                            <li key={bullet} className="flex gap-2">
+                              <span className={`mt-2 h-1.5 w-1.5 rounded-full ${getTopSectionStyles(section!.title).dot}`} />
+                              <span>{bullet}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
+                    </article>
+                  ))}
+                </section>
+              )
             )}
 
-            {remainingSections.length > 0 && (
+            {visibleRemainingSections.length > 0 && (
               <section className="soft-reveal mt-5 space-y-4">
-                {remainingSections.map((section) => (
-                  <article key={section.title} className="section-card-hover rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-                    <h2 className="text-2xl font-semibold text-slate-900">{section.title}</h2>
+                {visibleRemainingSections.map((section) => (
+                  (() => {
+                    const useJustifiedSectionText =
+                      isPrimaryLevel &&
+                      (section.title === 'Lineamientos y evaluación' || section.title === 'Robótica por ciclos')
+                    const useSingleColumnBullets =
+                      (isPrimaryLevel || isInitialLevel || isSecondaryLevel) &&
+                      /ejes/i.test(section.title)
+
+                    return (
+                  <article
+                    key={section.title}
+                    className={`section-card-hover rounded-xl border p-5 ${getRemainingSectionStyles().card}`}
+                  >
+                    <h2 className={`text-2xl font-semibold ${getRemainingSectionStyles().title}`}>{section.title}</h2>
+
+                    {isPrimaryLevel && section.title === 'Proyectos institucionales y vida pastoral' && (
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                        Seleccioná cada proyecto para ver su descripción.
+                      </p>
+                    )}
+
+                    {isInitialLevel && section.title === 'Proyectos institucionales' && (
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                        Seleccioná cada proyecto para ver su descripción.
+                      </p>
+                    )}
+
+                    {isInitialLevel && section.title === 'Jornada extendida (turno tarde)' && (
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                        Seleccioná cada taller para ver su descripción.
+                      </p>
+                    )}
+
+                    {isSecondaryLevel && section.title === 'Proyectos institucionales' && (
+                      <p className="mt-3 text-sm leading-relaxed text-slate-700">
+                        Seleccioná cada proyecto para ver su descripción.
+                      </p>
+                    )}
 
                     {section.paragraphs?.map((paragraph) => (
-                      <p key={paragraph} className="mt-4 text-sm leading-relaxed text-slate-700">
+                      <p
+                        key={paragraph}
+                        className={`mt-4 text-sm leading-relaxed ${getRemainingSectionStyles().paragraph} ${useJustifiedSectionText ? 'text-justify' : ''}`}
+                      >
                         {paragraph}
                       </p>
                     ))}
 
-                    {section.bullets && (
-                      <ul className="mt-4 grid gap-2 text-sm text-slate-700 md:grid-cols-2">
+                    {isPrimaryLevel && section.title === 'Robótica por ciclos' && (
+                      <div className="mt-4 grid gap-3 md:grid-cols-2">
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                          <h3 className="text-base font-semibold text-slate-900">Primer ciclo</h3>
+                          <ul className="mt-3 space-y-2 text-sm text-slate-800">
+                            {roboticsFirstCycleBullets.map((bullet) => (
+                              <li key={bullet} className="flex items-start gap-2">
+                                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-primary" />
+                                <span className="text-justify">{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                          <h3 className="text-base font-semibold text-slate-900">Segundo ciclo</h3>
+                          <ul className="mt-3 space-y-2 text-sm text-slate-800">
+                            {roboticsSecondCycleBullets.map((bullet) => (
+                              <li key={bullet} className="flex items-start gap-2">
+                                <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-brand-primary" />
+                                <span className="text-justify">{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      </div>
+                    )}
+
+                    {section.bullets &&
+                      !(isPrimaryLevel && section.title === 'Robótica por ciclos') &&
+                      !(isPrimaryLevel && section.title === 'Proyectos institucionales y vida pastoral') &&
+                      !(isInitialLevel && section.title === 'Proyectos institucionales') &&
+                      !(isInitialLevel && section.title === 'Jornada extendida (turno tarde)') &&
+                      !(isSecondaryLevel && section.title === 'Proyectos institucionales') && (
+                      <ul className={`mt-4 grid gap-2 text-sm ${getRemainingSectionStyles().bullets} ${useSingleColumnBullets ? 'md:grid-cols-1' : 'md:grid-cols-2'}`}>
                         {section.bullets.map((bullet) => (
-                          <li key={bullet} className="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                          <li
+                            key={bullet}
+                            className={`rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 ${useJustifiedSectionText ? 'text-justify' : ''}`}
+                          >
                             {bullet}
                           </li>
                         ))}
                       </ul>
                     )}
+
+                    {isPrimaryLevel && section.title === 'Proyectos institucionales y vida pastoral' && (
+                      <div className="mt-4 space-y-2">
+                        {primaryProjects.map((project) => {
+                          const isOpen = openPrimaryProject === project.title
+                          return (
+                            <div key={project.title} className="overflow-hidden rounded-xl border border-slate-300/70">
+                              <button
+                                type="button"
+                                onClick={() => setOpenPrimaryProject(isOpen ? null : project.title)}
+                                className="flex w-full items-center justify-between gap-3 bg-[linear-gradient(130deg,rgba(15,23,42,0.96),rgba(30,41,59,0.95))] px-4 py-3 text-left text-sm font-semibold text-slate-100 transition hover:bg-[linear-gradient(130deg,rgba(15,23,42,1),rgba(30,41,59,1))]"
+                                aria-expanded={isOpen}
+                              >
+                                <span>{project.title}</span>
+                                <span className="text-base leading-none text-cyan-300">{isOpen ? '−' : '+'}</span>
+                              </button>
+                              {isOpen && (
+                                <div className="bg-white px-4 py-3 text-sm leading-relaxed text-slate-800">
+                                  {project.description}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {isInitialLevel && section.title === 'Proyectos institucionales' && (
+                      <div className="mt-4 space-y-2">
+                        {initialProjects.map((project) => {
+                          const isOpen = openPrimaryProject === project.title
+                          return (
+                            <div key={project.title} className="overflow-hidden rounded-xl border border-slate-300/70">
+                              <button
+                                type="button"
+                                onClick={() => setOpenPrimaryProject(isOpen ? null : project.title)}
+                                className="flex w-full items-center justify-between gap-3 bg-[linear-gradient(130deg,rgba(15,23,42,0.96),rgba(30,41,59,0.95))] px-4 py-3 text-left text-sm font-semibold text-slate-100 transition hover:bg-[linear-gradient(130deg,rgba(15,23,42,1),rgba(30,41,59,1))]"
+                                aria-expanded={isOpen}
+                              >
+                                <span>{project.title}</span>
+                                <span className="text-base leading-none text-cyan-300">{isOpen ? '−' : '+'}</span>
+                              </button>
+                              {isOpen && (
+                                <div className="whitespace-pre-line bg-white px-4 py-3 text-sm leading-relaxed text-slate-800 text-justify">
+                                  {project.description}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {isInitialLevel && section.title === 'Jornada extendida (turno tarde)' && (
+                      <div className="mt-4 space-y-2">
+                        {initialExtendedWorkshops.map((workshop) => {
+                          const isOpen = openPrimaryProject === workshop.title
+                          return (
+                            <div key={workshop.title} className="overflow-hidden rounded-xl border border-slate-300/70">
+                              <button
+                                type="button"
+                                onClick={() => setOpenPrimaryProject(isOpen ? null : workshop.title)}
+                                className="flex w-full items-center justify-between gap-3 bg-[linear-gradient(130deg,rgba(15,23,42,0.96),rgba(30,41,59,0.95))] px-4 py-3 text-left text-sm font-semibold text-slate-100 transition hover:bg-[linear-gradient(130deg,rgba(15,23,42,1),rgba(30,41,59,1))]"
+                                aria-expanded={isOpen}
+                              >
+                                <span>{workshop.title}</span>
+                                <span className="text-base leading-none text-cyan-300">{isOpen ? '−' : '+'}</span>
+                              </button>
+                              {isOpen && (
+                                <div className="whitespace-pre-line bg-white px-4 py-3 text-sm leading-relaxed text-slate-800 text-justify">
+                                  {workshop.description}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {isSecondaryLevel && section.title === 'Proyectos institucionales' && (
+                      <div className="mt-4 space-y-2">
+                        {secondaryProjects.map((project) => {
+                          const isOpen = openPrimaryProject === project.title
+                          return (
+                            <div key={project.title} className="overflow-hidden rounded-xl border border-slate-300/70">
+                              <button
+                                type="button"
+                                onClick={() => setOpenPrimaryProject(isOpen ? null : project.title)}
+                                className="flex w-full items-center justify-between gap-3 bg-[linear-gradient(130deg,rgba(15,23,42,0.96),rgba(30,41,59,0.95))] px-4 py-3 text-left text-sm font-semibold text-slate-100 transition hover:bg-[linear-gradient(130deg,rgba(15,23,42,1),rgba(30,41,59,1))]"
+                                aria-expanded={isOpen}
+                              >
+                                <span>{project.title}</span>
+                                <span className="text-base leading-none text-cyan-300">{isOpen ? '−' : '+'}</span>
+                              </button>
+                              {isOpen && (
+                                <div className="whitespace-pre-line bg-white px-4 py-3 text-sm leading-relaxed text-slate-800 text-justify">
+                                  {project.description}
+                                </div>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </div>
+                    )}
+
+                    {isPrimaryLevel && section.title === 'Propuesta curricular' && (
+                      <div className="mt-5 rounded-xl border border-sky-200 bg-sky-50/80 p-4">
+                        <p className="text-sm font-semibold text-slate-900">PLAN DE ESTUDIOS - Nivel Primario.pdf</p>
+                        <p className="mt-1 text-xs text-slate-600">Accedé al archivo completo para ver la estructura curricular.</p>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <a
+                            href={planEstudiosPrimarioPdf}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center justify-center rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-brand-navy"
+                          >
+                            Ver archivo
+                          </a>
+                          <a
+                            href={planEstudiosPrimarioPdf}
+                            download="PLAN DE ESTUDIOS - Nivel Primario.pdf"
+                            className="inline-flex items-center justify-center rounded-full border border-brand-primary bg-white px-4 py-2 text-xs font-semibold text-brand-primary transition hover:bg-brand-sky/10"
+                          >
+                            Descargar PDF
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
+                    {isSecondaryLevel && section.title === 'Planes de Estudio' && (
+                      <div className="mt-5 rounded-xl border border-sky-200 bg-sky-50/80 p-4">
+                        <div className="space-y-2">
+                          <p className="text-sm text-slate-700">A partir de 3er año contamos con dos orientaciones: Economía y Administración y Comunicación</p>
+                        </div>
+                        <div className="mt-3 flex flex-wrap gap-2">
+                          <a
+                            href={planEstudiosSecundarioPdf}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-flex items-center justify-center rounded-full bg-brand-primary px-4 py-2 text-xs font-semibold text-white shadow-sm transition hover:bg-brand-navy"
+                          >
+                            Ver archivo
+                          </a>
+                          <a
+                            href={planEstudiosSecundarioPdf}
+                            download="PLANES DE ESTUDIOS - SECUNDARIA.pdf"
+                            className="inline-flex items-center justify-center rounded-full border border-brand-primary bg-white px-4 py-2 text-xs font-semibold text-brand-primary transition hover:bg-brand-sky/10"
+                          >
+                            Descargar PDF
+                          </a>
+                        </div>
+                      </div>
+                    )}
+
+                    {(isPrimaryLevel || isSecondaryLevel) && section.title === 'Talleres Extracurriculares (16:15 a 18:00 h)' && (
+                      <div className="mt-5 rounded-xl border border-[#d63149]/20 bg-[linear-gradient(130deg,rgba(214,49,73,0.1),rgba(255,255,255,0.9))] p-4 shadow-[0_12px_30px_-24px_rgba(214,49,73,0.55)]">
+                        <div className="flex flex-wrap items-center justify-between gap-3">
+                          <p className="text-sm font-medium text-slate-700">Conocé más sobre la propuesta completa de talleres.</p>
+                          <Link
+                            to="/talleres"
+                            className="inline-flex items-center justify-center rounded-full bg-[#d63149] px-4 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-[#b81f36] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d63149] focus-visible:ring-offset-2"
+                          >
+                            Ir a Talleres
+                          </Link>
+                        </div>
+                      </div>
+                    )}
                   </article>
+                    )
+                  })()
                 ))}
               </section>
             )}

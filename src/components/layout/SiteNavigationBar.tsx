@@ -15,6 +15,7 @@ const topNavItems = [
 
 const CONTACT_LINK = '/#contacto'
 const INSCRIPCIONES_LINK = '/inscripciones'
+const TALLERES_LINK = '/talleres'
 
 const levelNavItems = [
   { to: '/nivel/inicial', label: 'Nivel Inicial' },
@@ -50,6 +51,7 @@ export function SiteNavigationBar() {
   const isLevelsActive =
     location.pathname.startsWith('/nivel/') || location.pathname === '/autoridades' || (location.pathname === '/' && activeSection === 'niveles')
   const isResourcesActive = location.pathname.startsWith('/nivel/') || location.pathname === '/recursos'
+  const isTalleresActive = location.pathname === TALLERES_LINK
 
   useEffect(() => {
     const hashSection = location.hash.replace('#', '')
@@ -251,6 +253,17 @@ export function SiteNavigationBar() {
               </Link>
             )
           })()}
+
+          <Link
+            to={TALLERES_LINK}
+            className={`rounded-full px-4 py-2 text-sm font-semibold text-white shadow-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d63149] focus-visible:ring-offset-2 ${
+              isTalleresActive
+                ? 'bg-[#d63149] ring-2 ring-[#d63149]/40'
+                : 'bg-[#d63149] hover:bg-[#b81f36]'
+            }`}
+          >
+            Talleres
+          </Link>
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
@@ -379,6 +392,14 @@ export function SiteNavigationBar() {
               </Link>
             )
           })()}
+
+          <Link
+            to={TALLERES_LINK}
+            onClick={handleNavigate}
+            className="mt-1 inline-flex w-full items-center justify-center rounded-full bg-[#d63149] px-3 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-[#b81f36] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#d63149] focus-visible:ring-offset-2"
+          >
+            Talleres
+          </Link>
         </nav>
       )}
       </div>

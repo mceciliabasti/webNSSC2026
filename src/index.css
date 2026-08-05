@@ -132,6 +132,15 @@
     animation: soft-fade-up 850ms cubic-bezier(0.22, 1, 0.36, 1) both;
   }
 
+  p.leading-relaxed,
+  p[class*='max-w-2xl'],
+  p[class*='max-w-3xl'],
+  p[class*='max-w-5xl'] {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+  }
+
   @keyframes lightbox-image-next {
     from {
       opacity: 0;
